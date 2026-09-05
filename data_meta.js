@@ -1,1 +1,1 @@
-window.__META={"consolidado":2120,"marca":1650,"grupo":1128,"ambos":658,"soloMarca":992,"soloGrupo":470,"detalle":977,"cutQuiter":"2026-09-03","cutSimetric":"2026-09-02","u13SepRows":2471,"u13MatchedRows":580,"u13ActiveVins":393,"simetricMatchedM":3,"tallerMatched":41};
+window.__META={"consolidado":2120,"marca":1650,"grupo":1128,"ambos":658,"soloMarca":992,"soloGrupo":470,"detalle":1952,"cutQuiter":"2026-09-05","cutSimetric":"2026-09-02","u13SepRows":2494,"u13MatchedRows":765,"u13ActiveVins":788,"simetricMatchedM":3,"tallerMatched":41};

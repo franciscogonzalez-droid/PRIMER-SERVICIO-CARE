@@ -1,22 +1,16 @@
-ARCHIVOS · POSTVENTA BDC v12.3 GitHub
-
-index.html: 0.12 MB
-data_primer_servicio.js: 3.87 MB
-data_taller.js: 0.01 MB
+README_ACTUALIZAR_GITHUB_v12_4.txt: 0.00 MB
+data_bdc_leales_01.js: 3.21 MB
+data_bdc_leales_02.js: 3.18 MB
+data_bdc_leales_03.js: 3.20 MB
+data_bdc_perdidos.js: 0.06 MB
+data_bdc_retenidos_01.js: 3.75 MB
+data_bdc_retenidos_02.js: 3.72 MB
+data_bdc_retenidos_03.js: 3.75 MB
+data_bdc_retenidos_04.js: 3.71 MB
+data_bdc_riesgos.js: 0.93 MB
+data_citas_totales.js: 1.00 MB
 data_historicos.js: 0.07 MB
-data_citas_totales.js: 0.98 MB
-data_bdc_perdidos.js: 0.07 MB
-data_bdc_riesgos.js: 0.95 MB
-data_bdc_retenidos_01.js: 6.54 MB
-data_bdc_retenidos_02.js: 6.50 MB
-data_bdc_retenidos_03.js: 6.48 MB
-data_bdc_retenidos_04.js: 0.04 MB
-data_bdc_leales_01.js: 5.79 MB
-data_bdc_leales_02.js: 5.76 MB
-data_bdc_leales_03.js: 5.56 MB
 data_meta.js: 0.00 MB
-README_SUBIR_A_GITHUB.txt: 0.00 MB
-
-Total archivos: 16
-Archivo individual más grande: 6.54 MB
-Límite objetivo por archivo: < 25 MB
+data_primer_servicio.js: 3.93 MB
+data_taller.js: 0.01 MB
+index.html: 0.12 MB
