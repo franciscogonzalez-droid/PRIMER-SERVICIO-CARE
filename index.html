@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Monitoreo Postventa BDC · Septiembre 2026 · v12.9.1.1 GitHub</title><style>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Monitoreo Postventa BDC · Septiembre 2026 · v12.9.2.1 GitHub</title><style>
 :root{--navy:#0a2b61;--navy2:#123b79;--red:#c8102e;--green:#35a854;--amber:#f3a712;--blue:#3276d2;--purple:#8157b7;--teal:#16a6a1;--ink:#172033;--muted:#667085;--line:#dfe5ef;--bg:#f5f7fb;--card:#fff;--shadow:0 6px 22px rgba(19,35,67,.07)}
 *{box-sizing:border-box}body{margin:0;font-family:Inter,Segoe UI,Roboto,Arial,sans-serif;background:var(--bg);color:var(--ink)}button,select,input{font:inherit}.app{min-height:100vh}.topbar{background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:30}.topbar-inner{max-width:1800px;margin:auto;padding:13px 18px;display:flex;align-items:center;gap:18px}.brand{display:flex;align-items:center;gap:12px;min-width:330px}.logo{width:42px;height:42px;border:3px solid var(--navy);border-radius:50%;display:grid;place-items:center;color:var(--navy);font-weight:900;font-size:13px}.title h1{font-size:20px;margin:0;letter-spacing:.2px}.title p{font-size:12px;margin:3px 0 0;color:var(--navy)}.cut-info{display:flex;gap:8px;flex-wrap:wrap;margin-left:auto}.cut-pill{background:#f8fafc;border:1px solid var(--line);border-radius:11px;padding:7px 10px;font-size:11px;line-height:1.25}.cut-pill b{display:block;color:var(--navy)}.cut-pill.warn{border-color:#f7cf79;background:#fff9ec}.cut-pill.warn b{color:#9a6700}.cut-pill.updated{border-color:#b9d6f2;background:#f5faff}.cut-pill.updated b{color:#145da0}.cut-pill.cadence{border-color:#bfe1c8;background:#f5fbf6}.cut-pill.cadence b{color:#18753b}
 .tab-nav{max-width:1800px;margin:auto;padding:9px 18px 0;display:flex;gap:8px}.tab-btn{border:1px solid #d6deea;background:#fff;color:#344054;border-radius:10px 10px 0 0;padding:10px 17px;font-size:11px;font-weight:800;cursor:pointer}.tab-btn.active{background:var(--navy);color:#fff;border-color:var(--navy)}.tab-pane{display:none}.tab-pane.active{display:block}
@@ -94,7 +94,7 @@
 <nav class="tab-nav"><button class="tab-btn active" data-tab="tabSeguimiento">1. Primer Servicio</button><button class="tab-btn" data-tab="tabHistoricos">2. Históricos (agosto)</button><button class="tab-btn" data-tab="tabCitas">3. Citas totales</button><button class="tab-btn" data-tab="tabSegPerdidos">4. Perdidos</button><button class="tab-btn" data-tab="tabSegRiesgos">5. En riesgo</button><button class="tab-btn" data-tab="tabSegRetenidos">6. Retenidos</button><button class="tab-btn" data-tab="tabSegLeales">7. Leales</button></nav>
 <div class="bdc-sync-strip">
   <div class="bdc-sync-copy">
-    <b>BDC POSTVENTA · SEPTIEMBRE 2026 · v12.9.1.1 GitHub</b>
+    <b>BDC POSTVENTA · SEPTIEMBRE 2026 · v12.9.2.1 GitHub</b>
     <span>Primer Servicio y Retención ya están integrados en este HTML y deben visualizarse sin depender de la sincronización. Los botones verdes sólo envían/actualizan esos datos en Google Sheets.</span>
     <span style="font-size:8.5px;color:#667085;margin-top:3px">
       Primer Servicio: 2,061 VIN · Perdidos: 91 · En riesgo: 1,291 · Retenidos: 18,303 · Leales: 9,551
@@ -144,13 +144,13 @@
 <div class="hist-note" style="margin-top:12px"><b>Regla especial de reconfirmación SICOP:</b>
 si una cita vigente/futura fue registrada por <b>userQIS-sicop</b>, el VIN <b>permanece activo</b>
 como <b>Pendiente · Reconfirmar SICOP</b>. Las citas futuras de otros usuarios siguen saliendo de campaña.
-Servicio realizado, CUMPLIDA o FEC.APER mantienen prioridad de salida.</div><div class="hist-note" style="margin-top:12px"><b>v12.9.1 · Reglas Base Nissan 2026:</b>
+Servicio realizado, CUMPLIDA o FEC.APER mantienen prioridad de salida.</div><div class="hist-note" style="margin-top:12px"><b>v12.9.2 · Reglas Base Nissan 2026:</b>
 la estructura operativa agrega Mes, Agencia origen, CSA, Modelo/Versión separados, fechas de factura,
 Fecha último servicio, kilometraje, medio preferente, cantidad de VIN relacionados, último estatus del mes anterior
 y validación de registro. Los campos sin una fuente explícita se conservan vacíos; no se inventan valores.
 La clasificación Teléfono móvil/principal y casa/alterno mantiene el orden de los teléfonos disponibles y deberá
 confirmarse cuando la fuente distinga el tipo de línea.</div>
-<div class="footer-note"><b>Fuentes del corte v12.9.1:</b> Nueva fuente Marca “Datos Subyacentes Sin1erServ” 07/sep = <b>1,597 VIN</b> + Grupo exclusivo activo 464 + U13/U10 07/sep + Simetric I716 + Audiencia Consolidado 07/sep + BDC POSTVENTA V3.5.0. <b>Consolidado de referencia:</b> 2,061 VIN. Los 162 históricos Marca de agosto reaparecen en la nueva fuente y conservan su bandera histórica. Objetivos oficiales cargados por CVE, región y Grupo Autocom.</div>
+<div class="footer-note"><b>Fuentes del corte v12.9.2:</b> Nueva fuente Marca “Datos Subyacentes Sin1erServ” 07/sep = <b>1,597 VIN</b> + Grupo exclusivo activo 464 + U13/U10 07/sep + Simetric I716 + Audiencia Consolidado 07/sep + BDC POSTVENTA V3.5.0. <b>Consolidado de referencia:</b> 2,061 VIN. Los 162 históricos Marca de agosto reaparecen en la nueva fuente y conservan su bandera histórica. Objetivos oficiales cargados por CVE, región y Grupo Autocom.</div>
 </main></div></section>
 
 
@@ -212,7 +212,7 @@ confirmarse cuando la fuente distinga el tipo de línea.</div>
 </div></section>
 
 <section id="tabSegPerdidos" class="tab-pane"><div class="seg-page">
-  <div class="seg-head"><div><h2>Clientes Perdidos</h2><p>Base activa v12.9.1 · 91 VIN · depurada con servicios/órdenes, citas U13 07/sep y excepción SICOP · Fecha factura + último servicio integrados.</p></div><div class="hint">Vista operativa por default: sólo casos pendientes</div></div>
+  <div class="seg-head"><div><h2>Clientes Perdidos</h2><p>Base activa v12.9.2 · 91 VIN · depurada con servicios/órdenes, citas U13 07/sep y excepción SICOP · Fecha factura + último servicio integrados.</p></div><div class="hint">Vista operativa por default: sólo casos pendientes</div></div>
   <div class="seg-note"><b>Lógica operativa:</b> los VIN con <b>servicio validado por FEC.APER/CUMPLIDA</b>, <b>Cita futura</b> o una gestión histórica marcada como <b>Cliente perdido</b> se consideran salidas del trabajo activo y quedan disponibles para trazabilidad. Los <b>Sin cita</b>, <b>No Show</b> y <b>Cita cancelada</b> permanecen como pendientes para BDC. En la siguiente etapa esta misma lógica alimentará el archivo <b>BDC POSTVENTA - SEPTIEMBRE 2026</b> y su Maestro.</div>
   <section class="seg-kpis">
     <div class="seg-kpi panel"><div class="label">Universo del segmento</div><div class="value" id="PerdidosTotal">—</div><div class="sub">VIN únicos de la base.</div></div>
@@ -280,7 +280,7 @@ confirmarse cuando la fuente distinga el tipo de línea.</div>
 </div></section>
 
 <section id="tabSegRetenidos" class="tab-pane"><div class="seg-page">
-  <div class="seg-head"><div><h2>Clientes Retenidos</h2><p>Base activa v12.9.1 · 18,303 VIN · depurada con servicios/órdenes, citas U13 07/sep y excepción SICOP · Fecha factura + último servicio integrados.</p></div><div class="hint">Vista operativa por default: sólo casos pendientes</div></div>
+  <div class="seg-head"><div><h2>Clientes Retenidos</h2><p>Base activa v12.9.2 · 18,303 VIN · depurada con servicios/órdenes, citas U13 07/sep y excepción SICOP · Fecha factura + último servicio integrados.</p></div><div class="hint">Vista operativa por default: sólo casos pendientes</div></div>
   <div class="seg-note"><b>Lógica operativa:</b> los VIN con <b>servicio validado por FEC.APER/CUMPLIDA</b>, <b>Cita futura</b> o una gestión histórica marcada como <b>Cliente perdido</b> se consideran salidas del trabajo activo y quedan disponibles para trazabilidad. Los <b>Sin cita</b>, <b>No Show</b> y <b>Cita cancelada</b> permanecen como pendientes para BDC. En la siguiente etapa esta misma lógica alimentará el archivo <b>BDC POSTVENTA - SEPTIEMBRE 2026</b> y su Maestro.</div>
   <section class="seg-kpis">
     <div class="seg-kpi panel"><div class="label">Universo del segmento</div><div class="value" id="RetenidosTotal">—</div><div class="sub">VIN únicos de la base.</div></div>
@@ -314,7 +314,7 @@ confirmarse cuando la fuente distinga el tipo de línea.</div>
 </div></section>
 
 <section id="tabSegLeales" class="tab-pane"><div class="seg-page">
-  <div class="seg-head"><div><h2>Clientes Leales</h2><p>Base activa v12.9.1 · 9,551 VIN · depurada con servicios/órdenes, citas U13 07/sep y excepción SICOP · Fecha factura + último servicio integrados.</p></div><div class="hint">Vista operativa por default: sólo casos pendientes</div></div>
+  <div class="seg-head"><div><h2>Clientes Leales</h2><p>Base activa v12.9.2 · 9,551 VIN · depurada con servicios/órdenes, citas U13 07/sep y excepción SICOP · Fecha factura + último servicio integrados.</p></div><div class="hint">Vista operativa por default: sólo casos pendientes</div></div>
   <div class="seg-note"><b>Lógica operativa:</b> los VIN con <b>servicio validado por FEC.APER/CUMPLIDA</b>, <b>Cita futura</b> o una gestión histórica marcada como <b>Cliente perdido</b> se consideran salidas del trabajo activo y quedan disponibles para trazabilidad. Los <b>Sin cita</b>, <b>No Show</b> y <b>Cita cancelada</b> permanecen como pendientes para BDC. En la siguiente etapa esta misma lógica alimentará el archivo <b>BDC POSTVENTA - SEPTIEMBRE 2026</b> y su Maestro.</div>
   <section class="seg-kpis">
     <div class="seg-kpi panel"><div class="label">Universo del segmento</div><div class="value" id="LealesTotal">—</div><div class="sub">VIN únicos de la base.</div></div>
@@ -375,7 +375,17 @@ const BDC_SEGMENTS={
   Leales:(window.__BDC_LEALES_PARTS||[]).reduce((a,b)=>a.concat(b),[])
 };
 const META=window.__META;
-// v12.9.1 · compatibilidad para generación de archivos por Agencia.
+const REF={marca:{n:1597,raw:1597,hist:162,label:'Universo Marca referencia'},grupo:{n:464,raw:470,hist:6,label:'Grupo exclusivo activo'},consolidado:{n:2061,raw:2061,hist:168,label:'Consolidado referencia'}};
+function universeDisplay(u){
+  if(u==='marca')return {value:'1,597',total:1597,label:'Universo Marca referencia',note:'Base Marca 07/sep · 1,597 VIN'};
+  if(u==='grupo')return {value:'464',total:464,label:'Grupo exclusivo activo',note:'470 exclusivos − 6 históricos exclusivos'};
+  return {value:'2,061',total:2061,label:'Consolidado referencia',note:'1,597 Marca + 464 Grupo exclusivo'};
+}
+const WEBAPP_PRIMER_SERVICIO_URL="https://script.google.com/macros/s/AKfycbyrb3dz11iJJb-TEnSKb6g73qb8WPg-zimIKjDZ5cPvOjWJkadI_t0rR590nvERoEHy/exec";
+const $=id=>document.getElementById(id), esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const norm=v=>String(v??'').trim(), yes=v=>/^s[ií]$/i.test(norm(v)), num=v=>Number(v)||0, pct=(a,b)=>b?((100*a/b).toFixed(1)+'%'):'0.0%';
+const fmt=v=>Number(v||0).toLocaleString('es-MX');
+// v12.9.2 · compatibilidad para generación de archivos por Agencia.
 // En el paquete optimizado WORKED_DATA dejó de cargarse como bloque independiente;
 // se reconstruye aquí únicamente con VIN que traen contexto de gestión en DATA.
 const WORKED_DATA=(window.__WORKED_DATA||DATA.filter(r=>
@@ -405,16 +415,6 @@ const WORKED_DATA=(window.__WORKED_DATA||DATA.filter(r=>
   'Fecha OR':r['Fecha OR']||'',
   'Orden de Trabajo':r['Número OT']||''
 })));
-const REF={marca:{n:1597,raw:1597,hist:162,label:'Universo Marca referencia'},grupo:{n:464,raw:470,hist:6,label:'Grupo exclusivo activo'},consolidado:{n:2061,raw:2061,hist:168,label:'Consolidado referencia'}};
-function universeDisplay(u){
-  if(u==='marca')return {value:'1,597',total:1597,label:'Universo Marca referencia',note:'Base Marca 07/sep · 1,597 VIN'};
-  if(u==='grupo')return {value:'464',total:464,label:'Grupo exclusivo activo',note:'470 exclusivos − 6 históricos exclusivos'};
-  return {value:'2,061',total:2061,label:'Consolidado referencia',note:'1,597 Marca + 464 Grupo exclusivo'};
-}
-const WEBAPP_PRIMER_SERVICIO_URL="https://script.google.com/macros/s/AKfycbyrb3dz11iJJb-TEnSKb6g73qb8WPg-zimIKjDZ5cPvOjWJkadI_t0rR590nvERoEHy/exec";
-const $=id=>document.getElementById(id), esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-const norm=v=>String(v??'').trim(), yes=v=>/^s[ií]$/i.test(norm(v)), num=v=>Number(v)||0, pct=(a,b)=>b?((100*a/b).toFixed(1)+'%'):'0.0%';
-const fmt=v=>Number(v||0).toLocaleString('es-MX');
 const uniq=(arr,key)=>new Set(arr.map(x=>norm(x[key])).filter(Boolean)).size;
 const countBy=(arr,key)=>{const m=new Map();arr.forEach(r=>{const k=norm(r[key])||'Sin dato';m.set(k,(m.get(k)||0)+1)});return [...m.entries()].sort((a,b)=>b[1]-a[1])};
 function setOptions(id,vals,all='Todos'){const el=$(id);const cur=el.value;el.innerHTML=`<option value="">${all}</option>`+vals.filter(Boolean).sort((a,b)=>a.localeCompare(b,'es')).map(v=>`<option>${esc(v)}</option>`).join('');if([...el.options].some(o=>o.value===cur))el.value=cur}
