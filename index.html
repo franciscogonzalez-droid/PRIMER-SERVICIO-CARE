@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Monitoreo Postventa BDC · Septiembre 2026 · v12.9 GitHub</title><style>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Monitoreo Postventa BDC · Septiembre 2026 · v12.9.1.1 GitHub</title><style>
 :root{--navy:#0a2b61;--navy2:#123b79;--red:#c8102e;--green:#35a854;--amber:#f3a712;--blue:#3276d2;--purple:#8157b7;--teal:#16a6a1;--ink:#172033;--muted:#667085;--line:#dfe5ef;--bg:#f5f7fb;--card:#fff;--shadow:0 6px 22px rgba(19,35,67,.07)}
 *{box-sizing:border-box}body{margin:0;font-family:Inter,Segoe UI,Roboto,Arial,sans-serif;background:var(--bg);color:var(--ink)}button,select,input{font:inherit}.app{min-height:100vh}.topbar{background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:30}.topbar-inner{max-width:1800px;margin:auto;padding:13px 18px;display:flex;align-items:center;gap:18px}.brand{display:flex;align-items:center;gap:12px;min-width:330px}.logo{width:42px;height:42px;border:3px solid var(--navy);border-radius:50%;display:grid;place-items:center;color:var(--navy);font-weight:900;font-size:13px}.title h1{font-size:20px;margin:0;letter-spacing:.2px}.title p{font-size:12px;margin:3px 0 0;color:var(--navy)}.cut-info{display:flex;gap:8px;flex-wrap:wrap;margin-left:auto}.cut-pill{background:#f8fafc;border:1px solid var(--line);border-radius:11px;padding:7px 10px;font-size:11px;line-height:1.25}.cut-pill b{display:block;color:var(--navy)}.cut-pill.warn{border-color:#f7cf79;background:#fff9ec}.cut-pill.warn b{color:#9a6700}.cut-pill.updated{border-color:#b9d6f2;background:#f5faff}.cut-pill.updated b{color:#145da0}.cut-pill.cadence{border-color:#bfe1c8;background:#f5fbf6}.cut-pill.cadence b{color:#18753b}
 .tab-nav{max-width:1800px;margin:auto;padding:9px 18px 0;display:flex;gap:8px}.tab-btn{border:1px solid #d6deea;background:#fff;color:#344054;border-radius:10px 10px 0 0;padding:10px 17px;font-size:11px;font-weight:800;cursor:pointer}.tab-btn.active{background:var(--navy);color:#fff;border-color:var(--navy)}.tab-pane{display:none}.tab-pane.active{display:block}
@@ -94,7 +94,7 @@
 <nav class="tab-nav"><button class="tab-btn active" data-tab="tabSeguimiento">1. Primer Servicio</button><button class="tab-btn" data-tab="tabHistoricos">2. Históricos (agosto)</button><button class="tab-btn" data-tab="tabCitas">3. Citas totales</button><button class="tab-btn" data-tab="tabSegPerdidos">4. Perdidos</button><button class="tab-btn" data-tab="tabSegRiesgos">5. En riesgo</button><button class="tab-btn" data-tab="tabSegRetenidos">6. Retenidos</button><button class="tab-btn" data-tab="tabSegLeales">7. Leales</button></nav>
 <div class="bdc-sync-strip">
   <div class="bdc-sync-copy">
-    <b>BDC POSTVENTA · SEPTIEMBRE 2026 · v12.9 GitHub</b>
+    <b>BDC POSTVENTA · SEPTIEMBRE 2026 · v12.9.1.1 GitHub</b>
     <span>Primer Servicio y Retención ya están integrados en este HTML y deben visualizarse sin depender de la sincronización. Los botones verdes sólo envían/actualizan esos datos en Google Sheets.</span>
     <span style="font-size:8.5px;color:#667085;margin-top:3px">
       Primer Servicio: 2,061 VIN · Perdidos: 91 · En riesgo: 1,291 · Retenidos: 18,303 · Leales: 9,551
@@ -107,7 +107,7 @@
 <section id="tabSeguimiento" class="tab-pane active"><div class="layout">
 <aside class="sidebar"><div class="side-panel panel"><h3>FILTROS</h3>
 <div class="filter"><label>Universo de trabajo</label><select id="fUniverse"><option value="consolidado" selected>Consolidado referencia · 2,061</option><option value="marca">Universo Marca referencia · 1,597</option><option value="grupo">Grupo exclusivo activo · 464</option></select><div class="filter-note">Filtro real fila por fila. MARCA tiene prioridad cuando un VIN aparece en ambas bases. Grupo aporta únicamente VIN exclusivos.</div></div>
-<div class="filter"><label>Región</label><select id="fRegion"></select></div><div class="filter"><label>Agencia</label><select id="fAgency"></select></div><div class="filter"><label>Modelo(s)</label><details class="model-multi" id="modelMulti"><summary id="modelSummary">Todos los modelos</summary><div class="model-multi-body"><div class="model-quick" id="modelQuick"></div><div class="model-checks" id="modelChecks"></div><button type="button" class="model-clear" id="modelClear">Limpiar selección</button></div></details></div><div class="filter"><label>Tipo de unidad / venta</label><select id="fUnit"><option value="">Todos</option><option value="MEN">Menudeo (MEN)</option><option value="FLO">Flotilla (FLO)</option></select></div><div class="filter"><label>Tipo de cita</label><select id="fCita"><option value="">Todas</option><option value="Cita futura">Futuras confirmadas</option><option value="Cita futura SICOP · Reconfirmar">SICOP · Reconfirmar</option><option value="Show">Shows</option><option value="No Show">No Shows</option><option value="Sin cita programada">Sin cita programada</option><option value="Perdido">Perdidos septiembre</option><option value="Perdido histórico">Perdidos históricos agosto</option><option value="Servicio sin cita">Servicio sin cita</option></select></div><div class="filter"><label>Fuente de la cita</label><select id="fSource"></select></div><div class="filter"><label>Oferta comercial</label><select id="fOffer"><option value="">Todas</option><option value="Primer Servicio">Primer Servicio</option><option value="Retenidos en Riesgo">Retenidos en Riesgo</option><option value="Leales Fuera de Garantia">Leales Fuera de Garantía</option><option value="__MULTI__">Múltiples ofertas</option><option value="__SIN__">Sin oferta</option></select><div class="filter-note">Audiencia Consolidado · Mes 2609 · sólo StatusCliente = POTENCIAL.</div></div><div class="filter"><label>Modalidad de la cita</label><select disabled><option>Pendiente de integrar</option></select></div><div class="filter"><label>Ejecutivo / agente</label><select id="fAgent"></select></div><div class="filter"><label>Buscar cliente / VIN</label><input id="fSearch" placeholder="Ej. 3N1... o apellido"></div><div class="actions"><button class="btn primary" id="exportBtn">⬇ Exportar base filtrada</button><button class="btn green" id="sheetAgencyBtn" disabled>☁ Generar / actualizar Google Sheet</button><div class="sheet-status" id="sheetAgencyStatus">Selecciona una agencia. Al generar su archivo también se refresca BDC Postventa.</div><button class="btn ghost" id="resetBtn">↺ Restablecer filtros</button><button class="btn red" onclick="window.print()">🖨 Imprimir / PDF</button></div></div>
+<div class="filter"><label>Región</label><select id="fRegion"></select></div><div class="filter"><label>Agencia</label><select id="fAgency"></select></div><div class="filter"><label>Modelo(s)</label><details class="model-multi" id="modelMulti"><summary id="modelSummary">Todos los modelos</summary><div class="model-multi-body"><div class="model-quick" id="modelQuick"></div><div class="model-checks" id="modelChecks"></div><button type="button" class="model-clear" id="modelClear">Limpiar selección</button></div></details></div><div class="filter"><label>Tipo de unidad / venta</label><select id="fUnit"><option value="">Todos</option><option value="MEN">Menudeo (MEN)</option><option value="FLO">Flotilla (FLO)</option></select></div><div class="filter"><label>Tipo de cita</label><select id="fCita"><option value="">Todas</option><option value="Cita futura">Futuras confirmadas</option><option value="Cita futura SICOP · Reconfirmar">SICOP · Reconfirmar</option><option value="Show">Shows</option><option value="No Show">No Shows</option><option value="Sin cita programada">Sin cita programada</option><option value="Perdido">Perdidos septiembre</option><option value="Perdido histórico">Perdidos históricos agosto</option><option value="Servicio sin cita">Servicio sin cita</option></select></div><div class="filter"><label>Fuente de la cita</label><select id="fSource"></select></div><div class="filter"><label>Oferta comercial</label><select id="fOffer"><option value="">Todas</option><option value="Primer Servicio">Primer Servicio</option><option value="Retenidos en Riesgo">Retenidos en Riesgo</option><option value="Leales Fuera de Garantia">Leales Fuera de Garantía</option><option value="__MULTI__">Múltiples ofertas</option><option value="__SIN__">Sin oferta</option></select><div class="filter-note">Audiencia Consolidado · Mes 2609 · sólo StatusCliente = POTENCIAL.</div></div><div class="filter"><label>Modalidad de la cita</label><select disabled><option>Pendiente de integrar</option></select></div><div class="filter"><label>Ejecutivo / agente</label><select id="fAgent"></select></div><div class="filter"><label>Buscar cliente / VIN</label><input id="fSearch" placeholder="Ej. 3N1... o apellido"></div><div class="actions"><button class="btn primary" id="exportBtn">⬇ Exportar base filtrada</button><button class="btn green" id="sheetAgencyBtn" disabled>☁ Generar / actualizar Google Sheet</button><div class="sheet-status" id="sheetAgencyStatus">Selecciona una agencia. Genera/actualiza su archivo; BDC Primer Servicio se actualiza con el botón global.</div><button class="btn ghost" id="resetBtn">↺ Restablecer filtros</button><button class="btn red" onclick="window.print()">🖨 Imprimir / PDF</button></div></div>
 <div class="side-note panel"><h4>ACTUALIZACIÓN DE UNIVERSO · 07/SEP</h4>
 <p><b>Nueva fuente Marca:</b> <b>1,597 VIN</b> de “Datos Subyacentes Sin1erServ”. Sustituye la referencia anterior de 1,488.</p>
 <p><b>Conciliación contra la referencia anterior:</b> 1,435 VIN permanecen; <b>162 históricos de agosto reaparecen</b> en la fuente Nissan y <b>53 VIN dejan de aparecer</b> (52 ya estaban clasificados como Show y 1 por ajuste de fuente).</p>
@@ -144,13 +144,13 @@
 <div class="hist-note" style="margin-top:12px"><b>Regla especial de reconfirmación SICOP:</b>
 si una cita vigente/futura fue registrada por <b>userQIS-sicop</b>, el VIN <b>permanece activo</b>
 como <b>Pendiente · Reconfirmar SICOP</b>. Las citas futuras de otros usuarios siguen saliendo de campaña.
-Servicio realizado, CUMPLIDA o FEC.APER mantienen prioridad de salida.</div><div class="hist-note" style="margin-top:12px"><b>v12.9 · Reglas Base Nissan 2026:</b>
+Servicio realizado, CUMPLIDA o FEC.APER mantienen prioridad de salida.</div><div class="hist-note" style="margin-top:12px"><b>v12.9.1 · Reglas Base Nissan 2026:</b>
 la estructura operativa agrega Mes, Agencia origen, CSA, Modelo/Versión separados, fechas de factura,
 Fecha último servicio, kilometraje, medio preferente, cantidad de VIN relacionados, último estatus del mes anterior
 y validación de registro. Los campos sin una fuente explícita se conservan vacíos; no se inventan valores.
 La clasificación Teléfono móvil/principal y casa/alterno mantiene el orden de los teléfonos disponibles y deberá
 confirmarse cuando la fuente distinga el tipo de línea.</div>
-<div class="footer-note"><b>Fuentes del corte v12.9:</b> Nueva fuente Marca “Datos Subyacentes Sin1erServ” 07/sep = <b>1,597 VIN</b> + Grupo exclusivo activo 464 + U13/U10 07/sep + Simetric I716 + Audiencia Consolidado 07/sep + BDC POSTVENTA V3.5.0. <b>Consolidado de referencia:</b> 2,061 VIN. Los 162 históricos Marca de agosto reaparecen en la nueva fuente y conservan su bandera histórica. Objetivos oficiales cargados por CVE, región y Grupo Autocom.</div>
+<div class="footer-note"><b>Fuentes del corte v12.9.1:</b> Nueva fuente Marca “Datos Subyacentes Sin1erServ” 07/sep = <b>1,597 VIN</b> + Grupo exclusivo activo 464 + U13/U10 07/sep + Simetric I716 + Audiencia Consolidado 07/sep + BDC POSTVENTA V3.5.0. <b>Consolidado de referencia:</b> 2,061 VIN. Los 162 históricos Marca de agosto reaparecen en la nueva fuente y conservan su bandera histórica. Objetivos oficiales cargados por CVE, región y Grupo Autocom.</div>
 </main></div></section>
 
 
@@ -212,7 +212,7 @@ confirmarse cuando la fuente distinga el tipo de línea.</div>
 </div></section>
 
 <section id="tabSegPerdidos" class="tab-pane"><div class="seg-page">
-  <div class="seg-head"><div><h2>Clientes Perdidos</h2><p>Base activa v12.9 · 91 VIN · depurada con servicios/órdenes, citas U13 07/sep y excepción SICOP · Fecha factura + último servicio integrados.</p></div><div class="hint">Vista operativa por default: sólo casos pendientes</div></div>
+  <div class="seg-head"><div><h2>Clientes Perdidos</h2><p>Base activa v12.9.1 · 91 VIN · depurada con servicios/órdenes, citas U13 07/sep y excepción SICOP · Fecha factura + último servicio integrados.</p></div><div class="hint">Vista operativa por default: sólo casos pendientes</div></div>
   <div class="seg-note"><b>Lógica operativa:</b> los VIN con <b>servicio validado por FEC.APER/CUMPLIDA</b>, <b>Cita futura</b> o una gestión histórica marcada como <b>Cliente perdido</b> se consideran salidas del trabajo activo y quedan disponibles para trazabilidad. Los <b>Sin cita</b>, <b>No Show</b> y <b>Cita cancelada</b> permanecen como pendientes para BDC. En la siguiente etapa esta misma lógica alimentará el archivo <b>BDC POSTVENTA - SEPTIEMBRE 2026</b> y su Maestro.</div>
   <section class="seg-kpis">
     <div class="seg-kpi panel"><div class="label">Universo del segmento</div><div class="value" id="PerdidosTotal">—</div><div class="sub">VIN únicos de la base.</div></div>
@@ -280,7 +280,7 @@ confirmarse cuando la fuente distinga el tipo de línea.</div>
 </div></section>
 
 <section id="tabSegRetenidos" class="tab-pane"><div class="seg-page">
-  <div class="seg-head"><div><h2>Clientes Retenidos</h2><p>Base activa v12.9 · 18,303 VIN · depurada con servicios/órdenes, citas U13 07/sep y excepción SICOP · Fecha factura + último servicio integrados.</p></div><div class="hint">Vista operativa por default: sólo casos pendientes</div></div>
+  <div class="seg-head"><div><h2>Clientes Retenidos</h2><p>Base activa v12.9.1 · 18,303 VIN · depurada con servicios/órdenes, citas U13 07/sep y excepción SICOP · Fecha factura + último servicio integrados.</p></div><div class="hint">Vista operativa por default: sólo casos pendientes</div></div>
   <div class="seg-note"><b>Lógica operativa:</b> los VIN con <b>servicio validado por FEC.APER/CUMPLIDA</b>, <b>Cita futura</b> o una gestión histórica marcada como <b>Cliente perdido</b> se consideran salidas del trabajo activo y quedan disponibles para trazabilidad. Los <b>Sin cita</b>, <b>No Show</b> y <b>Cita cancelada</b> permanecen como pendientes para BDC. En la siguiente etapa esta misma lógica alimentará el archivo <b>BDC POSTVENTA - SEPTIEMBRE 2026</b> y su Maestro.</div>
   <section class="seg-kpis">
     <div class="seg-kpi panel"><div class="label">Universo del segmento</div><div class="value" id="RetenidosTotal">—</div><div class="sub">VIN únicos de la base.</div></div>
@@ -314,7 +314,7 @@ confirmarse cuando la fuente distinga el tipo de línea.</div>
 </div></section>
 
 <section id="tabSegLeales" class="tab-pane"><div class="seg-page">
-  <div class="seg-head"><div><h2>Clientes Leales</h2><p>Base activa v12.9 · 9,551 VIN · depurada con servicios/órdenes, citas U13 07/sep y excepción SICOP · Fecha factura + último servicio integrados.</p></div><div class="hint">Vista operativa por default: sólo casos pendientes</div></div>
+  <div class="seg-head"><div><h2>Clientes Leales</h2><p>Base activa v12.9.1 · 9,551 VIN · depurada con servicios/órdenes, citas U13 07/sep y excepción SICOP · Fecha factura + último servicio integrados.</p></div><div class="hint">Vista operativa por default: sólo casos pendientes</div></div>
   <div class="seg-note"><b>Lógica operativa:</b> los VIN con <b>servicio validado por FEC.APER/CUMPLIDA</b>, <b>Cita futura</b> o una gestión histórica marcada como <b>Cliente perdido</b> se consideran salidas del trabajo activo y quedan disponibles para trazabilidad. Los <b>Sin cita</b>, <b>No Show</b> y <b>Cita cancelada</b> permanecen como pendientes para BDC. En la siguiente etapa esta misma lógica alimentará el archivo <b>BDC POSTVENTA - SEPTIEMBRE 2026</b> y su Maestro.</div>
   <section class="seg-kpis">
     <div class="seg-kpi panel"><div class="label">Universo del segmento</div><div class="value" id="LealesTotal">—</div><div class="sub">VIN únicos de la base.</div></div>
@@ -375,11 +375,41 @@ const BDC_SEGMENTS={
   Leales:(window.__BDC_LEALES_PARTS||[]).reduce((a,b)=>a.concat(b),[])
 };
 const META=window.__META;
+// v12.9.1 · compatibilidad para generación de archivos por Agencia.
+// En el paquete optimizado WORKED_DATA dejó de cargarse como bloque independiente;
+// se reconstruye aquí únicamente con VIN que traen contexto de gestión en DATA.
+const WORKED_DATA=(window.__WORKED_DATA||DATA.filter(r=>
+  norm(r['Ejecutivo Contact Center'])||
+  norm(r['Último comentario agencia'])||
+  norm(r['Último estatus mes anterior'])||
+  norm(r['Fecha último comentario agencia'])
+).map(r=>({
+  'Origen histórico':r['Origen universo']||'',
+  'Región':r['Región objetivo']||'',
+  'Agencia':r['Agencia objetivo']||'',
+  'Cliente':r['Cliente']||'',
+  'VIN':r['VIN']||'',
+  'Modelo':r['Modelo']||r['Modelo corto']||'',
+  'Tipo venta':r['Tipo venta']||'',
+  'Oferta comercial':r['Oferta comercial']||'',
+  'Ejecutivo':r['Ejecutivo Contact Center']||r['Nombre agente']||'',
+  'Fecha contacto':r['Fecha último comentario agencia']||'',
+  'Estatus':r['Último estatus mes anterior']||'',
+  'Estatus homologado':r['Último estatus mes anterior']||'',
+  'Subestatus':'',
+  'Comentarios':r['Último comentario agencia']||'',
+  'Último comentario agencia':r['Último comentario agencia']||'',
+  'Cita Quiter':r['Cumplimiento Quiter']||'',
+  'Fecha cita':r['Fecha cita']||'',
+  'Concretada':r['Concretada Quiter']||'',
+  'Fecha OR':r['Fecha OR']||'',
+  'Orden de Trabajo':r['Número OT']||''
+})));
 const REF={marca:{n:1597,raw:1597,hist:162,label:'Universo Marca referencia'},grupo:{n:464,raw:470,hist:6,label:'Grupo exclusivo activo'},consolidado:{n:2061,raw:2061,hist:168,label:'Consolidado referencia'}};
 function universeDisplay(u){
-  if(u==='marca')return {value:'1,488',total:1488,label:'Universo Marca activo',note:'1,650 bruto − 162 históricos'};
+  if(u==='marca')return {value:'1,597',total:1597,label:'Universo Marca referencia',note:'Base Marca 07/sep · 1,597 VIN'};
   if(u==='grupo')return {value:'464',total:464,label:'Grupo exclusivo activo',note:'470 exclusivos − 6 históricos exclusivos'};
-  return {value:'1,952',total:1952,label:'Consolidado activo',note:'1,488 Marca + 464 Grupo exclusivo'};
+  return {value:'2,061',total:2061,label:'Consolidado referencia',note:'1,597 Marca + 464 Grupo exclusivo'};
 }
 const WEBAPP_PRIMER_SERVICIO_URL="https://script.google.com/macros/s/AKfycbyrb3dz11iJJb-TEnSKb6g73qb8WPg-zimIKjDZ5cPvOjWJkadI_t0rR590nvERoEHy/exec";
 const $=id=>document.getElementById(id), esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -577,15 +607,16 @@ function updateSheetAgencyStatus(){
   const ag=norm($('fAgency').value);
   btn.disabled=!ag;
   if(!ag){
-    el.textContent='Selecciona una agencia. Al generar su archivo también se refresca BDC Postventa.';
+    el.textContent='Selecciona una agencia. Genera/actualiza su archivo; BDC Primer Servicio se actualiza con el botón global.';
     return;
   }
   const rows=agencyRowsForSheet();
   const ns=rows.filter(r=>norm(r['Estatus monitoreo'])==='No Show').length;
   const sc=rows.filter(r=>norm(r['Estatus monitoreo'])==='Sin cita programada').length;
-  el.textContent=`${canonicalAgencyForSheet(ag)} · ${ns} No Shows · ${sc} sin cita gestionables · BDC se refresca automáticamente`;
+  el.textContent=`${canonicalAgencyForSheet(ag)} · ${ns} No Shows · ${sc} sin cita gestionables · archivo de Agencia listo para actualizar`;
 }
 function generateAgencyGoogleSheet(){
+  try{
   const ag=norm($('fAgency').value);
   if(!ag){alert('Primero selecciona una agencia en el filtro Agencia.');return;}
 
@@ -610,7 +641,7 @@ function generateAgencyGoogleSheet(){
             `${noShows.length} No Shows\n${noAppointment.length} Sin cita programada\n\n`+
             `Excluidos automáticamente:\n${excludedLost} perdidos / históricos\n${excludedService} servicios sin cita\n\n`+
             `El archivo de la agencia se generará o actualizará conservando su gestión por VIN.\n`+
-            `Después se refrescará también el consolidado BDC Postventa.`;
+            `El BDC Primer Servicio se actualiza por separado con el botón global para preservar el universo completo.`;
 
   if(!confirm(msg))return;
 
@@ -638,7 +669,13 @@ function generateAgencyGoogleSheet(){
   form.remove();
 
   const status=$('sheetAgencyStatus');
-  if(status)status.textContent=`Solicitud enviada · ${agencyName} · ${noShows.length} No Shows · ${noAppointment.length} sin cita · actualizando Agencia + Maestro + BDC`;
+  if(status)status.textContent=`Solicitud enviada · ${agencyName} · ${noShows.length} No Shows · ${noAppointment.length} sin cita · actualizando archivo de Agencia + Maestro`;
+  }catch(err){
+    console.error('Generación Agencia',err);
+    const status=$('sheetAgencyStatus');
+    if(status)status.textContent='Error al preparar la actualización de Agencia: '+(err&&err.message?err.message:err);
+    alert('No se pudo preparar la actualización de la agencia. Detalle: '+(err&&err.message?err.message:err));
+  }
 }
 
 function csvDownload(rows,fields,name){const q=v=>'"'+String(v??'').replace(/"/g,'""')+'"',txt='﻿'+fields.join(',')+'\n'+rows.map(r=>fields.map(f=>q(r[f])).join(',')).join('\n'),blob=new Blob([txt],{type:'text/csv;charset=utf-8'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000)}
