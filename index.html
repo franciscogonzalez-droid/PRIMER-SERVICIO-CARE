@@ -68,6 +68,24 @@
 .bdc-sync-status.sent{color:#137333;font-weight:800}
 @media(max-width:900px){.bdc-sync-strip{margin-left:18px;margin-right:18px}.bdc-sync-status{width:100%}}
 
+/* ===== V3.7.0 · migración diaria verde→azul (acceso restringido) ===== */
+.v370-strip{
+  max-width:1764px;margin:8px auto 0;padding:10px 14px;
+  background:#f4f6fb;border:1px solid #b7c3e6;border-radius:12px;
+  display:flex;gap:12px;align-items:center;flex-wrap:wrap
+}
+.v370-copy{display:flex;flex-direction:column;gap:2px;min-width:320px;flex:1}
+.v370-copy b{font-size:10.5px;color:#17365D;letter-spacing:.2px}
+.v370-copy span{font-size:8.8px;color:#52606d;line-height:1.4}
+.v370-btn{background:#17365D!important;color:#fff!important;border:1px solid #0e2340!important;white-space:nowrap}
+.v370-btn:hover{filter:brightness(1.15)}
+.v370-btn:disabled{opacity:.55;cursor:not-allowed}
+.v370-status{font-size:8.8px;color:#52606d;min-width:175px}
+.v370-status.working{color:#9a6700;font-weight:800}
+.v370-status.sent{color:#137333;font-weight:800}
+.v370-status.err{color:#c8102e;font-weight:800}
+@media(max-width:900px){.v370-strip{margin-left:18px;margin-right:18px}.v370-status{width:100%}}
+
 
 .objective-section{border-top:4px solid #c8102e}
 .objective-grid{display:grid;grid-template-columns:minmax(340px,.85fr) minmax(560px,1.6fr);gap:12px;margin-top:10px}
@@ -91,7 +109,7 @@
 </style></head>
 <body><div class="app">
 <header class="topbar"><div class="topbar-inner"><div class="brand"><div class="logo">A</div><div class="title"><h1>MONITOREO POSTVENTA BDC</h1><p>Septiembre 2026 · Primer Servicio + Retención · Seguimiento por VIN y citas Quiter</p></div></div><div class="cut-info"><div class="cut-pill"><b>Quiter U13 / U10</b>Archivo 09/sep · evaluable al 08/sep</div><div class="cut-pill"><b>Simetric I716</b>Corte 05/sep/2026</div><div class="cut-pill warn"><b>Desfase esperado</b>Simetric: 3 días</div><div class="cut-pill updated"><b>Última actualización</b>09/sep/2026</div><div class="cut-pill cadence"><b>Días operativos septiembre</b>26 · 7 transcurridos</div></div></div></header>
-<nav class="tab-nav"><button class="tab-btn active" data-tab="tabSeguimiento">1. Primer Servicio</button><button class="tab-btn" data-tab="tabHistoricos">2. Históricos (Ene–Ago)</button><button class="tab-btn" data-tab="tabCitas">3. Citas totales</button><button class="tab-btn" data-tab="tabSegPerdidos">4. Perdidos</button><button class="tab-btn" data-tab="tabSegRiesgos">5. En riesgo</button><button class="tab-btn" data-tab="tabSegRetenidos">6. Retenidos</button><button class="tab-btn" data-tab="tabSegLeales">7. Leales</button></nav>
+<nav class="tab-nav"><button class="tab-btn active" data-tab="tabSeguimiento">1. Primer Servicio</button><button class="tab-btn" data-tab="tabHistoricos">2. Históricos (Ene–Ago)</button><button class="tab-btn" data-tab="tabCitas">3. Citas totales</button><button class="tab-btn" data-tab="tabSegPerdidos">4. Perdidos</button><button class="tab-btn" data-tab="tabSegRiesgos">5. En riesgo</button><button class="tab-btn" data-tab="tabSegRetenidos">6. Retenidos</button><button class="tab-btn" data-tab="tabSegLeales">7. Leales</button><button class="tab-btn" data-tab="tabNoShows">8. No Shows</button></nav>
 <div class="bdc-sync-strip">
   <div class="bdc-sync-copy">
     <b>BDC POSTVENTA · SEPTIEMBRE 2026 · v12.10.0 GitHub</b>
@@ -102,6 +120,18 @@
   </div>
   <button class="btn bdc-sync-btn" id="syncPrimerServicioBtn">🔄 ACTUALIZAR BDC · PRIMER SERVICIO</button>
   <span class="bdc-sync-status" id="syncBdcPostventaStatus">Listo para sincronizar por segmento. Ejecuta uno a la vez y espera confirmación antes del siguiente.</span>
+</div>
+
+<div class="v370-strip">
+  <div class="v370-copy">
+    <b>🔒 V3.7.0 · MIGRACIÓN DIARIA GESTIÓN VERDE → AZUL</b>
+    <span>Traslada todo el bloque verde de gestión (WhatsApp, llamada, datos validados, estatus, comentario, cita, etc.) a su espejo azul "... anterior" y deja el verde limpio para el día siguiente. No mueve ni elimina filas.</span>
+    <span style="font-size:8.5px;color:#667085;margin-top:3px">
+      Acceso restringido: sólo se ejecuta sin error desde la cuenta autorizada de Frank. En validación manual — este botón todavía puede no estar 100% activo en el backend.
+    </span>
+  </div>
+  <button class="btn v370-btn" id="migrarV370Btn">🔒 MIGRAR VERDE → AZUL (V3.7.0)</button>
+  <span class="v370-status" id="migrarV370Status">En validación manual — pendiente de confirmar antes de uso regular.</span>
 </div>
 
 <section id="tabSeguimiento" class="tab-pane active"><div class="layout">
@@ -348,6 +378,45 @@ confirmarse cuando la fuente distinga el tipo de línea.</div>
     <div class="table-footer"><span id="LealesCount"></span><span>Máximo 300 filas visibles; exportación incluye todo el filtro.</span></div>
   </div>
 </div></section>
+
+
+<section id="tabNoShows" class="tab-pane"><div class="hist-page citas-page">
+<div class="hist-note"><b>No Shows · todas las citas:</b> usa la misma base de <b>Citas totales U13</b> de la pestaña 3 (no un archivo nuevo), pero cubre <b>todos los tipos de servicio</b>, no sólo Primer Servicio. El "tipo de servicio" se infiere de <b>Des. avería</b> (texto libre de Quiter, no un catálogo oficial) porque <b>Tipo OR</b> sólo existe cuando la cita sí se cumplió — por definición un No Show nunca tiene Tipo OR. El "qué pasó después" rastrea, por VIN, si hubo otra cita más adelante en el mismo septiembre.</div>
+<section class="hist-kpis">
+<div class="hist-kpi panel red"><div class="label">No Shows en septiembre</div><div class="value" id="nsKTotal">—</div><div class="sub" id="nsKTotalSub">—</div></div>
+<div class="hist-kpi panel"><div class="label">Con VIN rastreable</div><div class="value" id="nsKVin">—</div><div class="sub" id="nsKVinSub">—</div></div>
+<div class="hist-kpi panel green"><div class="label">Ya se recuperaron</div><div class="value" id="nsKRecovered">—</div><div class="sub">Reagendaron y se presentaron.</div></div>
+<div class="hist-kpi panel amber"><div class="label">Volvieron a fallar</div><div class="value" id="nsKFailAgain">—</div><div class="sub">Segundo No Show el mismo mes.</div></div>
+<div class="hist-kpi panel amber"><div class="label">Sin resolver todavía</div><div class="value" id="nsKPending">—</div><div class="sub">Sin reagendar o cita futura pendiente.</div></div>
+</section>
+
+<section class="grid2">
+<div class="panel card">
+<div class="card-title"><h3>NO SHOWS POR DÍA · SEPTIEMBRE</h3><span class="hint">Corte evaluable 08/sep · coloreado por tipo de servicio</span></div>
+<div id="nsDailyChart" style="display:flex;align-items:flex-end;gap:8px;height:150px;padding:6px 4px 0"></div>
+<div id="nsLegend" style="display:flex;flex-wrap:wrap;gap:10px;margin-top:10px;font-size:9.5px;color:#596579"></div>
+</div>
+<div class="panel card">
+<div class="card-title"><h3>¿QUÉ PASÓ DESPUÉS DEL NO SHOW?</h3><span class="hint">Resultado más reciente si el VIN tuvo otra cita en el mes</span></div>
+<div id="nsResolucion"></div>
+</div>
+</section>
+
+<section class="grid2" style="margin-top:12px">
+<div class="panel card">
+<div class="card-title"><h3>POR TIPO DE SERVICIO</h3><span class="hint">No Shows del mes y tasa de No Show de ese tipo</span></div>
+<div id="nsTipoTable"></div>
+</div>
+<div class="panel card">
+<div class="card-title"><h3>PRODUCTIVIDAD POR USUARIO · NO SHOWS</h3><span class="hint">Volumen de No Shows por usuario Quiter en el mes</span></div>
+<div id="nsAgentTable"></div>
+</div>
+</section>
+
+<div class="panel card" style="margin-top:12px"><div class="card-title"><h3>DETALLE · NO SHOWS CON REAGENDAMIENTO DETECTADO</h3><span class="hint">Máximo 300 filas; VIN con al menos una cita posterior en septiembre</span></div><div class="table-wrap" style="max-height:480px"><table class="hist-table"><thead><tr><th>VIN</th><th>Tipo de servicio</th><th>Usuario</th><th>Fecha No Show</th><th>Fecha cita siguiente</th><th>Resultado siguiente</th></tr></thead><tbody id="nsBody"></tbody></table></div><div class="table-footer"><span id="nsCount"></span><span>Fuente: Citas totales U13, misma base que la pestaña 3.</span></div></div>
+
+</div></section>
+
 
 </div>
 
@@ -780,6 +849,64 @@ function syncPrimerServicioV121_(){
 }
 
 
+/* ===== V3.7.0 · migración diaria verde→azul (botón único, acceso restringido) ===== */
+function buildMigrarV370Payload_(){
+  return { action:'migrarGestionDiaria' };
+}
+function migrarGestionDiariaV370_(){
+  const btn=document.getElementById('migrarV370Btn');
+  const status=document.getElementById('migrarV370Status');
+  if(!btn||!status)return;
+
+  const msg=
+    'Se va a ejecutar la migración diaria verde→azul (V3.7.0):\\n\\n'+
+    '• Traslada todo el bloque verde con contenido a su espejo azul "... anterior".\\n'+
+    '• Si un campo verde está vacío, el azul NO se toca (conserva su valor).\\n'+
+    '• Después limpia el verde migrado, para retomar mañana con la vista despejada.\\n'+
+    '• No mueve ni elimina ninguna fila.\\n\\n'+
+    'Sólo se ejecutará sin error desde la cuenta autorizada.\\n\\n'+
+    '¿Deseas continuar?';
+
+  if(!confirm(msg))return;
+
+  btn.disabled=true;
+  status.className='v370-status working';
+  status.textContent='Enviando solicitud de migración…';
+
+  try{
+    const json=JSON.stringify(buildMigrarV370Payload_());
+
+    const form=document.createElement('form');
+    form.method='POST';
+    form.action=WEBAPP_PRIMER_SERVICIO_URL;
+    form.target='_blank';
+    form.style.display='none';
+
+    const input=document.createElement('input');
+    input.type='hidden';
+    input.name='payload';
+    input.value=json;
+
+    form.appendChild(input);
+    document.body.appendChild(form);
+    form.submit();
+    form.remove();
+
+    status.className='v370-status sent';
+    status.textContent='Solicitud enviada. Revisa la pestaña de respuesta (si tu cuenta no está autorizada, mostrará un error ahí, no aquí).';
+
+    setTimeout(()=>{btn.disabled=false},5000);
+  }catch(err){
+    console.error('Migración V3.7.0',err);
+    btn.disabled=false;
+    status.className='v370-status err';
+    status.textContent='No se pudo preparar la migración.';
+    alert('No se pudo preparar la migración verde→azul.\\n\\n'+(err&&err.message?err.message:err));
+  }
+}
+document.getElementById('migrarV370Btn').onclick=migrarGestionDiariaV370_;
+
+
 /* ===== v11 · envío BDC POSTVENTA por segmento ===== */
 const BDC_POSTVENTA_SYNC_FIELDS=["Región","Agencia","Agencia origen","Cve","Cliente","VIN","Modelo","Modelo sin versión","Versión","Año","Año vehículo","Tipo venta","APV","Condición","Garantía","Última visita riesgo","Teléfonos","Correos","Fuente contacto","Oferta comercial","Resultado cita","Fecha cita","Tipo cita","Estado cita","Cumplimiento","Usuario cita","Ciclo operativo","Mes","CSA","Teléfono móvil / principal","Teléfono casa / alterno","Correo electrónico","Agencia última visita OR tipo 3","Fecha factura","Fecha último servicio","Último kilometraje registrado","Medio de contacto preferente","Cantidad VIN relacionados","Último estatus mes anterior","Validación registro","Formato ARCO / LPHD","Contactos últimos 90 días","OR abierta últimos 90 días","Inventario / Demo","Exclusión NU/PT","Histórico BDC · Ejecutivo","Histórico BDC · Fecha","Histórico BDC · Estatus","Histórico BDC · Subestatus","Histórico BDC · Comentario","Usuario cita U13"];
 function slimBdcRowV11_(r){
@@ -949,7 +1076,7 @@ function exportSegment(key){
   csvDownload(arr,fields,'BDC_POSTVENTA_'+key.toUpperCase()+'_SEPTIEMBRE_2026.csv');
 }
 
-function initTabs(){document.querySelectorAll('.tab-btn').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('.tab-btn').forEach(x=>x.classList.toggle('active',x===b));document.querySelectorAll('.tab-pane').forEach(p=>p.classList.toggle('active',p.id===b.dataset.tab));if(b.dataset.tab==='tabHistoricos')renderHist();if(b.dataset.tab==='tabCitas')renderCitas();if(b.dataset.tab==='tabSegPerdidos')initSegment('Perdidos');if(b.dataset.tab==='tabSegRiesgos')initSegment('Riesgos');if(b.dataset.tab==='tabSegRetenidos')initSegment('Retenidos');if(b.dataset.tab==='tabSegLeales')initSegment('Leales')}))}
+function initTabs(){document.querySelectorAll('.tab-btn').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('.tab-btn').forEach(x=>x.classList.toggle('active',x===b));document.querySelectorAll('.tab-pane').forEach(p=>p.classList.toggle('active',p.id===b.dataset.tab));if(b.dataset.tab==='tabHistoricos')renderHist();if(b.dataset.tab==='tabCitas')renderCitas();if(b.dataset.tab==='tabSegPerdidos')initSegment('Perdidos');if(b.dataset.tab==='tabSegRiesgos')initSegment('Riesgos');if(b.dataset.tab==='tabSegRetenidos')initSegment('Retenidos');if(b.dataset.tab==='tabSegLeales')initSegment('Leales');if(b.dataset.tab==='tabNoShows')renderNoShows()}))}
 function histFiltered(){const reg=$('hRegion').value,ag=$('hAgency').value,yr=$('hYear').value,mo=$('hModel').value,re=$('hReason').value,of=$('hOffer').value,q=norm($('hSearch').value).toLowerCase();return HIST_LOST_GROUP.filter(r=>{if(reg&&norm(r.Región)!==reg)return false;if(ag&&norm(r.Agencia)!==ag)return false;if(yr&&norm(r['Año unidad'])!==yr)return false;if(mo&&norm(r.Modelo)!==mo)return false;if(re&&norm(r['Motivo perdido'])!==re)return false;if(of==='CON_OFERTA'&&!norm(r['Oferta comercial']))return false;if(of==='SIN_OFERTA'&&norm(r['Oferta comercial']))return false;if(q&&![r.Cliente,r.VIN,r.Agencia,r.Modelo,r['Motivo perdido'],r['Comentario origen'],r['Mes(es) pérdida'],r['Oferta comercial']].some(v=>norm(v).toLowerCase().includes(q)))return false;return true})}
 function renderHist(){const rows=histFiltered();$('hWithOffer').textContent=fmt(HIST_LOST_GROUP.filter(r=>norm(r['Oferta comercial'])).length);$('hWithoutOffer').textContent=fmt(HIST_LOST_GROUP.filter(r=>!norm(r['Oferta comercial'])).length);$('hBody').innerHTML=rows.map(r=>`<tr><td><span class="badge blue">${esc(r['Origen histórico'])}</span></td><td>${esc(r.Región)}</td><td>${esc(r.Agencia)}</td><td>${esc(r.Cliente)}</td><td>${esc(r.VIN)}</td><td>${esc(r['Año unidad'])}</td><td>${esc(r.Modelo)}</td><td>${esc(r['Mes(es) pérdida'])}</td><td>${esc(r['Primera pérdida'])}</td><td>${esc(r['Última pérdida'])}</td><td>${esc(r['Motivo perdido'])}</td><td title="${esc(r['Comentario origen'])}">${esc(r['Comentario origen'])}</td><td>${esc(r.Teléfono)}</td><td>${esc(r.Correo)}</td><td>${r['Oferta comercial']?`<span class="offer-pill">${esc(r['Oferta comercial'])}</span>`:'<span class="offer-pill offer-none">Sin oferta</span>'}</td><td>${esc(r['N registros histórico'])}</td></tr>`).join('');$('hCount').textContent=`${fmt(rows.length)} de ${fmt(HIST_LOST_GROUP.length)} VIN históricos únicos`}
 function refreshHistAgencies(){const reg=$('hRegion').value;setOptions('hAgency',[...new Set(HIST_LOST_GROUP.filter(r=>!reg||norm(r.Región)===reg).map(r=>norm(r.Agencia)).filter(Boolean))])}
@@ -1003,5 +1130,73 @@ initFilters();initTabs();initHist();initCitas();updateSheetAgencyStatus();render
 
 const syncPrimerServicioBtnV121=document.getElementById('syncPrimerServicioBtn');
 if(syncPrimerServicioBtnV121)syncPrimerServicioBtnV121.addEventListener('click',syncPrimerServicioV121_);
+
+
+/* === No Shows (todas las citas) — pestaña 8 === */
+const NS_CAT_ORDER=['Primer servicio','Mantenimiento por kilometraje','Servicio por tiempo','Diagnóstico / revisión / reparación','Alineación / servicio menor','Otros'];
+const NS_CAT_COLOR={'Primer servicio':'#2a78d6','Mantenimiento por kilometraje':'#eb6834','Servicio por tiempo':'#1baf7a','Diagnóstico / revisión / reparación':'#eda100','Alineación / servicio menor':'#e87ba4','Otros':'#8b95a5'};
+function categoriaAveria(desc){const d=norm(desc).toUpperCase();if(!d)return 'Otros';if(d.includes('PRIMER SERVICIO'))return 'Primer servicio';if(d.includes('ALINEACION'))return 'Alineación / servicio menor';if(d.includes('SERVICIO POR TIEMPO')||d.includes('SERV POR TIEMPO')||d.includes('S/TIEMPO'))return 'Servicio por tiempo';if(/\d[.,]?\d{3}\s*,?\s*K\s*M/.test(d)||d.includes('MANTEN')||d.startsWith('SERV'))return 'Mantenimiento por kilometraje';if(d.includes('REVISION')||d.includes('DIAGNOSTIC')||d.includes('GARANTIA')||d.includes('REPARACION')||d.includes('FALLA'))return 'Diagnóstico / revisión / reparación';return 'Otros'}
+let NS_VIN_INDEX=null;
+function nsVinIndex(){if(NS_VIN_INDEX)return NS_VIN_INDEX;const m=new Map();CITAS_TOTAL_DATA.forEach(r=>{const v=norm(r.VIN);if(!v)return;if(!m.has(v))m.set(v,[]);m.get(v).push(r)});m.forEach(arr=>arr.sort((a,b)=>norm(a['Fecha cita']).localeCompare(norm(b['Fecha cita']))));NS_VIN_INDEX=m;return m}
+function nsResolve(row){const v=norm(row.VIN);if(!v)return{bucket:'sinvin'};const fecha=norm(row['Fecha cita']);const arr=nsVinIndex().get(v)||[];const post=arr.filter(r=>norm(r['Fecha cita'])>fecha);if(!post.length)return{bucket:'sinreagendar'};const last=post[post.length-1];const cl=norm(last.Clasificación);let bucket='otro';if(cl==='Show'||cl==='Show con fecha futura')bucket='show';else if(cl==='No Show')bucket='noshow';else if(cl==='Cita futura')bucket='futura';else if(cl==='Cancelada')bucket='cancelada';return{bucket,next:last}}
+function renderNoShows(){
+  const all=CITAS_TOTAL_DATA;
+  const ns=all.filter(r=>norm(r.Clasificación)==='No Show');
+  const total=ns.length;
+  $('nsKTotal').textContent=total.toLocaleString('es-MX');
+  $('nsKTotalSub').textContent=`${pct(total,all.length)} de las ${all.length.toLocaleString('es-MX')} citas del mes`;
+
+  const resolved=ns.map(r=>({r,res:nsResolve(r)}));
+  const sinVin=resolved.filter(x=>x.res.bucket==='sinvin').length;
+  const conVin=total-sinVin;
+  const recovered=resolved.filter(x=>x.res.bucket==='show').length;
+  const failAgain=resolved.filter(x=>x.res.bucket==='noshow').length;
+  const pending=resolved.filter(x=>x.res.bucket==='sinreagendar'||x.res.bucket==='futura').length;
+  $('nsKVin').textContent=conVin.toLocaleString('es-MX');
+  $('nsKVinSub').textContent=`${pct(conVin,total)} del total · el resto no trae VIN en U13`;
+  $('nsKRecovered').textContent=recovered;
+  $('nsKFailAgain').textContent=failAgain;
+  $('nsKPending').textContent=pending;
+
+  // daily chart
+  const byDay=new Map();
+  ns.forEach(r=>{const d=norm(r['Fecha cita']);if(!byDay.has(d))byDay.set(d,{});const cat=categoriaAveria(r['Des. avería']);const o=byDay.get(d);o[cat]=(o[cat]||0)+1});
+  const days=[...byDay.keys()].sort();
+  const dayTotals=days.map(d=>Object.values(byDay.get(d)).reduce((a,b)=>a+b,0));
+  const maxDay=Math.max(1,...dayTotals);
+  $('nsDailyChart').innerHTML=days.map(d=>{
+    const o=byDay.get(d),tot=Object.values(o).reduce((a,b)=>a+b,0);
+    const segs=NS_CAT_ORDER.filter(c=>o[c]).map(c=>{const h=Math.max((o[c]/maxDay)*110,o[c]>0?2:0);return `<div style="height:${h}px;background:${NS_CAT_COLOR[c]}" title="${esc(c)}: ${o[c]}"></div>`}).join('');
+    const short=d.slice(8,10)+'/'+d.slice(5,7);
+    return `<div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;min-width:0">
+      <div style="font-size:9.5px;font-weight:800">${tot}</div>
+      <div style="width:100%;max-width:34px;display:flex;flex-direction:column-reverse;border-radius:3px;overflow:hidden">${segs}</div>
+      <div style="font-size:8.5px;color:#8a909b">${short}</div>
+    </div>`;
+  }).join('');
+  $('nsLegend').innerHTML=NS_CAT_ORDER.map(c=>`<span style="display:flex;align-items:center;gap:5px"><i style="width:9px;height:9px;border-radius:2px;background:${NS_CAT_COLOR[c]};display:inline-block"></i>${esc(c)}</span>`).join('');
+
+  // resolucion
+  const RES_ORDER=[['show','Reagendado → ya se presentó (Show)','#0ca30c'],['futura','Reagendado → cita futura pendiente','#fab219'],['cancelada','Reagendado → la nueva cita se canceló','#ec835a'],['noshow','Reagendado → volvió a fallar (No Show otra vez)','#d03b3b'],['sinreagendar','Sin reagendar (única cita registrada)','#d03b3b'],['sinvin','Sin VIN (no se puede rastrear)','#8b95a5']];
+  $('nsResolucion').innerHTML=RES_ORDER.map(([key,label,color])=>{const v=resolved.filter(x=>x.res.bucket===key).length;return `<div style="display:flex;align-items:center;gap:9px;padding:7px 0;border-bottom:1px solid #eef2f6;font-size:10.5px"><span style="width:8px;height:8px;border-radius:50%;background:${color};flex:none;display:inline-block"></span><span style="flex:1">${esc(label)}</span><b style="font-size:13px">${v}</b></div>`}).join('');
+
+  // por tipo
+  const tipoRows=NS_CAT_ORDER.map(c=>{
+    const catAll=all.filter(r=>categoriaAveria(r['Des. avería'])===c);
+    const catNs=catAll.filter(r=>norm(r.Clasificación)==='No Show').length;
+    const rate=catAll.length?100*catNs/catAll.length:0;
+    return {c,catNs,rate};
+  }).sort((a,b)=>b.catNs-a.catNs);
+  $('nsTipoTable').innerHTML=`<div class="metric-scroll"><table class="metric-table"><thead><tr><th>Tipo</th><th>No Shows</th><th>Tasa</th></tr></thead><tbody>${tipoRows.map(r=>`<tr><td style="text-align:left"><i style="width:8px;height:8px;border-radius:2px;background:${NS_CAT_COLOR[r.c]};display:inline-block;margin-right:6px;vertical-align:middle"></i>${esc(r.c)}</td><td>${r.catNs}</td><td>${r.rate.toFixed(0)}%</td></tr>`).join('')}</tbody></table></div>`;
+
+  // por usuario
+  const users=countBy(ns,'Usuario');
+  $('nsAgentTable').innerHTML=`<div class="metric-scroll"><table class="metric-table"><thead><tr><th>Usuario</th><th>No Shows</th></tr></thead><tbody>${users.map(([u,v])=>`<tr><td style="text-align:left">${esc(u)}</td><td>${v}</td></tr>`).join('')}</tbody></table></div>`;
+
+  // detalle reagendados
+  const withNext=resolved.filter(x=>x.res.next).slice(0,300);
+  $('nsBody').innerHTML=withNext.map(({r,res})=>`<tr><td>${esc(r.VIN)}</td><td>${esc(categoriaAveria(r['Des. avería']))}</td><td>${esc(r.Usuario)}</td><td>${esc(r['Fecha cita'])}</td><td>${esc(res.next['Fecha cita'])}</td><td>${citasClassBadge(res.next.Clasificación)}</td></tr>`).join('');
+  $('nsCount').textContent=`${withNext.length} de ${total} No Shows con cita posterior detectada`;
+}
 
 </script></body></html>
