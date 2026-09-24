@@ -1,0 +1,33 @@
+{
+  "cut": "2026-09-24",
+  "primer_rows": 2061,
+  "primer_counts": {
+    "Sin cita programada": 929,
+    "Cita futura": 80,
+    "Show": 399,
+    "No Show": 384,
+    "Perdido histórico": 221,
+    "Cita futura SICOP · Reconfirmar": 48
+  },
+  "citas_rows": 7443,
+  "citas_counts": {
+    "No Show": 1278,
+    "Cancelada": 1178,
+    "Show": 4061,
+    "Cita futura": 923,
+    "Show con fecha futura": 3
+  },
+  "historical_unique_vin": 1143,
+  "historical_source_rows": 1340,
+  "taller_unique_vin": 2426,
+  "segment_counts": {
+    "Riesgos": 1200,
+    "Retenidos": 10318,
+    "Leales": 2707,
+    "Perdidos": 49
+  },
+  "productivity_rows": 28921,
+  "descartados_excluidos_no_perdida_real": 21,
+  "perdidos_con_agencia_rellenada": 35,
+  "perdidos_total": 49
+}
