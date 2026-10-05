@@ -108,7 +108,7 @@
 @media(max-width:700px){.objective-grid,.objective-hero{grid-template-columns:1fr}}
 </style></head>
 <body><div class="app">
-<header class="topbar"><div class="topbar-inner"><div class="brand"><div class="logo">A</div><div class="title"><h1>MONITOREO POSTVENTA BDC</h1><p>Septiembre 2026 · Primer Servicio + Retención · Seguimiento por VIN y citas Quiter</p></div></div><div class="cut-info"><div class="cut-pill"><b>Quiter U13 / U10</b>Archivo 09/sep · evaluable al 08/sep</div><div class="cut-pill"><b>Simetric I716</b>Corte 29/sep/2026</div><div class="cut-pill warn" style="display:none"><b>Desfase esperado</b>Simetric: 3 días</div><div class="cut-pill updated"><b>Última actualización</b>09/sep/2026</div><div class="cut-pill cadence"><b>Días operativos septiembre</b>26 · 7 transcurridos</div></div></div></header>
+<header class="topbar"><div class="topbar-inner"><div class="brand"><div class="logo">A</div><div class="title"><h1>MONITOREO POSTVENTA BDC</h1><p>Septiembre 2026 · Primer Servicio + Retención · Seguimiento por VIN y citas Quiter</p></div></div><div class="cut-info"><div class="cut-pill"><b>Quiter U13 / U10</b>Archivo 09/sep · evaluable al 08/sep</div><div class="cut-pill"><b>Simetric I716</b>Corte 03/oct/2026 · septiembre completo</div><div class="cut-pill warn" style="display:none"><b>Desfase esperado</b>Simetric: 3 días</div><div class="cut-pill updated"><b>Última actualización</b>09/sep/2026</div><div class="cut-pill cadence"><b>Días operativos septiembre</b>26 · 7 transcurridos</div></div></div></header>
 <nav class="tab-nav"><button class="tab-btn active" data-tab="tabSeguimiento">1. Primer Servicio</button><button class="tab-btn" data-tab="tabHistoricos">2. Descartados (Perdidos) Ene-Ago</button><button class="tab-btn" data-tab="tabCitas">3. Citas totales</button><button class="tab-btn" data-tab="tabSegPerdidos">4. Perdidos</button><button class="tab-btn" data-tab="tabSegRiesgos">5. En riesgo</button><button class="tab-btn" data-tab="tabSegRetenidos">6. Retenidos</button><button class="tab-btn" data-tab="tabSegLeales">7. Leales</button><button class="tab-btn" data-tab="tabNoShows">8. No Shows</button><button class="tab-btn" data-tab="tabRanking">9. Ranking Ejecutivos</button><button class="tab-btn" data-tab="tabRetencionTotal">10. Retención Total</button></nav>
 <div class="bdc-sync-strip" style="display:none">
   <div class="bdc-sync-copy">
@@ -624,11 +624,18 @@ function citasSegmento(r){return VIN_SEGMENTO_MAP.get(norm(r.VIN))||'Sin univers
 // --- Corte evaluable: una sola fuente de verdad (window.__META.cutQuiter), para no tener
 // que ir a mano por todo el HTML cada vez que se actualiza el corte. ---
 const CUT_DATE=(window.__META&&window.__META.cutQuiter)||'2026-09-08';
+const CUT_MONTH_NUM=Number(CUT_DATE.slice(5,7));
+const CUT_MONTH_LABEL=({9:'sep',10:'oct',11:'nov',12:'dic'})[CUT_MONTH_NUM]||'sep';
 const CUT_DAY=Number(CUT_DATE.slice(8,10));
 const CUT_SUNDAYS=new Set([6,13,20,27]); // domingos de septiembre 2026
-const CUT_ELAPSED=Array.from({length:CUT_DAY},(_,i)=>i+1).filter(d=>!CUT_SUNDAYS.has(d)).length;
-const CUT_LABEL=CUT_DAY+'/sep';
-const CUT_NEXT_LABEL=(CUT_DAY+1)+'/sep'; // primer día "futuro" tras el corte
+const SEPT_OPERATIVE_DAYS_TOTAL=Array.from({length:30},(_,i)=>i+1).filter(d=>!CUT_SUNDAYS.has(d)).length; // 26, mes completo
+// Si el corte ya cayó en octubre (cierre de septiembre a posteriori), septiembre
+// quedó completo: los "días operativos transcurridos" son el total del mes, no
+// una cuenta derivada del día-de-octubre (que no tiene sentido sobre el
+// calendario de septiembre).
+const CUT_ELAPSED=CUT_MONTH_NUM>9?SEPT_OPERATIVE_DAYS_TOTAL:Array.from({length:CUT_DAY},(_,i)=>i+1).filter(d=>!CUT_SUNDAYS.has(d)).length;
+const CUT_LABEL=CUT_DAY+'/'+CUT_MONTH_LABEL;
+const CUT_NEXT_LABEL=(CUT_DAY+1)+'/'+CUT_MONTH_LABEL; // primer día "futuro" tras el corte
 function fixCutDateLabels(){
   // Reescribe los textos estáticos que mencionan el corte ("corte evaluable", "archivo
   // recibido", "vigentes desde", "días operativos transcurridos", etc.) para que siempre
