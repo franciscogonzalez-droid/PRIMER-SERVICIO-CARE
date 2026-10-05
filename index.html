@@ -470,6 +470,15 @@ confirmarse cuando la fuente distinga el tipo de línea.</div>
 </div>
 </section>
 
+<div class="panel card" style="margin-top:12px">
+<div class="card-title"><h3>% DE CONTACTO Y REAGENDAMIENTO POR AGENCIA <span style="font-weight:700;color:#9a6700">· PRELIMINAR, PENDIENTE DE VALIDAR CON DIANA</span></h3><span class="hint">Solicitado por Diana (correo 03/oct). Ver notas antes de reportar estas cifras afuera.</span></div>
+<div class="hist-note" style="margin-bottom:10px">
+<b>% Reagendamiento</b> se calcula sobre los No Shows <b>con VIN rastreable</b> (excluye el 34% sin VIN, que no es que no se hayan reagendado — es que no se puede saber). &nbsp;·&nbsp;
+<b>% Contacto</b> solo aplica a los No Shows que están dentro de una <b>base de gestión BDC</b> (Primer Servicio/Riesgos/Retenidos/Leales/Perdidos) — el <b>92% de los No Shows de septiembre no pertenece a ninguna base BDC</b> (son citas normales de taller, nunca entraron a una campaña), así que para esos no existe "contactado/no contactado", es "fuera de alcance". Además, la regla de "con intento" usada aquí (campo de estatus no vacío) es la misma del resto del tablero y <b>sobre-cuenta</b> intentos sin respuesta como contacto — pendiente la definición exacta de Diana (contactable/contactado) para corregirla en todos lados a la vez.
+</div>
+<div id="nsAgencyPctTable"></div>
+</div>
+
 <section class="grid2" style="margin-top:12px">
 <div class="panel card">
 <div class="card-title"><h3>POR TIPO DE SERVICIO</h3><span class="hint">No Shows del mes y tasa de No Show de ese tipo</span></div>
@@ -621,6 +630,14 @@ const norm=v=>String(v??'').trim(), yes=v=>/^s[ií]$/i.test(norm(v)), num=v=>Num
 const VIN_SEGMENTO_MAP=new Map();
 [['Perdidos',BDC_SEGMENTS.Perdidos],['Riesgos',BDC_SEGMENTS.Riesgos],['Retenidos',BDC_SEGMENTS.Retenidos],['Leales',BDC_SEGMENTS.Leales],['Primer Servicio',DATA]].forEach(([nombre,arr])=>{(arr||[]).forEach(r=>{const vin=norm(r&&r.VIN);if(vin&&!VIN_SEGMENTO_MAP.has(vin))VIN_SEGMENTO_MAP.set(vin,nombre)})});
 function citasSegmento(r){return VIN_SEGMENTO_MAP.get(norm(r.VIN))||'Sin universo activo'}
+// VIN → señal de gestión BDC (para el % de contacto preliminar de No Show). Cada
+// segmento guarda el "intento de contacto" en un campo distinto: los 4 segmentos de
+// bdc_js_record usan "Estatus gestión BDC"; Primer Servicio (esquema propio) usa
+// "Último estatus mes anterior". Misma regla binaria (campo no vacío) que el resto
+// del tablero usa hoy para "% DE CONTACTO POR AGENCIA" — ver nota de la pestaña de
+// No Show sobre sus limitaciones conocidas (sobre-cuenta intentos sin respuesta).
+const VIN_GESTION_MAP=new Map();
+[['Perdidos',BDC_SEGMENTS.Perdidos,'Estatus gestión BDC'],['Riesgos',BDC_SEGMENTS.Riesgos,'Estatus gestión BDC'],['Retenidos',BDC_SEGMENTS.Retenidos,'Estatus gestión BDC'],['Leales',BDC_SEGMENTS.Leales,'Estatus gestión BDC'],['Primer Servicio',DATA,'Último estatus mes anterior']].forEach(([nombre,arr,campo])=>{(arr||[]).forEach(r=>{const vin=norm(r&&r.VIN);if(vin&&!VIN_GESTION_MAP.has(vin))VIN_GESTION_MAP.set(vin,{segmento:nombre,contacto:Boolean(norm(r[campo]))})})});
 // --- Corte evaluable: una sola fuente de verdad (window.__META.cutQuiter), para no tener
 // que ir a mano por todo el HTML cada vez que se actualiza el corte. ---
 const CUT_DATE=(window.__META&&window.__META.cutQuiter)||'2026-09-08';
@@ -1729,6 +1746,23 @@ function renderNoShows(){
   // resolucion
   const RES_ORDER=[['show','Reagendado → ya se presentó (Show)','#0ca30c'],['futura','Reagendado → cita futura pendiente','#fab219'],['cancelada','Reagendado → la nueva cita se canceló','#ec835a'],['noshow','Reagendado → volvió a fallar (No Show otra vez)','#d03b3b'],['sinreagendar','Sin reagendar (única cita registrada)','#d03b3b'],['sinvin','Sin VIN (no se puede rastrear)','#8b95a5']];
   $('nsResolucion').innerHTML=RES_ORDER.map(([key,label,color])=>{const v=resolved.filter(x=>x.res.bucket===key).length;return `<div style="display:flex;align-items:center;gap:9px;padding:7px 0;border-bottom:1px solid #eef2f6;font-size:10.5px"><span style="width:8px;height:8px;border-radius:50%;background:${color};flex:none;display:inline-block"></span><span style="flex:1">${esc(label)}</span><b style="font-size:13px">${v}</b></div>`}).join('');
+
+  // % contacto y reagendamiento por agencia (preliminar, pendiente de validar con Diana)
+  const REAGENDADO_BUCKETS=new Set(['show','futura','cancelada','noshow']);
+  const agencyKey=r=>norm(r['Agencia Quiter'])||'Sin dato';
+  const agencyGroups=[...new Set(ns.map(agencyKey))].map(a=>[a,resolved.filter(x=>agencyKey(x.r)===a)]).sort((a,b)=>b[1].length-a[1].length);
+  const agencyRow=(label,items)=>{
+    const total=items.length;
+    const conVin=items.filter(x=>x.res.bucket!=='sinvin').length;
+    const reagendados=items.filter(x=>REAGENDADO_BUCKETS.has(x.res.bucket)).length;
+    const gestion=items.map(x=>VIN_GESTION_MAP.get(norm(x.r.VIN))).filter(Boolean);
+    const enBase=gestion.length;
+    const conContacto=gestion.filter(g=>g.contacto).length;
+    return `<tr><td style="text-align:left">${esc(label)}</td><td>${total}</td><td>${conVin}</td><td>${reagendados}</td><td><b>${pct(reagendados,conVin)}</b></td><td>${enBase}</td><td>${enBase?pct(conContacto,enBase):'—'}</td></tr>`;
+  };
+  const agencyBody=agencyGroups.map(([a,items])=>agencyRow(a,items)).join('');
+  const agencyTotal=agencyRow('TOTAL',resolved);
+  $('nsAgencyPctTable').innerHTML=`<div class="metric-scroll"><table class="metric-table"><thead><tr><th>Agencia</th><th>No Shows</th><th>Con VIN rastreable</th><th>Reagendados</th><th>% Reagendamiento</th><th>En base BDC</th><th>% Contacto (preliminar)</th></tr></thead><tbody>${agencyBody}</tbody><tfoot>${agencyTotal}</tfoot></table></div>`;
 
   // por tipo
   const tipoRows=NS_CAT_ORDER.map(c=>{
