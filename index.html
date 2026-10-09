@@ -450,6 +450,16 @@ confirmarse cuando la fuente distinga el tipo de línea.</div>
 
 <section id="tabNoShows" class="tab-pane"><div class="hist-page citas-page">
 <div class="hist-note"><b>No Shows · todas las citas:</b> usa la misma base de <b>Citas totales U13</b> de la pestaña 3 (no un archivo nuevo), pero cubre <b>todos los tipos de servicio</b>, no sólo Primer Servicio. El "tipo de servicio" se infiere de <b>Des. avería</b> (texto libre de Quiter, no un catálogo oficial) porque <b>Tipo OR</b> sólo existe cuando la cita sí se cumplió — por definición un No Show nunca tiene Tipo OR. El "qué pasó después" rastrea, por VIN, si hubo otra cita más adelante en el mismo septiembre.</div>
+<div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:10px 0">
+  <label style="font-size:11px;font-weight:800;color:#344054">Ver resultados de:</label>
+  <select id="nsUniverso" style="border:1px solid #d0d7e2;border-radius:8px;padding:7px 10px;font-size:11px;font-weight:700;background:#fff;color:#172033">
+    <option value="todos">Todos los No Shows (vista completa)</option>
+    <option value="ps">Solo Primer Servicio</option>
+    <option value="rt">Solo Retención Total (Leales + Retenidos + Riesgos + Perdidos)</option>
+    <option value="fuera">Solo fuera de base BDC (citas normales de taller)</option>
+  </select>
+  <span class="hint" id="nsUniversoHint"></span>
+</div>
 <section class="hist-kpis">
 <div class="hist-kpi panel red"><div class="label">No Shows en septiembre</div><div class="value" id="nsKTotal">—</div><div class="sub" id="nsKTotalSub">—</div></div>
 <div class="hist-kpi panel"><div class="label">Con VIN rastreable</div><div class="value" id="nsKVin">—</div><div class="sub" id="nsKVinSub">—</div></div>
@@ -471,10 +481,18 @@ confirmarse cuando la fuente distinga el tipo de línea.</div>
 </section>
 
 <div class="panel card" style="margin-top:12px">
-<div class="card-title"><h3>% DE CONTACTO Y REAGENDAMIENTO POR AGENCIA <span style="font-weight:700;color:#9a6700">· PRELIMINAR, PENDIENTE DE VALIDAR CON DIANA</span></h3><span class="hint">Solicitado por Diana (correo 03/oct). Ver notas antes de reportar estas cifras afuera.</span></div>
+<div class="card-title"><h3>% DE CONTACTO Y REAGENDAMIENTO <span style="font-weight:700;color:#9a6700">· PRELIMINAR, PENDIENTE DE VALIDAR CON DIANA</span></h3><span class="hint">Solicitado por Diana (correos 03/oct y 08/oct). Ver notas antes de reportar estas cifras afuera.</span></div>
+<div style="display:flex;align-items:center;gap:8px;margin-bottom:10px">
+  <label style="font-size:10.5px;font-weight:800;color:#344054">Agrupar por</label>
+  <select id="nsGroupBy" style="border:1px solid #d0d7e2;border-radius:8px;padding:6px 9px;font-size:10.5px;font-weight:700;background:#fff;color:#172033">
+    <option value="agencia">Agencia</option>
+    <option value="csa">CSA (zona)</option>
+  </select>
+</div>
 <div class="hist-note" style="margin-bottom:10px">
-<b>% Reagendamiento</b> se calcula sobre los No Shows <b>con VIN rastreable</b> (excluye el 34% sin VIN, que no es que no se hayan reagendado — es que no se puede saber). &nbsp;·&nbsp;
-<b>% Contacto</b> solo aplica a los No Shows que están dentro de una <b>base de gestión BDC</b> (Primer Servicio/Riesgos/Retenidos/Leales/Perdidos) — el <b>92% de los No Shows de septiembre no pertenece a ninguna base BDC</b> (son citas normales de taller, nunca entraron a una campaña), así que para esos no existe "contactado/no contactado", es "fuera de alcance". Además, la regla de "con intento" usada aquí (campo de estatus no vacío) es la misma del resto del tablero y <b>sobre-cuenta</b> intentos sin respuesta como contacto — pendiente la definición exacta de Diana (contactable/contactado) para corregirla en todos lados a la vez.
+<b>Total</b> siempre incluye a todos los casos del grupo, tengan o no VIN rastreable en Quiter — es volumen, nadie se excluye del conteo. &nbsp;·&nbsp;
+<b>% Reagendamiento</b> se calcula solo sobre los que sí tienen VIN rastreable, columna "Con VIN rastreable" (sin VIN no se puede saber si se reagendó). &nbsp;·&nbsp;
+<b>% Contacto</b> solo aplica a los que están dentro de una <b>base de gestión BDC</b> (columna "En base BDC"; usa el filtro de Universo de arriba para ver Primer Servicio / Retención Total por separado) — fuera de eso no existe "contactado/no contactado" porque nunca se asignó un ejecutivo. La regla de "con intento" (campo de estatus no vacío) sigue siendo la misma de todo el tablero y <b>sobre-cuenta</b> intentos sin respuesta como contacto — pendiente el recorte de Diana con la definición exacta de contactable/contactado para corregirla en todos lados a la vez.
 </div>
 <div id="nsAgencyPctTable"></div>
 </div>
@@ -1706,12 +1724,32 @@ function categoriaAveria(desc){const d=norm(desc).toUpperCase();if(!d)return 'Ot
 let NS_VIN_INDEX=null;
 function nsVinIndex(){if(NS_VIN_INDEX)return NS_VIN_INDEX;const m=new Map();CITAS_TOTAL_DATA.forEach(r=>{const v=norm(r.VIN);if(!v)return;if(!m.has(v))m.set(v,[]);m.get(v).push(r)});m.forEach(arr=>arr.sort((a,b)=>norm(a['Fecha cita']).localeCompare(norm(b['Fecha cita']))));NS_VIN_INDEX=m;return m}
 function nsResolve(row){const v=norm(row.VIN);if(!v)return{bucket:'sinvin'};const fecha=norm(row['Fecha cita']);const arr=nsVinIndex().get(v)||[];const post=arr.filter(r=>norm(r['Fecha cita'])>fecha);if(!post.length)return{bucket:'sinreagendar'};const last=post[post.length-1];const cl=norm(last.Clasificación);let bucket='otro';if(cl==='Show'||cl==='Show con fecha futura')bucket='show';else if(cl==='No Show')bucket='noshow';else if(cl==='Cita futura')bucket='futura';else if(cl==='Cancelada')bucket='cancelada';return{bucket,next:last}}
+const AGENCIA_CSA_MAP={'PATRIOTISMO':'CDMX','REVOLUCION':'CDMX','INFINITI UNIVERSIDAD':'CDMX','MADERO':'Michoacán','ZAMORA':'Michoacán','CHAPULTEPEC':'Michoacán','ZITACUARO':'Michoacán','URUAPAN':'Michoacán','ACAMBARO':'Michoacán','HUETAMO':'Michoacán','LOS REYES':'Michoacán','SAHUAYO':'Michoacán','URIANGATO':'Michoacán','VALLE DE BRAVO':'Michoacán','CONSTITUYENTES':'Querétaro','JURIQUILLA':'Querétaro','CAMPA':'Querétaro','SAN JUAN DEL RIO':'Querétaro','BERNARDO QUINTANA':'Querétaro','LA CAPILLA':'Querétaro'};
+const NS_RT_SEGMENTS=new Set(['Leales','Retenidos','Riesgos','Perdidos']);
+function nsSegmentoDe(r){const g=VIN_GESTION_MAP.get(norm(r.VIN));return g?g.segmento:null}
+function nsUniversoFilter(r,universo){
+  if(universo==='todos')return true;
+  const seg=nsSegmentoDe(r);
+  if(universo==='ps')return seg==='Primer Servicio';
+  if(universo==='rt')return seg&&NS_RT_SEGMENTS.has(seg);
+  if(universo==='fuera')return !seg;
+  return true;
+}
 function renderNoShows(){
-  const all=CITAS_TOTAL_DATA;
+  if(!renderNoShows._inited){
+    renderNoShows._inited=true;
+    const u=$('nsUniverso'),g=$('nsGroupBy');
+    if(u)u.addEventListener('change',renderNoShows);
+    if(g)g.addEventListener('change',renderNoShows);
+  }
+  const universo=$('nsUniverso')?$('nsUniverso').value:'todos';
+  const universoLabel={todos:'Todos los No Shows',ps:'Solo Primer Servicio',rt:'Solo Retención Total (Leales+Retenidos+Riesgos+Perdidos)',fuera:'Solo fuera de base BDC'}[universo];
+  const all=CITAS_TOTAL_DATA.filter(r=>nsUniversoFilter(r,universo));
   const ns=all.filter(r=>norm(r.Clasificación)==='No Show');
   const total=ns.length;
   $('nsKTotal').textContent=total.toLocaleString('es-MX');
-  $('nsKTotalSub').textContent=`${pct(total,all.length)} de las ${all.length.toLocaleString('es-MX')} citas del mes`;
+  $('nsKTotalSub').textContent=`${pct(total,all.length)} de las ${all.length.toLocaleString('es-MX')} citas del mes · ${universoLabel}`;
+  if($('nsUniversoHint'))$('nsUniversoHint').textContent=universo==='todos'?'':`(${total.toLocaleString('es-MX')} No Shows dentro de este universo)`;
 
   const resolved=ns.map(r=>({r,res:nsResolve(r)}));
   const sinVin=resolved.filter(x=>x.res.bucket==='sinvin').length;
@@ -1747,9 +1785,15 @@ function renderNoShows(){
   const RES_ORDER=[['show','Reagendado → ya se presentó (Show)','#0ca30c'],['futura','Reagendado → cita futura pendiente','#fab219'],['cancelada','Reagendado → la nueva cita se canceló','#ec835a'],['noshow','Reagendado → volvió a fallar (No Show otra vez)','#d03b3b'],['sinreagendar','Sin reagendar (única cita registrada)','#d03b3b'],['sinvin','Sin VIN (no se puede rastrear)','#8b95a5']];
   $('nsResolucion').innerHTML=RES_ORDER.map(([key,label,color])=>{const v=resolved.filter(x=>x.res.bucket===key).length;return `<div style="display:flex;align-items:center;gap:9px;padding:7px 0;border-bottom:1px solid #eef2f6;font-size:10.5px"><span style="width:8px;height:8px;border-radius:50%;background:${color};flex:none;display:inline-block"></span><span style="flex:1">${esc(label)}</span><b style="font-size:13px">${v}</b></div>`}).join('');
 
-  // % contacto y reagendamiento por agencia (preliminar, pendiente de validar con Diana)
+  // % contacto y reagendamiento por agencia / CSA (preliminar, pendiente de validar con Diana)
   const REAGENDADO_BUCKETS=new Set(['show','futura','cancelada','noshow']);
-  const agencyKey=r=>norm(r['Agencia Quiter'])||'Sin dato';
+  const groupBy=$('nsGroupBy')?$('nsGroupBy').value:'agencia';
+  const groupLabel=groupBy==='csa'?'CSA':'Agencia';
+  const agencyKey=r=>{
+    const ag=norm(r['Agencia Quiter'])||'Sin dato';
+    if(groupBy==='csa')return ag==='Sin dato'?'Sin dato':(AGENCIA_CSA_MAP[ag]||'Sin CSA');
+    return ag;
+  };
   const agencyGroups=[...new Set(ns.map(agencyKey))].map(a=>[a,resolved.filter(x=>agencyKey(x.r)===a)]).sort((a,b)=>b[1].length-a[1].length);
   const agencyRow=(label,items)=>{
     const total=items.length;
@@ -1762,7 +1806,7 @@ function renderNoShows(){
   };
   const agencyBody=agencyGroups.map(([a,items])=>agencyRow(a,items)).join('');
   const agencyTotal=agencyRow('TOTAL',resolved);
-  $('nsAgencyPctTable').innerHTML=`<div class="metric-scroll"><table class="metric-table"><thead><tr><th>Agencia</th><th>No Shows</th><th>Con VIN rastreable</th><th>Reagendados</th><th>% Reagendamiento</th><th>En base BDC</th><th>% Contacto (preliminar)</th></tr></thead><tbody>${agencyBody}</tbody><tfoot>${agencyTotal}</tfoot></table></div>`;
+  $('nsAgencyPctTable').innerHTML=`<div class="metric-scroll"><table class="metric-table"><thead><tr><th>${groupLabel}</th><th>No Shows (total, con o sin VIN)</th><th>Con VIN rastreable</th><th>Reagendados</th><th>% Reagendamiento</th><th>En base BDC</th><th>% Contacto (preliminar)</th></tr></thead><tbody>${agencyBody}</tbody><tfoot>${agencyTotal}</tfoot></table></div>`;
 
   // por tipo
   const tipoRows=NS_CAT_ORDER.map(c=>{
