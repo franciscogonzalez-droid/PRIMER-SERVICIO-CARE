@@ -137,7 +137,7 @@
 <section id="tabSeguimiento" class="tab-pane active"><div class="layout">
 <aside class="sidebar"><div class="side-panel panel"><h3>FILTROS</h3>
 <div class="filter"><label>Universo de trabajo</label><select id="fUniverse"><option value="consolidado" selected>Consolidado referencia · 2,061</option><option value="marca">Universo Marca referencia · 1,597</option><option value="grupo">Grupo exclusivo activo · 464</option></select><div class="filter-note">Filtro real fila por fila. MARCA tiene prioridad cuando un VIN aparece en ambas bases. Grupo aporta únicamente VIN exclusivos.</div></div>
-<div class="filter"><label>Región</label><select id="fRegion"></select></div><div class="filter"><label>Agencia</label><select id="fAgency"></select></div><div class="filter"><label>Modelo(s)</label><details class="model-multi" id="modelMulti"><summary id="modelSummary">Todos los modelos</summary><div class="model-multi-body"><div class="model-quick" id="modelQuick"></div><div class="model-checks" id="modelChecks"></div><button type="button" class="model-clear" id="modelClear">Limpiar selección</button></div></details></div><div class="filter"><label>Tipo de unidad / venta</label><select id="fUnit"><option value="">Todos</option><option value="MEN">Menudeo (MEN)</option><option value="FLO">Flotilla (FLO)</option></select></div><div class="filter"><label>Tipo de cita</label><select id="fCita"><option value="">Todas</option><option value="Cita futura">Futuras confirmadas</option><option value="Cita futura SICOP · Reconfirmar">SICOP · Reconfirmar</option><option value="Show">Shows</option><option value="No Show">No Shows</option><option value="Sin cita programada">Sin cita programada</option><option value="Perdido">Perdidos septiembre</option><option value="Perdido histórico">Perdidos históricos Ene–Ago</option><option value="Servicio sin cita">Servicio sin cita</option></select></div><div class="filter"><label>Fuente de la cita</label><select id="fSource"></select></div><div class="filter"><label>Oferta comercial</label><select id="fOffer"><option value="">Todas</option><option value="Primer Servicio">Primer Servicio</option><option value="Retenidos en Riesgo">Retenidos en Riesgo</option><option value="Leales Fuera de Garantia">Leales Fuera de Garantía</option><option value="__MULTI__">Múltiples ofertas</option><option value="__SIN__">Sin oferta</option></select><div class="filter-note">Audiencia Consolidado · Mes 2609 · sólo StatusCliente = POTENCIAL.</div></div><div class="filter"><label>Modalidad de la cita</label><select disabled><option>Pendiente de integrar</option></select></div><div class="filter"><label>Ejecutivo / agente</label><select id="fAgent"></select></div><div class="filter"><label>Buscar cliente / VIN</label><input id="fSearch" placeholder="Ej. 3N1... o apellido"></div><div class="actions"><button class="btn primary" id="exportBtn">⬇ Exportar base filtrada</button><button class="btn green" id="sheetAgencyBtn" disabled style="display:none">☁ Generar / actualizar Google Sheet</button><div class="sheet-status" id="sheetAgencyStatus" style="display:none">Selecciona una agencia. Genera/actualiza su archivo; BDC Primer Servicio se actualiza con el botón global.</div><button class="btn ghost" id="resetBtn">↺ Restablecer filtros</button><button class="btn red" onclick="window.print()">🖨 Imprimir / PDF</button></div></div>
+<div class="filter"><label>Región</label><select id="fRegion"></select></div><div class="filter"><label>Agencia</label><select id="fAgency"></select></div><div class="filter"><label>Modelo(s)</label><details class="model-multi" id="modelMulti"><summary id="modelSummary">Todos los modelos</summary><div class="model-multi-body"><div class="model-quick" id="modelQuick"></div><div class="model-checks" id="modelChecks"></div><button type="button" class="model-clear" id="modelClear">Limpiar selección</button></div></details></div><div class="filter"><label>Tipo de unidad / venta</label><select id="fUnit"><option value="">Todos</option><option value="MEN">Menudeo (MEN)</option><option value="FLO">Flotilla (FLO)</option></select></div><div class="filter"><label>Tipo de cita</label><select id="fCita"><option value="">Todas</option><option value="Cita futura">Futuras confirmadas</option><option value="Cita futura SICOP · Reconfirmar">SICOP · Reconfirmar</option><option value="Show">Shows</option><option value="No Show">No Shows</option><option value="Sin cita programada">Sin cita programada</option><option value="Perdido">Perdidos septiembre</option><option value="Perdido histórico">Perdidos históricos Ene–Ago</option><option value="Servicio sin cita">Servicio sin cita</option></select></div><div class="filter"><label>Fuente de la cita</label><select id="fSource"></select></div><div class="filter"><label>Oferta comercial</label><select id="fOffer"><option value="">Todas</option><option value="Primer Servicio">Primer Servicio</option><option value="Retenidos en Riesgo">Retenidos en Riesgo</option><option value="Leales Fuera de Garantia">Leales Fuera de Garantía</option><option value="__MULTI__">Múltiples ofertas</option><option value="__SIN__">Sin oferta</option></select><div class="filter-note">Audiencia Consolidado · Mes 2610 · sólo StatusCliente = POTENCIAL.</div></div><div class="filter"><label>Modalidad de la cita</label><select disabled><option>Pendiente de integrar</option></select></div><div class="filter"><label>Ejecutivo / agente</label><select id="fAgent"></select></div><div class="filter"><label>Buscar cliente / VIN</label><input id="fSearch" placeholder="Ej. 3N1... o apellido"></div><div class="actions"><button class="btn primary" id="exportBtn">⬇ Exportar base filtrada</button><button class="btn green" id="sheetAgencyBtn" disabled style="display:none">☁ Generar / actualizar Google Sheet</button><div class="sheet-status" id="sheetAgencyStatus" style="display:none">Selecciona una agencia. Genera/actualiza su archivo; BDC Primer Servicio se actualiza con el botón global.</div><button class="btn ghost" id="resetBtn">↺ Restablecer filtros</button><button class="btn red" onclick="window.print()">🖨 Imprimir / PDF</button></div></div>
 <div class="side-note panel" style="display:none"><h4>ACTUALIZACIÓN DE UNIVERSO · 07/SEP</h4>
 <p><b>Nueva fuente Marca:</b> <b>1,597 VIN</b> de “Datos Subyacentes Sin1erServ”. Sustituye la referencia anterior de 1,488.</p>
 <p><b>Conciliación contra la referencia anterior:</b> 1,435 VIN permanecen; <b>162 históricos de agosto reaparecen</b> en la fuente Nissan y <b>53 VIN dejan de aparecer</b> (52 ya estaban clasificados como Show y 1 por ajuste de fuente).</p>
@@ -145,7 +145,7 @@
 <p><b>Consolidado de referencia:</b> 1,597 Marca + 464 Grupo exclusivo = <b>2,061 VIN</b>.</p>
 <p><b>Trazabilidad:</b> los 162 históricos reincorporados conservan su bandera de agosto y se mantienen como salida histórica en BDC; no se contabilizan como pérdida nueva de septiembre.</p>
 <p><b>Objetivos:</b> el documento oficial cargado contiene meta por CVE/agencia, región y Grupo Autocom. La meta oficial aplica al universo Marca.</p>
-<p><b>Oferta comercial:</b> Audiencia Consolidado · Mes 2609 · StatusCliente POTENCIAL.</p>
+<p><b>Oferta comercial:</b> Audiencia Consolidado · Mes 2610 · StatusCliente POTENCIAL.</p>
 </div></aside>
 <main class="main">
 <section class="cleanup-strip">
@@ -167,7 +167,7 @@
 <section class="grid2"><div class="panel card"><div class="card-title"><h3>FUNNEL DE AVANCE</h3><span class="hint">Corte evaluable 08/sep · 7 de 26 días operativos</span></div><div class="funnel" id="funnel"></div><div class="progress-wrap"><div class="progress-label"><span>Shows vs referencia lineal del universo filtrado</span><b id="linearTxt">—</b></div><div class="progress"><div id="linearBar"></div></div></div><div class="loss-note">La referencia lineal se calcula sobre el universo filtrado y 26 días operativos de septiembre. No sustituye la meta oficial de Marca.</div></div><div class="panel card"><div class="card-title"><h3>FUENTE DE LA CITA</h3><span class="hint">Clasificación por usuario U13</span></div><div id="sourceTable"></div></div></section>
 <section class="grid2"><div class="panel card"><div class="card-title"><h3>MONITOREO DE CITAS · SEPTIEMBRE</h3><span class="hint">Corte evaluable 08/sep · futuras no penalizan No Show</span></div><div class="chart-legend"><span><i class="sq" style="background:#7897A8"></i>Pendientes / futuras <b id="dFuture">—</b></span><span><i class="sq" style="background:#4F7660"></i>Shows <b id="dShow">—</b></span><span><i class="sq" style="background:#D4D0C8"></i>No Shows <b id="dNoShow">—</b></span><span class="trend-chip">% Show al corte <b id="dRate">—</b></span><span class="trend-chip avg-chip">Promedio día operativo <b id="dAvg">—</b></span><span class="trend-chip proj-chip">Proyección 26 días <b id="dProjection">—</b></span></div><svg class="svg-chart" id="dailyChart" viewBox="0 0 900 250" preserveAspectRatio="none"></svg><div class="daily-help">Promedio y proyección calculados sobre los días operativos transcurridos al 08/sep. Domingos de septiembre: 6, 13, 20 y 27.</div></div><div class="panel card"><div class="card-title"><h3>DESEMPEÑO POR AGENCIA</h3><span class="hint">Universo activo completo</span></div><div id="agencyTable"></div></div></section>
 <section class="grid3"><div class="panel card"><div class="card-title"><h3>RESULTADO POR REGIÓN</h3></div><div id="regionTable"></div></div><div class="panel card"><div class="card-title"><h3>AVANCE POR MODELO</h3></div><div id="modelTable"></div></div><div class="panel card"><div class="card-title"><h3>AGENTES / USUARIOS</h3></div><div id="agentTable"></div></div></section>
-<section class="panel card" style="margin-top:12px"><div class="card-title"><h3>% DE CONTACTO POR AGENCIA</h3><span class="hint">Universo Primer Servicio filtrado · con intento de contacto válido (estatus BDC registrado) vs. sin intento</span></div><div id="contactAgencyTable"></div><div class="daily-help">"Con intento válido" = VIN con un estatus de gestión BDC registrado (último estatus mes anterior no vacío). "Sin intento" = VIN sin ningún estatus de gestión registrado todavía. Respeta los filtros activos de arriba (Región/Agencia/Universo/etc.).</div></section>
+<section class="panel card" style="margin-top:12px"><div class="card-title"><h3>% DE CONTACTO POR AGENCIA</h3><span class="hint">Contactable = universo − Vines sin Calidad · Contactado = estatus dentro de "Clientes Contactados" · fórmula de Diana, confirmada con Frank 12/oct</span></div><div id="contactAgencyTable"></div><div class="daily-help"><b>Contactable</b> = VIN del universo filtrado, excluyendo los que tienen un estatus de "Vines sin Calidad" (VIN erróneo, duplicado, sin información, ya tiene cita, etc.). <b>Contactados</b> = de esos, los que caen en "Clientes Contactados" (cita agendada, cliente interesado, activo en otra agencia, etc. — incluye Cita agendada IA y Asistencia Humana, desglosadas en las últimas 2 columnas). Un estatus en blanco o distinto a estas dos listas (p. ej. "Intentos de contacto") es contactable pero no cuenta como contactado. Respeta los filtros activos de arriba (Región/Agencia/Universo/etc.).</div></section>
 <section class="panel card" style="margin-top:12px"><div class="card-title"><h3>ANÁLISIS DE CLIENTES PERDIDOS</h3><span class="hint">Sólo pérdidas nuevas de septiembre · históricos Ene–Ago excluidos</span></div><div class="loss-grid"><div id="lossImpact"></div><div id="lossReasons"></div></div><div class="loss-note">Esta sección cuenta únicamente pérdidas nuevas de septiembre. Los perdidos históricos de enero a agosto permanecen en su pestaña para trazabilidad, pero se excluyen por default de KPI, tablas y exportaciones operativas.</div></section>
 <section class="panel card" style="margin-top:12px"><div class="card-title"><h3>BASE OPERATIVA DE SEGUIMIENTO</h3><span class="hint">Universo de referencia · Marca 1,597 + Grupo exclusivo 464 + U13/U10 09/sep + histórico Ene–Ago + objetivos</span></div><div class="quick" id="quickFilters"><button class="chip active" data-q="all">Todos</button><button class="chip" data-q="No Show">↪ No Shows</button><button class="chip" data-q="Show">✓ Shows</button><button class="chip" data-q="Cita futura">↗ Futuras</button><button class="chip" data-q="Cita futura SICOP · Reconfirmar">☎ Reconfirmar SICOP</button><button class="chip" data-q="Sin cita programada">☎ Sin cita</button><button class="chip" data-q="Perdido">⊘ Perdidos Sep</button><button class="chip" data-q="Perdido histórico">◌ Históricos Ene–Ago</button><button class="chip" data-q="Servicio sin cita">🔧 Servicio sin cita</button></div><div class="table-wrap"><table class="ops"><thead><tr><th>Origen universo</th><th>Región</th><th>Agencia</th><th>Cliente</th><th>VIN</th><th>Modelo</th><th>APV / Asesor</th><th>Teléfono 1</th><th>Teléfono 2</th><th>Teléfono 3</th><th>Correo</th><th>Oferta comercial</th><th>Fecha cita</th><th>Cumplimiento Quiter</th><th>Fuente cita</th><th>Modalidad</th><th>Reagendado</th><th>Agente cita</th><th>Agencia cita</th><th>Fecha OR</th><th>Orden Trabajo</th><th>Estatus monitoreo</th><th>Perdido</th><th>Motivo perdido</th><th>Comentario origen</th><th>Último comentario histórico</th><th>Servicio sin cita</th><th>Fecha servicio</th><th>Trabajado antes Marca</th><th>Perdido histórico</th></tr></thead><tbody id="opsBody"></tbody></table></div><div class="table-footer"><span id="rowCount"></span><span>Máximo 250 filas en pantalla; CSV exporta todo el filtro.</span></div></section>
 <section class="panel card" style="margin-top:12px"><div class="card-title"><h3>UNIDADES ACTUALMENTE EN TALLER</h3><span class="hint">U10 · VIN del detalle operativo · estatus más reciente</span></div><div class="inventory-kpi-grid"><div class="inventory-mini-kpi"><b id="tAll">—</b><span>Coincidencias U10</span><small>VIN del detalle operativo</small></div><div class="inventory-mini-kpi"><b id="tOpen">—</b><span>En taller</span><small>Estatus no finalizado</small></div><div class="inventory-mini-kpi"><b id="tCita">—</b><span>Con cita</span><small>Según U13</small></div><div class="inventory-mini-kpi"><b id="tShow">—</b><span>Shows</span><small>CUMPLIDA Quiter</small></div><div class="inventory-mini-kpi"><b id="tNoCita">—</b><span>Sin cita</span><small>Coincidencias U10</small></div></div><div class="inventory-controls"><select id="tStatus"><option value="">Todos los estatus</option></select><button class="chip" id="tReset">Limpiar filtro taller</button></div><div id="tallerTable"></div></section>
@@ -274,9 +274,9 @@ confirmarse cuando la fuente distinga el tipo de línea.</div>
     <div class="daily-help" id="PerdidosMonNote">—</div>
   </section>
   <section class="panel card" style="margin-top:12px">
-    <div class="card-title"><h3>% DE CONTACTO POR AGENCIA</h3><span class="hint">Con intento válido = Histórico BDC · Estatus registrado · respeta los filtros de la pestaña</span></div>
+    <div class="card-title"><h3>% DE CONTACTO POR AGENCIA</h3><span class="hint">Contactable = universo − Vines sin Calidad · Contactado = "Clientes Contactados" · fórmula de Diana, confirmada con Frank 12/oct</span></div>
     <div id="PerdidosContactoTable"></div>
-    <div class="daily-help">"Con intento" = VIN con un estatus de Histórico BDC registrado. "Sin intento" = VIN sin ningún estatus registrado todavía.</div>
+    <div class="daily-help"><b>Contactable</b> = VIN del segmento, excluyendo los que tienen un estatus de "Vines sin Calidad" (VIN erróneo, duplicado, sin información, ya tiene cita, etc.). <b>Contactados</b> = de esos, los que caen en "Clientes Contactados" (cita agendada, cliente interesado, activo en otra agencia, etc. — incluye Cita agendada IA y Asistencia Humana, desglosadas en las últimas 2 columnas). Un estatus en blanco o distinto a estas dos listas (p. ej. "Intentos de contacto") es contactable pero no cuenta como contactado.</div>
   </section>
   <div class="panel card">
     <div class="card-title"><h3>FILTROS · CLIENTES PERDIDOS</h3><span class="hint">Los filtros sólo afectan esta pestaña</span></div>
@@ -323,9 +323,9 @@ confirmarse cuando la fuente distinga el tipo de línea.</div>
     <div class="daily-help" id="RiesgosMonNote">—</div>
   </section>
   <section class="panel card" style="margin-top:12px">
-    <div class="card-title"><h3>% DE CONTACTO POR AGENCIA</h3><span class="hint">Con intento válido = Histórico BDC · Estatus registrado · respeta los filtros de la pestaña</span></div>
+    <div class="card-title"><h3>% DE CONTACTO POR AGENCIA</h3><span class="hint">Contactable = universo − Vines sin Calidad · Contactado = "Clientes Contactados" · fórmula de Diana, confirmada con Frank 12/oct</span></div>
     <div id="RiesgosContactoTable"></div>
-    <div class="daily-help">"Con intento" = VIN con un estatus de Histórico BDC registrado. "Sin intento" = VIN sin ningún estatus registrado todavía.</div>
+    <div class="daily-help"><b>Contactable</b> = VIN del segmento, excluyendo los que tienen un estatus de "Vines sin Calidad" (VIN erróneo, duplicado, sin información, ya tiene cita, etc.). <b>Contactados</b> = de esos, los que caen en "Clientes Contactados" (cita agendada, cliente interesado, activo en otra agencia, etc. — incluye Cita agendada IA y Asistencia Humana, desglosadas en las últimas 2 columnas). Un estatus en blanco o distinto a estas dos listas (p. ej. "Intentos de contacto") es contactable pero no cuenta como contactado.</div>
   </section>
   <div class="panel card">
     <div class="card-title"><h3>FILTROS · CLIENTES EN RIESGO</h3><span class="hint">Los filtros sólo afectan esta pestaña</span></div>
@@ -372,9 +372,9 @@ confirmarse cuando la fuente distinga el tipo de línea.</div>
     <div class="daily-help" id="RetenidosMonNote">—</div>
   </section>
   <section class="panel card" style="margin-top:12px">
-    <div class="card-title"><h3>% DE CONTACTO POR AGENCIA</h3><span class="hint">Con intento válido = Histórico BDC · Estatus registrado · respeta los filtros de la pestaña</span></div>
+    <div class="card-title"><h3>% DE CONTACTO POR AGENCIA</h3><span class="hint">Contactable = universo − Vines sin Calidad · Contactado = "Clientes Contactados" · fórmula de Diana, confirmada con Frank 12/oct</span></div>
     <div id="RetenidosContactoTable"></div>
-    <div class="daily-help">"Con intento" = VIN con un estatus de Histórico BDC registrado. "Sin intento" = VIN sin ningún estatus registrado todavía.</div>
+    <div class="daily-help"><b>Contactable</b> = VIN del segmento, excluyendo los que tienen un estatus de "Vines sin Calidad" (VIN erróneo, duplicado, sin información, ya tiene cita, etc.). <b>Contactados</b> = de esos, los que caen en "Clientes Contactados" (cita agendada, cliente interesado, activo en otra agencia, etc. — incluye Cita agendada IA y Asistencia Humana, desglosadas en las últimas 2 columnas). Un estatus en blanco o distinto a estas dos listas (p. ej. "Intentos de contacto") es contactable pero no cuenta como contactado.</div>
   </section>
   <div class="panel card">
     <div class="card-title"><h3>FILTROS · CLIENTES RETENIDOS</h3><span class="hint">Los filtros sólo afectan esta pestaña</span></div>
@@ -421,9 +421,9 @@ confirmarse cuando la fuente distinga el tipo de línea.</div>
     <div class="daily-help" id="LealesMonNote">—</div>
   </section>
   <section class="panel card" style="margin-top:12px">
-    <div class="card-title"><h3>% DE CONTACTO POR AGENCIA</h3><span class="hint">Con intento válido = Histórico BDC · Estatus registrado · respeta los filtros de la pestaña</span></div>
+    <div class="card-title"><h3>% DE CONTACTO POR AGENCIA</h3><span class="hint">Contactable = universo − Vines sin Calidad · Contactado = "Clientes Contactados" · fórmula de Diana, confirmada con Frank 12/oct</span></div>
     <div id="LealesContactoTable"></div>
-    <div class="daily-help">"Con intento" = VIN con un estatus de Histórico BDC registrado. "Sin intento" = VIN sin ningún estatus registrado todavía.</div>
+    <div class="daily-help"><b>Contactable</b> = VIN del segmento, excluyendo los que tienen un estatus de "Vines sin Calidad" (VIN erróneo, duplicado, sin información, ya tiene cita, etc.). <b>Contactados</b> = de esos, los que caen en "Clientes Contactados" (cita agendada, cliente interesado, activo en otra agencia, etc. — incluye Cita agendada IA y Asistencia Humana, desglosadas en las últimas 2 columnas). Un estatus en blanco o distinto a estas dos listas (p. ej. "Intentos de contacto") es contactable pero no cuenta como contactado.</div>
   </section>
   <div class="panel card">
     <div class="card-title"><h3>FILTROS · CLIENTES LEALES</h3><span class="hint">Los filtros sólo afectan esta pestaña</span></div>
@@ -481,7 +481,7 @@ confirmarse cuando la fuente distinga el tipo de línea.</div>
 </section>
 
 <div class="panel card" style="margin-top:12px">
-<div class="card-title"><h3>% DE CONTACTO Y REAGENDAMIENTO <span style="font-weight:700;color:#9a6700">· PRELIMINAR, PENDIENTE DE VALIDAR CON DIANA</span></h3><span class="hint">Solicitado por Diana (correos 03/oct y 08/oct). Ver notas antes de reportar estas cifras afuera.</span></div>
+<div class="card-title"><h3>% DE CONTACTO Y REAGENDAMIENTO</h3><span class="hint">Fórmula de Diana (correos 03/oct y 08/oct), confirmada con Frank el 12/oct</span></div>
 <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px">
   <label style="font-size:10.5px;font-weight:800;color:#344054">Agrupar por</label>
   <select id="nsGroupBy" style="border:1px solid #d0d7e2;border-radius:8px;padding:6px 9px;font-size:10.5px;font-weight:700;background:#fff;color:#172033">
@@ -492,7 +492,7 @@ confirmarse cuando la fuente distinga el tipo de línea.</div>
 <div class="hist-note" style="margin-bottom:10px">
 <b>Total</b> siempre incluye a todos los casos del grupo, tengan o no VIN rastreable en Quiter — es volumen, nadie se excluye del conteo. &nbsp;·&nbsp;
 <b>% Reagendamiento</b> se calcula solo sobre los que sí tienen VIN rastreable, columna "Con VIN rastreable" (sin VIN no se puede saber si se reagendó). &nbsp;·&nbsp;
-<b>% Contacto</b> solo aplica a los que están dentro de una <b>base de gestión BDC</b> (columna "En base BDC"; usa el filtro de Universo de arriba para ver Primer Servicio / Retención Total por separado) — fuera de eso no existe "contactado/no contactado" porque nunca se asignó un ejecutivo. La regla de "con intento" (campo de estatus no vacío) sigue siendo la misma de todo el tablero y <b>sobre-cuenta</b> intentos sin respuesta como contacto — pendiente el recorte de Diana con la definición exacta de contactable/contactado para corregirla en todos lados a la vez.
+<b>% Contacto</b> solo aplica a los que están dentro de una <b>base de gestión BDC</b> (columna "En base BDC"; usa el filtro de Universo de arriba para ver Primer Servicio / Retención Total por separado) — fuera de eso no existe "contactado/no contactado" porque nunca se asignó un ejecutivo. Dentro de la base, se calcula sobre VIN <b>contactables</b> (se excluyen "Vines sin Calidad" — VIN erróneo, duplicado, sin información, etc.) y cuenta como <b>contactado</b> solo el estatus dentro de "Clientes Contactados" (incluye Cita agendada IA y Asistencia Humana) — fórmula de Diana, confirmada con Frank el 12/oct.
 </div>
 <div id="nsAgencyPctTable"></div>
 </div>
@@ -572,9 +572,9 @@ confirmarse cuando la fuente distinga el tipo de línea.</div>
     <div id="RTAgentTable"></div>
   </section>
   <section class="panel card" style="margin-top:12px">
-    <div class="card-title"><h3>% DE CONTACTO POR AGENCIA</h3><span class="hint">Con intento válido = Histórico BDC · Estatus registrado · respeta los filtros de la pestaña</span></div>
+    <div class="card-title"><h3>% DE CONTACTO POR AGENCIA</h3><span class="hint">Contactable = universo − Vines sin Calidad · Contactado = "Clientes Contactados" · fórmula de Diana, confirmada con Frank 12/oct</span></div>
     <div id="RTContactoTable"></div>
-    <div class="daily-help">"Con intento" = VIN con un estatus de Histórico BDC registrado. "Sin intento" = VIN sin ningún estatus registrado todavía.</div>
+    <div class="daily-help"><b>Contactable</b> = VIN del segmento, excluyendo los que tienen un estatus de "Vines sin Calidad" (VIN erróneo, duplicado, sin información, ya tiene cita, etc.). <b>Contactados</b> = de esos, los que caen en "Clientes Contactados" (cita agendada, cliente interesado, activo en otra agencia, etc. — incluye Cita agendada IA y Asistencia Humana, desglosadas en las últimas 2 columnas). Un estatus en blanco o distinto a estas dos listas (p. ej. "Intentos de contacto") es contactable pero no cuenta como contactado.</div>
   </section>
   <div class="panel card">
     <div class="card-title"><h3>FILTROS · RETENCIÓN TOTAL</h3><span class="hint">Los filtros sólo afectan esta pestaña</span></div>
@@ -641,6 +641,51 @@ function universeDisplay(u){
 const WEBAPP_PRIMER_SERVICIO_URL="https://script.google.com/macros/s/AKfycbyrb3dz11iJJb-TEnSKb6g73qb8WPg-zimIKjDZ5cPvOjWJkadI_t0rR590nvERoEHy/exec";
 const $=id=>document.getElementById(id), esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const norm=v=>String(v??'').trim(), yes=v=>/^s[ií]$/i.test(norm(v)), num=v=>Number(v)||0, pct=(a,b)=>b?((100*a/b).toFixed(1)+'%'):'0.0%';
+// --- % de Contacto: catálogo aprobado por Diana (correos 03/oct y 08/oct) y
+// confirmado por Frank (12/oct). Dos reglas, deliberadamente simples:
+//   1) Contactable = universo − "Vines sin Calidad" (el único motivo de exclusión que
+//      Diana nombró; todo lo demás —blancos, "Intentos de contacto", "Servicio ya
+//      realizado", "Retornó", etc.— SÍ es contactable).
+//   2) Contactado = el estatus cae en "Clientes Contactados"; cualquier otro valor
+//      (blanco, "Intentos de contacto", o valores no catalogados como "Luis Garcia",
+//      "OA", "NU") cuenta como contactable-pero-no-contactado — nunca se asume
+//      contacto sin evidencia. Frank confirmó que el renglón "blanco → No Contactado"
+//      de la tabla de Diana estaba de más: un blanco no lleva categoría y por lo
+//      tanto no entra al numerador (pero sigue en el denominador contactable).
+// "Cita agendada IA" y "Cita agendada Asistencia Humana" cuentan ambas como Clientes
+// Contactados, pero se desglosan aparte porque Frank pidió medir por separado lo que
+// hace la IA sola vs. lo que hace la IA en conjunto con una persona.
+// Valores reales de la base que NO están en el catálogo de Diana y hoy caen en
+// "contactable pero no contactado" por default conservador (pendiente de que Diana
+// confirme si deben reclasificarse): "Luis Garcia" (129 casos — posible error de
+// captura, parece nombre de ejecutivo en el campo de estatus), "No aplica" (10),
+// "Error de número" (20), "Arrendador/Arrendadora" (7), y de 1 caso cada uno "OA",
+// "NU", "FA", "SI", "AT", "Anulada", "Ubicación", "Yo no agendé", "CITA". Ver hallazgo
+// de la sesión del 12/oct para el detalle completo y la propuesta enviada a Diana.
+const normStatus=v=>String(v??'').trim().toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/\s+/g,' ').trim();
+const CONTACT_VIN_SIN_CALIDAD=new Set(['erroneo','npr','no aplica llamada','vin sin informacion','ya no cuento con la unidad','conmutador','ya tienen cita','ya tiene cita','duplicado']);
+const CONTACT_CLIENTES_CONTACTADOS=new Set(['cita agendada','cliente interesado actual','cliente interesado futuro','cliente perdido','activo en otra agencia autocom','activo en otra agencia','cita mes anterior','cita agendada ia','cita agendada asistencia humana']);
+const CONTACT_IA_SET=new Set(['cita agendada ia']);
+const CONTACT_HUMANO_SET=new Set(['cita agendada asistencia humana']);
+const isVinSinCalidad=s=>CONTACT_VIN_SIN_CALIDAD.has(normStatus(s));
+const isContactado=s=>CONTACT_CLIENTES_CONTACTADOS.has(normStatus(s));
+const isContactoIA=s=>CONTACT_IA_SET.has(normStatus(s));
+const isContactoHumano=s=>CONTACT_HUMANO_SET.has(normStatus(s));
+// Resumen reutilizable para las tablas "% DE CONTACTO POR AGENCIA": recibe las filas
+// y el nombre del campo de estatus a usar (distinto por esquema: Primer Servicio usa
+// "Último estatus mes anterior"; los 4 segmentos BDC y Retención Total usan
+// "Histórico BDC · Estatus").
+function contactSummary(rows,campo){
+  const contactable=rows.filter(r=>!isVinSinCalidad(r[campo]));
+  const contactados=contactable.filter(r=>isContactado(r[campo]));
+  return {
+    universo:rows.length,
+    contactable:contactable.length,
+    contactados:contactados.length,
+    ia:contactados.filter(r=>isContactoIA(r[campo])).length,
+    humano:contactados.filter(r=>isContactoHumano(r[campo])).length
+  };
+}
 // VIN → universo activo (Perdidos/Riesgos/Retenidos/Leales/Primer Servicio), para poder
 // decir en Citas Totales a qué universo pertenece cada cita. Un VIN puede, en teoría,
 // aparecer en más de una lista (por overlaps ya documentados en el histórico); en ese
@@ -648,37 +693,54 @@ const norm=v=>String(v??'').trim(), yes=v=>/^s[ií]$/i.test(norm(v)), num=v=>Num
 const VIN_SEGMENTO_MAP=new Map();
 [['Perdidos',BDC_SEGMENTS.Perdidos],['Riesgos',BDC_SEGMENTS.Riesgos],['Retenidos',BDC_SEGMENTS.Retenidos],['Leales',BDC_SEGMENTS.Leales],['Primer Servicio',DATA]].forEach(([nombre,arr])=>{(arr||[]).forEach(r=>{const vin=norm(r&&r.VIN);if(vin&&!VIN_SEGMENTO_MAP.has(vin))VIN_SEGMENTO_MAP.set(vin,nombre)})});
 function citasSegmento(r){return VIN_SEGMENTO_MAP.get(norm(r.VIN))||'Sin universo activo'}
-// VIN → señal de gestión BDC (para el % de contacto preliminar de No Show). Cada
-// segmento guarda el "intento de contacto" en un campo distinto: los 4 segmentos de
-// bdc_js_record usan "Estatus gestión BDC"; Primer Servicio (esquema propio) usa
-// "Último estatus mes anterior". Misma regla binaria (campo no vacío) que el resto
-// del tablero usa hoy para "% DE CONTACTO POR AGENCIA" — ver nota de la pestaña de
-// No Show sobre sus limitaciones conocidas (sobre-cuenta intentos sin respuesta).
+// VIN → resumen de contacto BDC (contactable/contactado), usado por la pestaña de No
+// Show para "% Contacto" y por nsSegmentoDe para saber a qué universo pertenece cada
+// VIN. Usa el mismo campo y la misma fórmula Contactable/Contactado (ver bloque de
+// arriba) que ya usan las demás pestañas de "% DE CONTACTO POR AGENCIA" — antes esta
+// tabla tomaba "Estatus gestión BDC" (campo en vivo, casi vacío en octubre) para los
+// 4 segmentos BDC mientras el resto del tablero ya usaba "Histórico BDC · Estatus";
+// quedan unificados en el mismo campo y la misma regla aprobada por Diana.
 const VIN_GESTION_MAP=new Map();
-[['Perdidos',BDC_SEGMENTS.Perdidos,'Estatus gestión BDC'],['Riesgos',BDC_SEGMENTS.Riesgos,'Estatus gestión BDC'],['Retenidos',BDC_SEGMENTS.Retenidos,'Estatus gestión BDC'],['Leales',BDC_SEGMENTS.Leales,'Estatus gestión BDC'],['Primer Servicio',DATA,'Último estatus mes anterior']].forEach(([nombre,arr,campo])=>{(arr||[]).forEach(r=>{const vin=norm(r&&r.VIN);if(vin&&!VIN_GESTION_MAP.has(vin))VIN_GESTION_MAP.set(vin,{segmento:nombre,contacto:Boolean(norm(r[campo]))})})});
+[['Perdidos',BDC_SEGMENTS.Perdidos,'Histórico BDC · Estatus'],['Riesgos',BDC_SEGMENTS.Riesgos,'Histórico BDC · Estatus'],['Retenidos',BDC_SEGMENTS.Retenidos,'Histórico BDC · Estatus'],['Leales',BDC_SEGMENTS.Leales,'Histórico BDC · Estatus'],['Primer Servicio',DATA,'Último estatus mes anterior']].forEach(([nombre,arr,campo])=>{(arr||[]).forEach(r=>{const vin=norm(r&&r.VIN);if(vin&&!VIN_GESTION_MAP.has(vin)){const st=r[campo];VIN_GESTION_MAP.set(vin,{segmento:nombre,contactable:!isVinSinCalidad(st),contacto:isContactado(st)})}})});
 // --- Corte evaluable: una sola fuente de verdad (window.__META.cutQuiter), para no tener
 // que ir a mano por todo el HTML cada vez que se actualiza el corte. ---
 const CUT_DATE=(window.__META&&window.__META.cutQuiter)||'2026-09-08';
+const CUT_YEAR=Number(CUT_DATE.slice(0,4));
 const CUT_MONTH_NUM=Number(CUT_DATE.slice(5,7));
-const CUT_MONTH_LABEL=({9:'sep',10:'oct',11:'nov',12:'dic'})[CUT_MONTH_NUM]||'sep';
+const CUT_MONTH_LABEL=({1:'ene',2:'feb',3:'mar',4:'abr',5:'may',6:'jun',7:'jul',8:'ago',9:'sep',10:'oct',11:'nov',12:'dic'})[CUT_MONTH_NUM]||'sep';
+const MONTH_NAME_CAP=({1:'Enero',2:'Febrero',3:'Marzo',4:'Abril',5:'Mayo',6:'Junio',7:'Julio',8:'Agosto',9:'Septiembre',10:'Octubre',11:'Noviembre',12:'Diciembre'})[CUT_MONTH_NUM]||'Septiembre';
+const MONTH_NAME_UPPER=MONTH_NAME_CAP.toUpperCase();
 const CUT_DAY=Number(CUT_DATE.slice(8,10));
-const CUT_SUNDAYS=new Set([6,13,20,27]); // domingos de septiembre 2026
-const SEPT_OPERATIVE_DAYS_TOTAL=Array.from({length:30},(_,i)=>i+1).filter(d=>!CUT_SUNDAYS.has(d)).length; // 26, mes completo
-// Si el corte ya cayó en octubre (cierre de septiembre a posteriori), septiembre
-// quedó completo: los "días operativos transcurridos" son el total del mes, no
-// una cuenta derivada del día-de-octubre (que no tiene sentido sobre el
-// calendario de septiembre).
-const CUT_ELAPSED=CUT_MONTH_NUM>9?SEPT_OPERATIVE_DAYS_TOTAL:Array.from({length:CUT_DAY},(_,i)=>i+1).filter(d=>!CUT_SUNDAYS.has(d)).length;
+// Días operativos del mes del corte (se excluyen domingos), calculados en vivo
+// para cualquier mes/año en vez de asumir septiembre con una lista fija de fechas.
+const CUT_DAYS_IN_MONTH=new Date(CUT_YEAR,CUT_MONTH_NUM,0).getDate();
+const CUT_SUNDAYS=new Set(Array.from({length:CUT_DAYS_IN_MONTH},(_,i)=>i+1).filter(d=>new Date(CUT_YEAR,CUT_MONTH_NUM-1,d).getDay()===0));
+const CUT_OPERATIVE_DAYS_TOTAL=CUT_DAYS_IN_MONTH-CUT_SUNDAYS.size;
+const CUT_ELAPSED=Array.from({length:Math.min(CUT_DAY,CUT_DAYS_IN_MONTH)},(_,i)=>i+1).filter(d=>!CUT_SUNDAYS.has(d)).length;
+function sundaysLabel(nums){
+  const a=[...nums];
+  if(a.length===0) return '';
+  if(a.length===1) return String(a[0]);
+  return a.slice(0,-1).join(', ')+' y '+a[a.length-1];
+}
+const CUT_SUNDAYS_LABEL=sundaysLabel(CUT_SUNDAYS);
 const CUT_LABEL=CUT_DAY+'/'+CUT_MONTH_LABEL;
 const CUT_NEXT_LABEL=(CUT_DAY+1)+'/'+CUT_MONTH_LABEL; // primer día "futuro" tras el corte
+const MONTH_NAME_LOWER=MONTH_NAME_CAP.toLowerCase();
+const CUT_SIMETRIC_DATE=(window.__META&&window.__META.cutSimetric)||CUT_DATE;
+const CUT_SIMETRIC_DAY=Number(CUT_SIMETRIC_DATE.slice(8,10));
+const CUT_SIMETRIC_MONTH_NUM=Number(CUT_SIMETRIC_DATE.slice(5,7));
+const CUT_SIMETRIC_MONTH_LABEL=({1:'ene',2:'feb',3:'mar',4:'abr',5:'may',6:'jun',7:'jul',8:'ago',9:'sep',10:'oct',11:'nov',12:'dic'})[CUT_SIMETRIC_MONTH_NUM]||'oct';
 function fixCutDateLabels(){
   // Reescribe los textos estáticos que mencionan el corte ("corte evaluable", "archivo
-  // recibido", "vigentes desde", "días operativos transcurridos", etc.) para que siempre
-  // reflejen CUT_DATE, sin tener que editar el HTML a mano en cada actualización. Cada
-  // frase tiene su propia regla porque un mismo párrafo puede mezclar "la fecha del corte"
-  // (recibido/evaluable/actualizado → CUT_LABEL) con "el día siguiente al corte" (desde
-  // cuándo algo cuenta como futuro → CUT_NEXT_LABEL). Nunca toca el pill de Simetric
-  // (fuente independiente, con su propio corte).
+  // recibido", "vigentes desde", "días operativos transcurridos", el nombre del mes en
+  // curso, etc.) para que siempre reflejen CUT_DATE/window.__META, sin tener que editar el
+  // HTML a mano en cada actualización mensual. Cada frase tiene su propia regla porque un
+  // mismo párrafo puede mezclar "la fecha del corte" (recibido/evaluable/actualizado →
+  // CUT_LABEL) con "el día siguiente al corte" (desde cuándo algo cuenta como futuro →
+  // CUT_NEXT_LABEL). Nunca toca el pill de Simetric (fuente independiente, con su propio
+  // corte, reescrito aparte más abajo) ni el panel de Objetivos Primer Servicio (sigue
+  // atado a un documento de metas con mes propio, mientras no se reciba su actualización).
   const phraseRules=[
     [/(corte evaluable\s*)\d{1,2}\/sep/gi, `$1${CUT_LABEL}`],
     [/(evaluable[s]?\b[^0-9]{0,25})\d{1,2}\/sep/gi, `$1${CUT_LABEL}`],
@@ -692,16 +754,38 @@ function fixCutDateLabels(){
     [/(fecha desde\s*)\d{1,2}\/sep/gi, `$1${CUT_NEXT_LABEL}`],
     [/(operativos transcurridos al\s*)\d{1,2}\/sep/gi, `$1${CUT_LABEL}`],
     [/(fecha\s*[≤<]=?\s*)\d{1,2}\/sep/gi, `$1${CUT_LABEL}`],
-    [/\b\d{1,2}(\s+de\s+26\s+d[ií]as operativos)\b/gi, `${CUT_ELAPSED}$1`],
-    [/(26\s*·\s*)\d{1,2}(\s+transcurridos)/gi, `$1${CUT_ELAPSED}$2`],
+    // "7 de 26 días operativos" -> actualiza transcurridos Y total.
+    [/\d{1,2}(\s+de\s+)\d{1,2}(\s+d[ií]as operativos)\b/gi, `${CUT_ELAPSED}$1${CUT_OPERATIVE_DAYS_TOTAL}$2`],
+    // "26 · 7 transcurridos" (pill de cadencia) -> idem, ambos números.
+    [/\d{1,2}(\s*·\s*)\d{1,2}(\s+transcurridos)/gi, `${CUT_OPERATIVE_DAYS_TOTAL}$1${CUT_ELAPSED}$2`],
     [/(sobre\s+)\d{1,2}(\s+d[ií]as operativos transcurridos)/gi, `$1${CUT_ELAPSED}$2`],
+    // "26 días operativos de septiembre" (nota de referencia lineal) -> total + mes.
+    [/\d{1,2}(\s+d[ií]as operativos de\s+)[A-Za-zñÑ]+/gi, `${CUT_OPERATIVE_DAYS_TOTAL}$1${MONTH_NAME_LOWER}`],
+    // "Proyección 26 días" (chips de tendencia) -> total del mes en curso.
+    [/(Proyección\s*)\d{1,2}(\s*días)/gi, `$1${CUT_OPERATIVE_DAYS_TOTAL}$2`],
+    // "Domingos de septiembre: 6, 13, 20 y 27." -> domingos reales del mes del corte.
+    [/Domingos de [A-Za-zñÑ]+:\s*[\d,\sy]+\./gi, `Domingos de ${MONTH_NAME_LOWER}: ${CUT_SUNDAYS_LABEL}.`],
+    // Nombre del mes en curso, en los tres formatos en que aparece en el HTML estático.
+    [/\bSEPTIEMBRE\b/g, MONTH_NAME_UPPER],
+    [/\bSeptiembre\b/g, MONTH_NAME_CAP],
+    [/\bseptiembre\b/g, MONTH_NAME_LOWER],
   ];
-  document.querySelectorAll('.hint,.sub,.daily-help,.cut-pill,.loss-note,.hist-note,.footer-note,.label,.seg-head p,.table-footer').forEach(el=>{
+  document.querySelectorAll('.hint,.sub,.daily-help,.cut-pill,.loss-note,.hist-note,.footer-note,.label,.seg-head p,.table-footer,.card-title h3,.title p,.bdc-sync-copy b,option,title').forEach(el=>{
     const txt=el.textContent||'';
-    if(/simetric/i.test(txt)) return; // nunca tocar nada del pill/nota de Simetric
+    if(/simetric/i.test(txt)) return; // nunca tocar nada del pill/nota de Simetric (se reescribe aparte)
+    if(/objetivos primer servicio/i.test(txt)) return; // sigue atado al documento de metas, mes propio
     let html=el.innerHTML,out=html;
     phraseRules.forEach(([re,repl])=>{out=out.replace(re,repl)});
     if(out!==html) el.innerHTML=out;
+  });
+  // Pill de Simetric: fuente independiente con su propio corte (window.__META.cutSimetric).
+  // Se reescribe aparte porque el bloque anterior lo excluye a propósito. Se compara el
+  // texto exacto del <b> (no un simple "contiene simetric") para no pisar por error el pill
+  // de "Desfase esperado" (que también menciona a Simetric en su propio texto).
+  document.querySelectorAll('.cut-pill').forEach(el=>{
+    const label=el.querySelector('b');
+    if(!label||label.textContent.trim()!=='Simetric I716') return;
+    el.innerHTML=`<b>Simetric I716</b>Corte ${CUT_SIMETRIC_DAY}/${CUT_SIMETRIC_MONTH_LABEL}/${CUT_YEAR} · información de ${MONTH_NAME_LOWER} al corte`;
   });
 }
 const fmt=v=>Number(v||0).toLocaleString('es-MX');
@@ -849,7 +933,7 @@ function renderObjectives(){
   $('objectiveAgencies').innerHTML=`<div class="metric-scroll"><table class="objective-table"><thead><tr><th>CVE</th><th>Agencia referencia</th><th>Sin 1er Serv.</th><th>Antecedente BDC</th><th>Actual</th><th>Objetivo</th><th>Obj. VIN</th><th>Faltan</th></tr></thead><tbody>${agencyRows}</tbody></table></div>`;
 }
 
-function render(){const rows=filtered();const hist=rows.filter(r=>norm(r['Estatus monitoreo'])==='Perdido histórico').length;const citas=rows.filter(r=>yes(r['Tiene cita vigente'])).length,fu=rows.filter(r=>norm(r['Estatus monitoreo']).startsWith('Cita futura')).length,sh=rows.filter(r=>norm(r['Estatus monitoreo'])==='Show').length,ns=rows.filter(r=>norm(r['Estatus monitoreo'])==='No Show').length,due=sh+ns,miss=rows.filter(r=>norm(r['Estatus monitoreo'])==='Sin cita programada').length,lost=rows.filter(r=>norm(r['Estatus monitoreo'])==='Perdido').length,svc=rows.filter(r=>norm(r['Estatus monitoreo'])==='Servicio sin cita').length,reb=rows.filter(r=>yes(r['No Show reagendado'])).length,rebd=rows.filter(r=>yes(r['Reagendamiento cumplido'])).length,offer=rows.filter(r=>yes(r['Tiene oferta comercial'])).length;const uv=universeDisplay($('fUniverse').value);$('kFiltered').textContent=rows.length.toLocaleString('es-MX');const scope=[norm($('fRegion').value),norm($('fAgency').value)].filter(Boolean).join(' · ');$('kFilteredSub').textContent=`${uv.label} · ${uv.note} · ${rows.length.toLocaleString('es-MX')} VIN después de filtros${scope?' · '+scope:''}`;$('kOffer').textContent=offer;$('kOfferSub').textContent=`${pct(offer,rows.length)} de los casos filtrados`;$('kCitas').textContent=citas;$('kCitasSub').textContent=`${pct(citas,rows.length)} de los casos filtrados`;$('kFuture').textContent=fu;$('kDue').textContent=due;$('kShow').textContent=sh;$('kShowSub').textContent=`Show rate al corte: ${pct(sh,due)}`;$('kNoShow').textContent=ns;$('kNoShowSub').textContent=`${pct(ns,due)} de citas evaluables`;$('kRebook').textContent=reb;$('kRebookDone').textContent=rebd;$('kMissing').textContent=miss;$('kMissingSub').textContent=`${pct(miss,rows.length)} de los casos filtrados`;$('kLost').textContent=lost;$('kLostSub').textContent=`${pct(lost,rows.length)} de la base filtrada · sólo septiembre`;$('kSvc').textContent=svc;renderFunnel(rows,{citas,fu,due,sh,ns,miss,lost,svc,hist});renderSource(rows);renderDaily(rows);renderGrouped(rows,'Agencia objetivo','agencyTable',18);renderGrouped(rows,'Región objetivo','regionTable',10);renderGrouped(rows,'Modelo corto','modelTable',15);renderContactAgency(rows);renderAgent(rows);renderLoss(rows);renderObjectives();renderOps(rows);renderTaller(rows)}
+function render(){const rows=filtered();const hist=rows.filter(r=>norm(r['Estatus monitoreo'])==='Perdido histórico').length;const citas=rows.filter(r=>yes(r['Tiene cita vigente'])).length,fu=rows.filter(r=>norm(r['Estatus monitoreo']).startsWith('Cita futura')).length,sh=rows.filter(r=>norm(r['Estatus monitoreo'])==='Show').length,ns=rows.filter(r=>norm(r['Estatus monitoreo'])==='No Show').length,due=sh+ns,miss=rows.filter(r=>norm(r['Estatus monitoreo'])==='Sin cita programada').length,lost=rows.filter(r=>norm(r['Estatus monitoreo'])==='Perdido').length,svc=rows.filter(r=>norm(r['Estatus monitoreo'])==='Servicio sin cita').length,reb=rows.filter(r=>yes(r['No Show reagendado'])).length,rebd=rows.filter(r=>yes(r['Reagendamiento cumplido'])).length,offer=rows.filter(r=>yes(r['Tiene oferta comercial'])).length;const uv=universeDisplay($('fUniverse').value);$('kFiltered').textContent=rows.length.toLocaleString('es-MX');const scope=[norm($('fRegion').value),norm($('fAgency').value)].filter(Boolean).join(' · ');$('kFilteredSub').textContent=`${uv.label} · ${uv.note} · ${rows.length.toLocaleString('es-MX')} VIN después de filtros${scope?' · '+scope:''}`;$('kOffer').textContent=offer;$('kOfferSub').textContent=`${pct(offer,rows.length)} de los casos filtrados`;$('kCitas').textContent=citas;$('kCitasSub').textContent=`${pct(citas,rows.length)} de los casos filtrados`;$('kFuture').textContent=fu;$('kDue').textContent=due;$('kShow').textContent=sh;$('kShowSub').textContent=`Show rate al corte: ${pct(sh,due)}`;$('kNoShow').textContent=ns;$('kNoShowSub').textContent=`${pct(ns,due)} de citas evaluables`;$('kRebook').textContent=reb;$('kRebookDone').textContent=rebd;$('kMissing').textContent=miss;$('kMissingSub').textContent=`${pct(miss,rows.length)} de los casos filtrados`;$('kLost').textContent=lost;$('kLostSub').textContent=`${pct(lost,rows.length)} de la base filtrada · sólo ${MONTH_NAME_LOWER}`;$('kSvc').textContent=svc;renderFunnel(rows,{citas,fu,due,sh,ns,miss,lost,svc,hist});renderSource(rows);renderDaily(rows);renderGrouped(rows,'Agencia objetivo','agencyTable',18);renderGrouped(rows,'Región objetivo','regionTable',10);renderGrouped(rows,'Modelo corto','modelTable',15);renderContactAgency(rows);renderAgent(rows);renderLoss(rows);renderObjectives();renderOps(rows);renderTaller(rows)}
 function renderFunnel(rows,m){const stages=[['Casos filtrados',rows.length,'#3276d2'],['Citas totales',m.citas,'#16a6a1'],['Citas al corte',m.due,'#8A6F55'],['Shows',m.sh,'#35a854'],['Sin cita programada',m.miss,'#c8102e'],['Perdidos Sep',m.lost,'#8157b7'],['Históricos Ene–Ago',m.hist||0,'#8b95a5']];const max=Math.max(1,rows.length);$('funnel').innerHTML=stages.map(([l,v,c])=>`<div class="frow"><label>${l}</label><div class="track"><div class="fill" style="width:${Math.max(1,100*v/max)}%;background:${c}">${v?esc(v):''}</div></div><div class="fval">${v} · ${pct(v,max)}</div></div>`).join('');const target=rows.length*(7/26),ratio=target?100*m.sh/target:0;$('linearTxt').textContent=`${m.sh} / ${target.toFixed(1)} · ${ratio.toFixed(0)}%`;$('linearBar').style.width=Math.min(100,ratio)+'%';$('linearBar').style.background=ratio>=100?'#35a854':ratio>=80?'#f0c419':ratio>=50?'#f3a712':'#c8102e'}
 function renderSource(rows){const arr=countBy(rows.filter(r=>yes(r['Tiene cita vigente'])),'Fuente cita');const total=arr.reduce((s,x)=>s+x[1],0);$('sourceTable').innerHTML=`<div class="metric-scroll"><table class="metric-table"><thead><tr><th>Fuente</th><th>Citas</th><th>Shows</th><th>% cita</th><th>% Show</th></tr></thead><tbody>${arr.map(([k,v])=>{const rr=rows.filter(r=>yes(r['Tiene cita vigente'])&&(norm(r['Fuente cita'])||'Sin dato')===k),sh=rr.filter(r=>norm(r['Estatus monitoreo'])==='Show').length,due=rr.filter(r=>['Show','No Show'].includes(norm(r['Estatus monitoreo']))).length;return `<tr><td>${esc(k==='None'?'Sin usuario':k)}</td><td>${v}</td><td>${sh}</td><td>${pct(v,total)}</td><td>${pct(sh,due)}</td></tr>`}).join('')}</tbody><tfoot><tr><td>TOTAL</td><td>${total}</td><td>${rows.filter(r=>norm(r['Estatus monitoreo'])==='Show').length}</td><td>100%</td><td>${pct(rows.filter(r=>norm(r['Estatus monitoreo'])==='Show').length,rows.filter(r=>['Show','No Show'].includes(norm(r['Estatus monitoreo']))).length)}</td></tr></tfoot></table></div>`}
 function renderDaily(rows){
@@ -863,24 +947,24 @@ function renderDaily(rows){
  $('dFuture').textContent=totals.future;$('dShow').textContent=totals.show;$('dNoShow').textContent=closed.noshow;$('dRate').textContent=pct(closed.show,closed.show+closed.noshow);$('dAvg').textContent=dailyAvg?`${dailyAvg.toFixed(1)}/día operativo`:'—';$('dProjection').textContent=dailyAvg?`${Math.round(projection).toLocaleString('es-MX')} citas / 26 días`:'—';
  const svg=$('dailyChart'),W=900,H=250,padL=34,padR=10,padT=28,padB=28,plotH=H-padT-padB,plotW=W-padL-padR,bw=plotW/30,bottom=padT+plotH,max=Math.max(1,dailyAvg,...days.map(d=>by[d].total));let out='';
  for(let g=0;g<=4;g++){const y=padT+plotH*g/4;out+=`<line x1="${padL}" y1="${y}" x2="${W-padR}" y2="${y}" stroke="#e8edf2"/><text x="2" y="${y+3}" class="axis-label">${Math.round(max*(1-g/4))}</text>`}
- days.forEach((day,i)=>{const v=by[day],x0=padL+i*bw+1,barW=Math.max(2,bw-3),isClosed=day<=cutDay,showH=v.show/max*plotH,otherVal=isClosed?v.noshow:v.future,otherH=otherVal/max*plotH,showY=bottom-showH,otherY=bottom-showH-otherH,totalY=bottom-(v.total/max*plotH);const title=isClosed?`${day} de septiembre · Citas ${v.total} · Shows ${v.show} · No Shows ${v.noshow} · Show ${v.show+v.noshow?pct(v.show,v.show+v.noshow):'—'}`:`${day} de septiembre · Citas ${v.total} · Shows registrados ${v.show} · Pendientes ${v.future}`;out+=`<g><title>${title}</title>`;if(v.show)out+=`<rect x="${x0}" y="${showY}" width="${barW}" height="${showH}" rx="2" fill="#4F7660"/>`;if(isClosed&&v.noshow)out+=`<rect x="${x0}" y="${otherY}" width="${barW}" height="${otherH}" rx="2" fill="#D4D0C8"/>`;if(!isClosed&&v.future)out+=`<rect x="${x0}" y="${otherY}" width="${barW}" height="${otherH}" rx="2" fill="#7897A8" opacity=".9"/>`;if(v.total)out+=`<text x="${x0+barW/2}" y="${Math.max(11,totalY-5)}" text-anchor="middle" class="bar-label" fill="#475467">${v.total}</text>`;if(v.show&&showH>12)out+=`<text x="${x0+barW/2}" y="${showY+showH/2+3}" text-anchor="middle" style="font-size:8px;font-weight:900;fill:#fff">${v.show}</text>`;if(otherVal&&otherH>12)out+=`<text x="${x0+barW/2}" y="${otherY+otherH/2+3}" text-anchor="middle" style="font-size:8px;font-weight:900;fill:${isClosed?'#5f5b55':'#fff'}">${otherVal}</text>`;out+='</g>';if(day===1||day%2===0||day===30)out+=`<text x="${x0+bw/2-1}" y="${H-8}" text-anchor="middle" class="axis-label">${day}</text>`});
+ days.forEach((day,i)=>{const v=by[day],x0=padL+i*bw+1,barW=Math.max(2,bw-3),isClosed=day<=cutDay,showH=v.show/max*plotH,otherVal=isClosed?v.noshow:v.future,otherH=otherVal/max*plotH,showY=bottom-showH,otherY=bottom-showH-otherH,totalY=bottom-(v.total/max*plotH);const title=isClosed?`${day} de ${MONTH_NAME_LOWER} · Citas ${v.total} · Shows ${v.show} · No Shows ${v.noshow} · Show ${v.show+v.noshow?pct(v.show,v.show+v.noshow):'—'}`:`${day} de ${MONTH_NAME_LOWER} · Citas ${v.total} · Shows registrados ${v.show} · Pendientes ${v.future}`;out+=`<g><title>${title}</title>`;if(v.show)out+=`<rect x="${x0}" y="${showY}" width="${barW}" height="${showH}" rx="2" fill="#4F7660"/>`;if(isClosed&&v.noshow)out+=`<rect x="${x0}" y="${otherY}" width="${barW}" height="${otherH}" rx="2" fill="#D4D0C8"/>`;if(!isClosed&&v.future)out+=`<rect x="${x0}" y="${otherY}" width="${barW}" height="${otherH}" rx="2" fill="#7897A8" opacity=".9"/>`;if(v.total)out+=`<text x="${x0+barW/2}" y="${Math.max(11,totalY-5)}" text-anchor="middle" class="bar-label" fill="#475467">${v.total}</text>`;if(v.show&&showH>12)out+=`<text x="${x0+barW/2}" y="${showY+showH/2+3}" text-anchor="middle" style="font-size:8px;font-weight:900;fill:#fff">${v.show}</text>`;if(otherVal&&otherH>12)out+=`<text x="${x0+barW/2}" y="${otherY+otherH/2+3}" text-anchor="middle" style="font-size:8px;font-weight:900;fill:${isClosed?'#5f5b55':'#fff'}">${otherVal}</text>`;out+='</g>';if(day===1||day%2===0||day===30)out+=`<text x="${x0+bw/2-1}" y="${H-8}" text-anchor="middle" class="axis-label">${day}</text>`});
  if(dailyAvg>0){const y=bottom-dailyAvg/max*plotH;out+=`<line x1="${padL}" y1="${y}" x2="${W-padR}" y2="${y}" stroke="#9B7B45" stroke-width="1.5" stroke-dasharray="6 5"/><text x="${W-padR-4}" y="${Math.max(12,y-5)}" text-anchor="end" class="axis-label" fill="#80663d">Prom. ${dailyAvg.toFixed(1)}/día</text>`}
  const cutX=padL+cutDay*bw;out+=`<line x1="${cutX}" y1="${padT}" x2="${cutX}" y2="${bottom}" stroke="#9e3c4b" stroke-width="1.3" stroke-dasharray="4 4"/><text x="${cutX+4}" y="${padT+10}" class="axis-label" fill="#8d3442">Corte evaluable ${cutDay}/sep</text>`;svg.innerHTML=out;
 }
 function renderGrouped(rows,key,id,limit){const arr=countBy(rows,key).slice(0,limit);const body=arr.map(([k,n])=>{const rr=rows.filter(r=>(norm(r[key])||'Sin dato')===k),c=rr.filter(r=>yes(r['Tiene cita vigente'])).length,sh=rr.filter(r=>norm(r['Estatus monitoreo'])==='Show').length,due=rr.filter(r=>['Show','No Show'].includes(norm(r['Estatus monitoreo']))).length,l=rr.filter(r=>norm(r['Estatus monitoreo'])==='Perdido').length;return `<tr><td>${esc(k)}</td><td>${n}</td><td>${c}</td><td>${sh}</td><td>${l}</td><td>${pct(c,n)}</td><td>${pct(sh,due)}</td></tr>`}).join('');$(id).innerHTML=`<div class="metric-scroll"><table class="metric-table"><thead><tr><th>${key.includes('Agencia')?'Agencia':key.includes('Región')?'Región':'Modelo'}</th><th>VIN</th><th>Citas</th><th>Shows</th><th>Perd.</th><th>% cita</th><th>% Show</th></tr></thead><tbody>${body}</tbody></table></div>`}
 function renderContactAgency(rows){
   const key=r=>norm(r['Agencia objetivo'])||'Sin dato';
+  const campo='Último estatus mes anterior';
   const groups=[...new Set(rows.map(key))].map(a=>[a,rows.filter(r=>key(r)===a)]).sort((a,b)=>b[1].length-a[1].length);
-  const hasContact=r=>Boolean(norm(r['Último estatus mes anterior']));
   const body=groups.map(([a,rr])=>{
-    const con=rr.filter(hasContact).length,sin=rr.length-con;
-    return `<tr><td>${esc(a)}</td><td>${rr.length}</td><td>${con}</td><td>${sin}</td><td>${pct(con,rr.length)}</td></tr>`;
+    const s=contactSummary(rr,campo);
+    return `<tr><td>${esc(a)}</td><td>${rr.length}</td><td>${s.contactable}</td><td>${s.contactados}</td><td>${pct(s.contactados,s.contactable)}</td><td>${s.ia}</td><td>${s.humano}</td></tr>`;
   }).join('');
-  const totalCon=rows.filter(hasContact).length;
-  $('contactAgencyTable').innerHTML=`<div class="metric-scroll"><table class="metric-table"><thead><tr><th>Agencia</th><th>Universo</th><th>Con intento válido</th><th>Sin intento</th><th>% con intento</th></tr></thead><tbody>${body||'<tr><td colspan="5">Sin datos en el filtro actual.</td></tr>'}</tbody><tfoot><tr><td>TOTAL</td><td>${rows.length}</td><td>${totalCon}</td><td>${rows.length-totalCon}</td><td>${pct(totalCon,rows.length)}</td></tr></tfoot></table></div>`;
+  const t=contactSummary(rows,campo);
+  $('contactAgencyTable').innerHTML=`<div class="metric-scroll"><table class="metric-table"><thead><tr><th>Agencia</th><th>Universo</th><th>Contactable</th><th>Contactados</th><th>% Contacto</th><th>Cita IA</th><th>Cita Asist. Humana</th></tr></thead><tbody>${body||'<tr><td colspan="7">Sin datos en el filtro actual.</td></tr>'}</tbody><tfoot><tr><td>TOTAL</td><td>${rows.length}</td><td>${t.contactable}</td><td>${t.contactados}</td><td>${pct(t.contactados,t.contactable)}</td><td>${t.ia}</td><td>${t.humano}</td></tr></tfoot></table></div>`;
 }
 function renderAgent(rows){const agentName=r=>norm(r['Ejecutivo Contact Center'])||norm(r['Nombre agente'])||'SIN ASIGNAR';const agents=[...new Set(rows.map(agentName))].map(a=>[a,rows.filter(r=>agentName(r)===a)]).sort((a,b)=>b[1].length-a[1].length);$('agentTable').innerHTML=`<div class="metric-scroll"><table class="metric-table"><thead><tr><th>Ejecutivo</th><th>Asignados</th><th>Citas</th><th>Shows</th><th>No Shows</th><th>Perd.</th><th>% cita/asig.</th><th>% show/cita</th><th>% show/asig.</th></tr></thead><tbody>${agents.map(([a,rr])=>{const c=rr.filter(r=>yes(r['Tiene cita vigente'])).length,s=rr.filter(r=>norm(r['Estatus monitoreo'])==='Show').length,n=rr.filter(r=>norm(r['Estatus monitoreo'])==='No Show').length,l=rr.filter(r=>norm(r['Estatus monitoreo'])==='Perdido').length;return `<tr><td>${esc(a)}</td><td>${rr.length}</td><td>${c}</td><td>${s}</td><td>${n}</td><td>${l}</td><td>${pct(c,rr.length)}</td><td>${pct(s,s+n)}</td><td>${pct(s,rr.length)}</td></tr>`}).join('')}</tbody></table></div>`}
-function renderLoss(rows){const lost=rows.filter(r=>norm(r['Estatus monitoreo'])==='Perdido'),histExcluded=DATA.filter(r=>yes(r['Cliente perdido histórico'])).length;$('lossImpact').innerHTML=`<div class="metric-scroll"><table class="metric-table"><tbody><tr><td>Detalle operativo activo</td><td>${rows.length}</td></tr><tr><td>Perdidos nuevos septiembre</td><td><b>${lost.length}</b></td></tr><tr><td>% sobre detalle activo</td><td><b>${pct(lost.length,rows.length)}</b></td></tr><tr><td>Históricos Ene–Ago excluidos del detalle</td><td><b>${histExcluded}</b></td></tr></tbody></table></div>`;const arr=countBy(lost,'Motivo perdido homologado');$('lossReasons').innerHTML=`<div class="metric-scroll"><table class="metric-table"><thead><tr><th>Motivo homologado</th><th>VIN</th><th>%</th></tr></thead><tbody>${arr.map(([k,n])=>`<tr><td>${esc(k)}</td><td>${n}</td><td>${pct(n,lost.length)}</td></tr>`).join('')||'<tr><td colspan="3">Sin pérdidas nuevas en el filtro actual.</td></tr>'}</tbody></table></div>`}
+function renderLoss(rows){const lost=rows.filter(r=>norm(r['Estatus monitoreo'])==='Perdido'),histExcluded=DATA.filter(r=>yes(r['Cliente perdido histórico'])).length;$('lossImpact').innerHTML=`<div class="metric-scroll"><table class="metric-table"><tbody><tr><td>Detalle operativo activo</td><td>${rows.length}</td></tr><tr><td>Perdidos nuevos ${MONTH_NAME_LOWER}</td><td><b>${lost.length}</b></td></tr><tr><td>% sobre detalle activo</td><td><b>${pct(lost.length,rows.length)}</b></td></tr><tr><td>Históricos Ene–Ago excluidos del detalle</td><td><b>${histExcluded}</b></td></tr></tbody></table></div>`;const arr=countBy(lost,'Motivo perdido homologado');$('lossReasons').innerHTML=`<div class="metric-scroll"><table class="metric-table"><thead><tr><th>Motivo homologado</th><th>VIN</th><th>%</th></tr></thead><tbody>${arr.map(([k,n])=>`<tr><td>${esc(k)}</td><td>${n}</td><td>${pct(n,lost.length)}</td></tr>`).join('')||'<tr><td colspan="3">Sin pérdidas nuevas en el filtro actual.</td></tr>'}</tbody></table></div>`}
 function renderOps(rows){const tableRows=quick==='all'?rows:rows.filter(r=>norm(r['Estatus monitoreo'])===quick);const show=tableRows.slice(0,250);$('opsBody').innerHTML=show.map(r=>`<tr><td><span class="badge ${norm(r['Origen universo'])==='MARCA'?'red':'blue'}">${esc(r['Origen universo'])}</span></td><td>${esc(r['Región objetivo'])}</td><td>${esc(r['Agencia objetivo'])}</td><td title="${esc(r.Cliente)}">${esc(r.Cliente)}</td><td>${esc(r.VIN)}</td><td>${esc(r['Modelo corto'])}</td><td>${esc(r['APV Quiter RCN'])}</td><td>${esc(r['Teléfono 1'])}</td><td>${esc(r['Teléfono 2'])}</td><td>${esc(r['Teléfono 3'])}</td><td>${esc(r['Correo contacto'])}</td><td>${r['Oferta comercial']?`<span class="offer-pill ${num(r['Núm. ofertas comerciales'])>1?'offer-multi':''}">${esc(r['Oferta comercial'])}</span>`:'<span class="offer-pill offer-none">Sin oferta</span>'}</td><td>${esc(r['Fecha cita'])}</td><td>${esc(r['Cumplimiento Quiter'])}</td><td>${esc(r['Fuente cita']==='None'?'Sin usuario':r['Fuente cita'])}</td><td>${esc(r['Modalidad cita'])}</td><td>${esc(r['No Show reagendado'])}</td><td>${esc(r['Nombre agente'])}</td><td>${esc(r['Agencia cita'])}</td><td>${esc(r['Fecha OR'])}</td><td>${esc(r['Número OT'])}</td><td>${badge(r['Estatus monitoreo'])}</td><td>${esc(r.Perdido)}</td><td>${esc(r['Motivo perdido homologado'])}</td><td title="${esc(r['Comentario origen perdido'])}">${esc(r['Comentario origen perdido'])}</td><td title="${esc(r['Último comentario agencia'])}">${esc(r['Último comentario agencia'])}</td><td>${esc(r['Servicio sin cita'])}</td><td>${esc(r['Fecha servicio sin cita'])}</td><td>${esc(r['Trabajado antes Universo Marca'])}</td><td>${esc(r['Cliente perdido histórico'])}</td></tr>`).join('');$('rowCount').textContent=`${tableRows.length.toLocaleString('es-MX')} VIN en la vista de tabla · ${show.length} mostrados`}
 function renderTaller(rows){const map=new Map(rows.map(r=>[norm(r.VIN),r])),all=TALLER_DATA.filter(t=>map.has(norm(t.VIN)));const final=s=>['TERMINADO','CERRADA','ENTREGADO'].some(x=>norm(s).toUpperCase().startsWith(x));const open=all.filter(t=>!final(t['Status actual']));const cita=all.filter(t=>yes(map.get(norm(t.VIN))?.['Tiene cita vigente'])),show=all.filter(t=>norm(map.get(norm(t.VIN))?.['Estatus monitoreo'])==='Show');$('tAll').textContent=all.length;$('tOpen').textContent=open.length;$('tCita').textContent=cita.length;$('tShow').textContent=show.length;$('tNoCita').textContent=all.length-cita.length;const statuses=[...new Set(all.map(t=>norm(t['Status actual'])).filter(Boolean))].sort();const sel=$('tStatus'),cur=sel.value;sel.innerHTML='<option value="">Todos los estatus</option>'+statuses.map(s=>`<option>${esc(s)}</option>`).join('');if(statuses.includes(cur))sel.value=cur;const f=sel.value?all.filter(t=>norm(t['Status actual'])===sel.value):all;const body=f.map(t=>{const r=map.get(norm(t.VIN))||{};return `<tr><td>${esc(r['Región objetivo'])}</td><td>${esc(r['Agencia objetivo'])}</td><td>${esc(t.Taller)}</td><td>${esc(r.Cliente||t['Cliente OR'])}</td><td>${esc(t.VIN)}</td><td>${esc(r['Modelo corto'])}</td><td>${esc(t['Status actual'])}</td><td>${yes(r['Tiene cita vigente'])?'Sí':'No'}</td><td>${norm(r['Estatus monitoreo'])==='Show'?'Sí':'No'}</td></tr>`}).join('');$('tallerTable').innerHTML=`<div class="metric-scroll"><table class="metric-table"><thead><tr><th>Región</th><th>Agencia PS</th><th>Taller actual</th><th>Cliente</th><th>VIN</th><th>Modelo</th><th>Status</th><th>Cita</th><th>Show</th></tr></thead><tbody>${body}</tbody></table></div>`}
 
@@ -1010,10 +1094,10 @@ function generateAgencyGoogleSheet(){
 }
 
 function csvDownload(rows,fields,name){const q=v=>'"'+String(v??'').replace(/"/g,'""')+'"',txt='﻿'+fields.join(',')+'\n'+rows.map(r=>fields.map(f=>q(r[f])).join(',')).join('\n'),blob=new Blob([txt],{type:'text/csv;charset=utf-8'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000)}
-function exportMain(){const rows=filtered(),fields=['Origen universo','Región objetivo','Agencia objetivo','Cliente','VIN','Modelo corto','APV Quiter RCN','Teléfono 1','Teléfono 2','Teléfono 3','Correo contacto','Oferta comercial','Tiene oferta comercial','Núm. ofertas comerciales','Fecha cita','Cumplimiento Quiter','Fuente cita','Estatus monitoreo','Fecha OR','Número OT','Perdido','Motivo perdido homologado','Comentario origen perdido','Servicio sin cita','Trabajado antes Universo Marca','Cliente perdido histórico'];csvDownload(rows,fields,'primer_servicio_septiembre_2026_filtro.csv')}
+function exportMain(){const rows=filtered(),fields=['Origen universo','Región objetivo','Agencia objetivo','Cliente','VIN','Modelo corto','APV Quiter RCN','Teléfono 1','Teléfono 2','Teléfono 3','Correo contacto','Oferta comercial','Tiene oferta comercial','Núm. ofertas comerciales','Fecha cita','Cumplimiento Quiter','Fuente cita','Estatus monitoreo','Fecha OR','Número OT','Perdido','Motivo perdido homologado','Comentario origen perdido','Servicio sin cita','Trabajado antes Universo Marca','Cliente perdido histórico'];csvDownload(rows,fields,'primer_servicio_'+MONTH_NAME_LOWER+'_2026_filtro.csv')}
 $('tStatus').addEventListener('change',()=>renderTaller(filtered()));$('tReset').onclick=()=>{$('tStatus').value='';renderTaller(filtered())};
 // Gestión CC
-function initG(){setOptions('gRegion',[...new Set(WORKED_DATA.map(r=>norm(r.Región)))]);setOptions('gAgency',[...new Set(WORKED_DATA.map(r=>norm(r.Agencia)))]);setOptions('gExec',[...new Set(WORKED_DATA.map(r=>norm(r.Ejecutivo)).filter(Boolean))]);setOptions('gStatus',[...new Set(WORKED_DATA.map(r=>norm(r['Estatus homologado'])).filter(Boolean))]);setOptions('gSub',[...new Set(WORKED_DATA.map(r=>norm(r.Subestatus)).filter(Boolean))]);['gRegion','gAgency','gExec','gStatus','gSub'].forEach(id=>$(id).addEventListener('change',renderG));$('gSearch').addEventListener('input',renderG);$('gResetBtn').onclick=()=>{['gRegion','gAgency','gExec','gStatus','gSub'].forEach(id=>$(id).value='');$('gSearch').value='';renderG()};$('gExportBtn').onclick=()=>{const rows=gFiltered(),fields=['Origen histórico','Región','Agencia','Cliente','VIN','Oferta comercial','Ejecutivo','Fecha contacto','Estatus','Estatus homologado','Subestatus','Comentarios','Cita Quiter','Fecha cita','Concretada','Fecha OR','Orden de Trabajo'];csvDownload(rows,fields,'gestion_contact_center_septiembre_2026.csv')}}
+function initG(){setOptions('gRegion',[...new Set(WORKED_DATA.map(r=>norm(r.Región)))]);setOptions('gAgency',[...new Set(WORKED_DATA.map(r=>norm(r.Agencia)))]);setOptions('gExec',[...new Set(WORKED_DATA.map(r=>norm(r.Ejecutivo)).filter(Boolean))]);setOptions('gStatus',[...new Set(WORKED_DATA.map(r=>norm(r['Estatus homologado'])).filter(Boolean))]);setOptions('gSub',[...new Set(WORKED_DATA.map(r=>norm(r.Subestatus)).filter(Boolean))]);['gRegion','gAgency','gExec','gStatus','gSub'].forEach(id=>$(id).addEventListener('change',renderG));$('gSearch').addEventListener('input',renderG);$('gResetBtn').onclick=()=>{['gRegion','gAgency','gExec','gStatus','gSub'].forEach(id=>$(id).value='');$('gSearch').value='';renderG()};$('gExportBtn').onclick=()=>{const rows=gFiltered(),fields=['Origen histórico','Región','Agencia','Cliente','VIN','Oferta comercial','Ejecutivo','Fecha contacto','Estatus','Estatus homologado','Subestatus','Comentarios','Cita Quiter','Fecha cita','Concretada','Fecha OR','Orden de Trabajo'];csvDownload(rows,fields,'gestion_contact_center_'+MONTH_NAME_LOWER+'_2026.csv')}}
 function gFiltered(){const r=$('gRegion').value,a=$('gAgency').value,e=$('gExec').value,s=$('gStatus').value,u=$('gSub').value,q=norm($('gSearch').value).toLowerCase();return WORKED_DATA.filter(x=>(!r||norm(x.Región)===r)&&(!a||norm(x.Agencia)===a)&&(!e||norm(x.Ejecutivo)===e)&&(!s||norm(x['Estatus homologado'])===s)&&(!u||norm(x.Subestatus)===u)&&(!q||[x.Cliente,x.VIN].some(v=>norm(v).toLowerCase().includes(q))))}
 function barList(id,arr,total){const max=Math.max(1,...arr.map(x=>x[1]));$(id).innerHTML=arr.slice(0,15).map(([k,n])=>`<div class="status-row"><span title="${esc(k)}">${esc(k)}</span><div class="status-track"><div class="status-fill" style="width:${100*n/max}%"></div></div><b>${n}</b><span>${pct(n,total)}</span></div>`).join('')}
 function renderG(){const rows=gFiltered(),st=k=>rows.filter(r=>norm(r['Estatus homologado'])===k).length;$('gKUniverse').textContent=rows.length;$('gKAttempts').textContent=st('Intentos de contacto');$('gKInterest').textContent=st('Interesado actual')+st('Interesado futuro');$('gKCita').textContent=st('Con cita reportada');$('gKService').textContent=st('Servicio realizado');$('gKLost').textContent=st('Cliente perdido');barList('gStatusBars',countBy(rows,'Estatus homologado'),rows.length);barList('gSubBars',countBy(rows,'Subestatus'),rows.length);const ex=countBy(rows,'Ejecutivo').slice(0,20);$('gExecTable').innerHTML=`<div class="metric-scroll"><table class="metric-table"><thead><tr><th>Ejecutivo</th><th>VIN</th><th>Cita</th><th>Servicio</th></tr></thead><tbody>${ex.map(([k,n])=>{const rr=rows.filter(r=>(norm(r.Ejecutivo)||'Sin dato')===k);return `<tr><td>${esc(k)}</td><td>${n}</td><td>${rr.filter(r=>norm(r['Estatus homologado'])==='Con cita reportada').length}</td><td>${rr.filter(r=>norm(r['Estatus homologado'])==='Servicio realizado').length}</td></tr>`}).join('')}</tbody></table></div>`;$('gBody').innerHTML=rows.slice(0,300).map(r=>`<tr><td>${esc(r.Región)}</td><td>${esc(r.Agencia)}</td><td>${esc(r.Cliente)}</td><td>${esc(r.VIN)}</td><td>${esc(r.Ejecutivo)}</td><td>${esc(r['Fecha contacto'])}</td><td>${esc(r.Estatus)}</td><td>${esc(r.Subestatus)}</td><td title="${esc(r.Comentarios)}">${esc(r.Comentarios)}</td><td title="${esc(r['Último comentario agencia'])}">${esc(r['Último comentario agencia'])}</td><td>${esc(r['Cita Quiter'])}</td><td>${esc(r['Fecha cita'])}</td><td>${esc(r.Concretada)}</td><td>${esc(r['Fecha OR'])}</td><td>${esc(r['Orden de Trabajo'])}</td></tr>`).join('');$('gCount').textContent=`${rows.length} registros · ${Math.min(rows.length,300)} mostrados`}
@@ -1261,7 +1345,7 @@ function buildCitasStackChartSVG(by,avgPerDay){
   days.forEach((day,i)=>{
     const v=by[day],x0=padL+i*bw+1,barW=Math.max(2,bw-3),total=v.conc+v.fut;
     const concH=v.conc/max*plotH,futH=v.fut/max*plotH,concY=bottom-concH,futY=concY-futH,totalY=bottom-(total/max*plotH);
-    const title=`${day} de septiembre · Concretadas ${v.conc} · Futuras programadas ${v.fut} · Total ${total}`;
+    const title=`${day} de ${MONTH_NAME_LOWER} · Concretadas ${v.conc} · Futuras programadas ${v.fut} · Total ${total}`;
     const haloCss='paint-order:stroke;stroke:rgba(0,0,0,.55);stroke-width:2.5px;stroke-linejoin:round;';
     out+=`<g><title>${title}</title>`;
     if(v.conc)out+=`<rect x="${x0}" y="${concY}" width="${barW}" height="${concH}" rx="2" fill="#4F7660"/>`;
@@ -1311,10 +1395,10 @@ function renderSegMonitoreo(key){
 function renderSegContacto(key,arr){
   const target=segEl(key,'ContactoTable');
   if(!target)return;
-  const hasContact=r=>norm(r['Histórico BDC · Estatus'])!=='';
+  const campo='Histórico BDC · Estatus';
   const byAg=[...new Set(arr.map(r=>norm(r['Agencia'])||'SIN AGENCIA'))].map(a=>[a,arr.filter(r=>(norm(r['Agencia'])||'SIN AGENCIA')===a)]).sort((a,b)=>b[1].length-a[1].length);
-  const totalC=arr.filter(hasContact).length,totalN=arr.length-totalC;
-  target.innerHTML=`<div class="metric-scroll"><table class="metric-table"><thead><tr><th>Agencia</th><th>VIN</th><th>Con intento</th><th>Sin intento</th><th>% contacto</th></tr></thead><tbody>${byAg.map(([a,rr])=>{const c=rr.filter(hasContact).length;return `<tr><td>${esc(a)}</td><td>${fmt(rr.length)}</td><td>${fmt(c)}</td><td>${fmt(rr.length-c)}</td><td>${pct(c,rr.length)}</td></tr>`}).join('')||'<tr><td colspan="5" style="text-align:center;color:#98a2b3">Sin registros con los filtros actuales.</td></tr>'}</tbody><tfoot><tr><td>TOTAL</td><td>${fmt(arr.length)}</td><td>${fmt(totalC)}</td><td>${fmt(totalN)}</td><td>${pct(totalC,arr.length)}</td></tr></tfoot></table></div>`;
+  const t=contactSummary(arr,campo);
+  target.innerHTML=`<div class="metric-scroll"><table class="metric-table"><thead><tr><th>Agencia</th><th>VIN</th><th>Contactable</th><th>Contactados</th><th>% Contacto</th><th>Cita IA</th><th>Cita Asist. Humana</th></tr></thead><tbody>${byAg.map(([a,rr])=>{const s=contactSummary(rr,campo);return `<tr><td>${esc(a)}</td><td>${fmt(rr.length)}</td><td>${fmt(s.contactable)}</td><td>${fmt(s.contactados)}</td><td>${pct(s.contactados,s.contactable)}</td><td>${fmt(s.ia)}</td><td>${fmt(s.humano)}</td></tr>`}).join('')||'<tr><td colspan="7" style="text-align:center;color:#98a2b3">Sin registros con los filtros actuales.</td></tr>'}</tbody><tfoot><tr><td>TOTAL</td><td>${fmt(arr.length)}</td><td>${fmt(t.contactable)}</td><td>${fmt(t.contactados)}</td><td>${pct(t.contactados,t.contactable)}</td><td>${fmt(t.ia)}</td><td>${fmt(t.humano)}</td></tr></tfoot></table></div>`;
 }
 function renderSegFunnel(key,m){
   const stages=[['Universo del segmento',m.total,'#3276d2'],['Pendientes BDC',m.pending,'#c8102e'],['Sin cita',m.noCita,'#f3a712'],['No Shows',m.noShow,'#e08a8a'],['Cita futura',m.future,'#35a854'],['Shows',m.show,'#178a43'],['Con oferta',m.offer,'#8157b7']];
@@ -1365,7 +1449,7 @@ function renderSegment(key,forcePendingDefault=false){
 function exportSegment(key){
   const arr=filteredSegment(key);
   const fields=["Ciclo operativo","Resultado cita","Usuario cita U13","Segmento","Mes","Región","Agencia origen","Cve","CSA","Cliente","VIN","Modelo sin versión","Versión","Año vehículo","Tipo venta","APV","Teléfono móvil / principal","Teléfono casa / alterno","Correo electrónico","Agencia última visita OR tipo 3","Fecha factura","Fecha último servicio","Último kilometraje registrado","Medio de contacto preferente","Cantidad VIN relacionados","Último estatus mes anterior","Condición","Garantía","Oferta comercial","Validación registro","Ejecutivo BDC","Estatus gestión BDC","Subestatus BDC","Comentario BDC","Fecha cita BDC","Histórico BDC · Ejecutivo","Histórico BDC · Fecha","Histórico BDC · Estatus","Histórico BDC · Subestatus","Histórico BDC · Comentario"];
-  csvDownload(arr,fields,'BDC_POSTVENTA_'+key.toUpperCase()+'_SEPTIEMBRE_2026.csv');
+  csvDownload(arr,fields,'BDC_POSTVENTA_'+key.toUpperCase()+'_'+MONTH_NAME_UPPER+'_2026.csv');
 }
 
 const RT_KEYS=['Perdidos','Riesgos','Retenidos','Leales'];
@@ -1503,10 +1587,10 @@ function renderRTFunnel(m){
 function renderRTContacto(arr){
   const target=rtEl('ContactoTable');
   if(!target)return;
-  const hasContact=r=>norm(r['Histórico BDC · Estatus'])!=='';
+  const campo='Histórico BDC · Estatus';
   const byAg=[...new Set(arr.map(r=>norm(r['Agencia'])||'SIN AGENCIA'))].map(a=>[a,arr.filter(r=>(norm(r['Agencia'])||'SIN AGENCIA')===a)]).sort((a,b)=>b[1].length-a[1].length);
-  const totalC=arr.filter(hasContact).length,totalN=arr.length-totalC;
-  target.innerHTML=`<div class="metric-scroll"><table class="metric-table"><thead><tr><th>Agencia</th><th>VIN</th><th>Con intento</th><th>Sin intento</th><th>% contacto</th></tr></thead><tbody>${byAg.map(([a,rr])=>{const c=rr.filter(hasContact).length;return `<tr><td>${esc(a)}</td><td>${fmt(rr.length)}</td><td>${fmt(c)}</td><td>${fmt(rr.length-c)}</td><td>${pct(c,rr.length)}</td></tr>`}).join('')||'<tr><td colspan="5" style="text-align:center;color:#98a2b3">Sin registros con los filtros actuales.</td></tr>'}</tbody><tfoot><tr><td>TOTAL</td><td>${fmt(arr.length)}</td><td>${fmt(totalC)}</td><td>${fmt(totalN)}</td><td>${pct(totalC,arr.length)}</td></tr></tfoot></table></div>`;
+  const t=contactSummary(arr,campo);
+  target.innerHTML=`<div class="metric-scroll"><table class="metric-table"><thead><tr><th>Agencia</th><th>VIN</th><th>Contactable</th><th>Contactados</th><th>% Contacto</th><th>Cita IA</th><th>Cita Asist. Humana</th></tr></thead><tbody>${byAg.map(([a,rr])=>{const s=contactSummary(rr,campo);return `<tr><td>${esc(a)}</td><td>${fmt(rr.length)}</td><td>${fmt(s.contactable)}</td><td>${fmt(s.contactados)}</td><td>${pct(s.contactados,s.contactable)}</td><td>${fmt(s.ia)}</td><td>${fmt(s.humano)}</td></tr>`}).join('')||'<tr><td colspan="7" style="text-align:center;color:#98a2b3">Sin registros con los filtros actuales.</td></tr>'}</tbody><tfoot><tr><td>TOTAL</td><td>${fmt(arr.length)}</td><td>${fmt(t.contactable)}</td><td>${fmt(t.contactados)}</td><td>${pct(t.contactados,t.contactable)}</td><td>${fmt(t.ia)}</td><td>${fmt(t.humano)}</td></tr></tfoot></table></div>`;
 }
 function renderRTGrouped(arr,field,id,label,limit){
   const groups=[...new Set(arr.map(r=>norm(r[field])||'Sin dato'))].map(k=>[k,arr.filter(r=>(norm(r[field])||'Sin dato')===k)]).sort((a,b)=>b[1].length-a[1].length).slice(0,limit||30);
@@ -1567,7 +1651,7 @@ function renderRT(forcePendingDefault=false){
 function exportRT(){
   const arr=filteredRT();
   const fields=["Base","Ciclo operativo","Resultado cita","Usuario cita U13","Mes","Región","Agencia origen","Cve","CSA","Cliente","VIN","Modelo sin versión","Versión","Año vehículo","Tipo venta","APV","Teléfono móvil / principal","Teléfono casa / alterno","Correo electrónico","Agencia última visita OR tipo 3","Fecha factura","Fecha último servicio","Último kilometraje registrado","Medio de contacto preferente","Cantidad VIN relacionados","Último estatus mes anterior","Condición","Garantía","Oferta comercial","Validación registro","Ejecutivo BDC","Estatus gestión BDC","Subestatus BDC","Comentario BDC","Fecha cita BDC","Histórico BDC · Ejecutivo","Histórico BDC · Fecha","Histórico BDC · Estatus","Histórico BDC · Subestatus","Histórico BDC · Comentario"];
-  csvDownload(arr,fields,'BDC_POSTVENTA_RETENCION_TOTAL_SEPTIEMBRE_2026.csv');
+  csvDownload(arr,fields,'BDC_POSTVENTA_RETENCION_TOTAL_'+MONTH_NAME_UPPER+'_2026.csv');
 }
 function initTabs(){document.querySelectorAll('.tab-btn').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('.tab-btn').forEach(x=>x.classList.toggle('active',x===b));document.querySelectorAll('.tab-pane').forEach(p=>p.classList.toggle('active',p.id===b.dataset.tab));if(b.dataset.tab==='tabHistoricos')renderHist();if(b.dataset.tab==='tabCitas')renderCitas();if(b.dataset.tab==='tabSegPerdidos')initSegment('Perdidos');if(b.dataset.tab==='tabSegRiesgos')initSegment('Riesgos');if(b.dataset.tab==='tabSegRetenidos')initSegment('Retenidos');if(b.dataset.tab==='tabSegLeales')initSegment('Leales');if(b.dataset.tab==='tabNoShows')renderNoShows();if(b.dataset.tab==='tabRanking')initRanking();if(b.dataset.tab==='tabRetencionTotal')initRT()}))}
 
@@ -1684,7 +1768,7 @@ function renderCitasChart(rows){
  const bw=cw/days.length*.72,step=cw/days.length;let out='';
  [0,.25,.5,.75,1].forEach(fr=>{const y=m.t+ch*(1-fr),v=Math.round(max*fr);out+=`<line x1="${m.l}" x2="${W-m.r}" y1="${y}" y2="${y}" stroke="#e5eaf1"/><text x="${m.l-5}" y="${y+3}" text-anchor="end" class="axis-label">${v}</text>`});
  const avgY=m.t+ch*(1-avg/max);out+=`<line x1="${m.l}" x2="${W-m.r}" y1="${avgY}" y2="${avgY}" stroke="#9B7B45" stroke-width="1.5" stroke-dasharray="6 4"/><text x="${W-m.r-2}" y="${Math.max(12,avgY-4)}" text-anchor="end" class="axis-label">Prom. ${avg.toFixed(1)}/día</text>`;
- days.forEach((d,i)=>{const x=m.l+i*step+(step-bw)/2;let y=m.t+ch;const v=by[d],tot=v.show+v.ns+v.fut+v.cancel;const title=`${d} de septiembre · Citas ${tot} · Shows ${v.show} · No Shows ${v.ns} · Pendientes/futuras ${v.fut} · Canceladas ${v.cancel}`;out+=`<g><title>${title}</title>`;[['fut','#7897A8','#fff',true],['ns','#D4D0C8','#5f5b55',false],['show','#4F7660','#fff',true],['cancel','#c9a1a1','#5f4040',false]].forEach(([k,col,txtCol,halo])=>{const h=ch*v[k]/max;if(h>0){y-=h;out+=`<rect x="${x}" y="${y}" width="${bw}" height="${h}" fill="${col}" rx="2"/>`;if(h>13){const haloCss=halo?'paint-order:stroke;stroke:rgba(0,0,0,.55);stroke-width:2.5px;stroke-linejoin:round;':'';out+=`<text x="${x+bw/2}" y="${y+h/2+3}" text-anchor="middle" style="font-size:9px;font-weight:900;fill:${txtCol};${haloCss}">${v[k]}</text>`}}});if(tot)out+=`<text x="${x+bw/2}" y="${Math.max(10,y-3)}" text-anchor="middle" class="bar-label">${tot}</text>`;out+='</g>';if(d===1||d%2===0||d===30)out+=`<text x="${x+bw/2}" y="${H-10}" text-anchor="middle" class="axis-label">${d}</text>`});
+ days.forEach((d,i)=>{const x=m.l+i*step+(step-bw)/2;let y=m.t+ch;const v=by[d],tot=v.show+v.ns+v.fut+v.cancel;const title=`${d} de ${MONTH_NAME_LOWER} · Citas ${tot} · Shows ${v.show} · No Shows ${v.ns} · Pendientes/futuras ${v.fut} · Canceladas ${v.cancel}`;out+=`<g><title>${title}</title>`;[['fut','#7897A8','#fff',true],['ns','#D4D0C8','#5f5b55',false],['show','#4F7660','#fff',true],['cancel','#c9a1a1','#5f4040',false]].forEach(([k,col,txtCol,halo])=>{const h=ch*v[k]/max;if(h>0){y-=h;out+=`<rect x="${x}" y="${y}" width="${bw}" height="${h}" fill="${col}" rx="2"/>`;if(h>13){const haloCss=halo?'paint-order:stroke;stroke:rgba(0,0,0,.55);stroke-width:2.5px;stroke-linejoin:round;':'';out+=`<text x="${x+bw/2}" y="${y+h/2+3}" text-anchor="middle" style="font-size:9px;font-weight:900;fill:${txtCol};${haloCss}">${v[k]}</text>`}}});if(tot)out+=`<text x="${x+bw/2}" y="${Math.max(10,y-3)}" text-anchor="middle" class="bar-label">${tot}</text>`;out+='</g>';if(d===1||d%2===0||d===30)out+=`<text x="${x+bw/2}" y="${H-10}" text-anchor="middle" class="axis-label">${d}</text>`});
  const cutX=m.l+(cutDay-0.5)*step;out+=`<line x1="${cutX}" x2="${cutX}" y1="${m.t}" y2="${m.t+ch}" stroke="#c8102e" stroke-width="1" stroke-dasharray="5 4"/><text x="${cutX+4}" y="${m.t+10}" class="axis-label" fill="#9b1c2e">Corte evaluable ${cutDay}/sep</text>`;
  svg.innerHTML=out;
  const sh=rows.filter(r=>norm(r.Clasificación)==='Show').length,ns=rows.filter(r=>norm(r.Clasificación)==='No Show').length,fut=rows.filter(r=>norm(r.Clasificación)==='Cita futura').length,cancel=rows.filter(r=>norm(r.Clasificación)==='Cancelada').length;
@@ -1705,7 +1789,7 @@ function initCitas(){
  ['cRegion','cTaller','cType','cClass','cSegmento','cUser','cYear','cModel'].forEach(id=>$(id).addEventListener('change',renderCitas));
  $('cSearch').addEventListener('input',renderCitas);
  $('cReset').onclick=()=>{['cRegion','cTaller','cType','cClass','cSegmento','cUser','cYear','cModel'].forEach(id=>$(id).value='');$('cSearch').value='';renderCitas()};
- $('cExport').onclick=()=>{const rows=citasFiltered().map(r=>({...r,'Agencia / taller':citasAgencyLabel(r),'Tipo de cita':citasType(r),'Segmento':citasSegmento(r)})),fields=['Región','Agencia / taller','Taller Quiter','Referencia','Tipo de cita','Clasificación','Segmento','Fecha cita','Cumplimiento','Estado cita','Cliente','VIN','Modelo','Año unidad','Usuario','Teléfono','Correo','Des. avería','Fecha apertura OR','Tipo OR','Estado OR'];csvDownload(rows,fields,'citas_totales_u13_septiembre_2026.csv')};
+ $('cExport').onclick=()=>{const rows=citasFiltered().map(r=>({...r,'Agencia / taller':citasAgencyLabel(r),'Tipo de cita':citasType(r),'Segmento':citasSegmento(r)})),fields=['Región','Agencia / taller','Taller Quiter','Referencia','Tipo de cita','Clasificación','Segmento','Fecha cita','Cumplimiento','Estado cita','Cliente','VIN','Modelo','Año unidad','Usuario','Teléfono','Correo','Des. avería','Fecha apertura OR','Tipo OR','Estado OR'];csvDownload(rows,fields,'citas_totales_u13_'+MONTH_NAME_LOWER+'_2026.csv')};
  renderCitas();
 }
 initFilters();initTabs();initHist();initCitas();updateSheetAgencyStatus();render();fixCutDateLabels();
@@ -1801,12 +1885,13 @@ function renderNoShows(){
     const reagendados=items.filter(x=>REAGENDADO_BUCKETS.has(x.res.bucket)).length;
     const gestion=items.map(x=>VIN_GESTION_MAP.get(norm(x.r.VIN))).filter(Boolean);
     const enBase=gestion.length;
+    const contactable=gestion.filter(g=>g.contactable).length;
     const conContacto=gestion.filter(g=>g.contacto).length;
-    return `<tr><td style="text-align:left">${esc(label)}</td><td>${total}</td><td>${conVin}</td><td>${reagendados}</td><td><b>${pct(reagendados,conVin)}</b></td><td>${enBase}</td><td>${enBase?pct(conContacto,enBase):'—'}</td></tr>`;
+    return `<tr><td style="text-align:left">${esc(label)}</td><td>${total}</td><td>${conVin}</td><td>${reagendados}</td><td><b>${pct(reagendados,conVin)}</b></td><td>${enBase}</td><td>${contactable?pct(conContacto,contactable):'—'}</td></tr>`;
   };
   const agencyBody=agencyGroups.map(([a,items])=>agencyRow(a,items)).join('');
   const agencyTotal=agencyRow('TOTAL',resolved);
-  $('nsAgencyPctTable').innerHTML=`<div class="metric-scroll"><table class="metric-table"><thead><tr><th>${groupLabel}</th><th>No Shows (total, con o sin VIN)</th><th>Con VIN rastreable</th><th>Reagendados</th><th>% Reagendamiento</th><th>En base BDC</th><th>% Contacto (preliminar)</th></tr></thead><tbody>${agencyBody}</tbody><tfoot>${agencyTotal}</tfoot></table></div>`;
+  $('nsAgencyPctTable').innerHTML=`<div class="metric-scroll"><table class="metric-table"><thead><tr><th>${groupLabel}</th><th>No Shows (total, con o sin VIN)</th><th>Con VIN rastreable</th><th>Reagendados</th><th>% Reagendamiento</th><th>En base BDC</th><th>% Contacto</th></tr></thead><tbody>${agencyBody}</tbody><tfoot>${agencyTotal}</tfoot></table></div>`;
 
   // por tipo
   const tipoRows=NS_CAT_ORDER.map(c=>{
