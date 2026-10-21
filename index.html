@@ -7,6 +7,7 @@
 .main{min-width:0}.universe-strip{display:grid;grid-template-columns:repeat(7,minmax(110px,1fr));gap:8px;margin-bottom:10px}.u-card{padding:11px 10px;position:relative;overflow:hidden}.u-card:before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--accent,var(--blue))}.u-card .ulab{font-size:8.8px;font-weight:900;color:#475467;text-transform:uppercase;letter-spacing:.25px}.u-card .uval{font-size:24px;font-weight:900;margin-top:5px}.u-card .usub{font-size:8.3px;color:var(--muted);line-height:1.3;margin-top:3px}.u-card.selected{outline:2px solid var(--navy);outline-offset:-2px}.reference-note{grid-column:1/-1;background:#fff9ec;border:1px solid #f5d493;border-radius:10px;padding:8px 10px;font-size:9.2px;line-height:1.45;color:#805b00}.reference-note b{color:#5e4300}
 .kpis{display:grid;grid-template-columns:repeat(6,minmax(125px,1fr));gap:8px}.kpi{padding:12px 11px;min-height:104px;position:relative;overflow:hidden}.kpi:before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--accent,var(--blue))}.kpi .icon{font-size:17px}.kpi .label{font-size:9.3px;font-weight:900;color:#344054;margin-top:4px}.kpi .value{font-size:25px;font-weight:900;margin-top:5px;letter-spacing:-.8px}.kpi .sub{font-size:8.7px;color:var(--muted);margin-top:4px;line-height:1.3}.kpi.good{--accent:var(--green)}.kpi.red{--accent:var(--red)}.kpi.amber{--accent:var(--amber)}.kpi.purple{--accent:var(--purple)}.kpi.teal{--accent:var(--teal)}.kpi.gray{--accent:#9aa4b2}
 .grid2{display:grid;grid-template-columns:1.15fr .85fr;gap:12px;margin-top:12px}.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-top:12px}.card{padding:13px}.card-title{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px}.card-title h3{font-size:12px;margin:0;color:var(--navy);letter-spacing:.2px}.hint{font-size:9px;color:var(--muted)}
+.efunnel-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px;margin-top:4px}.efunnel-card{background:var(--card);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);padding:16px 16px 12px;display:flex;flex-direction:column;align-items:center}.efunnel-card h4{margin:0 0 10px;font-size:12.5px;color:var(--navy);align-self:flex-start}.efunnel-card svg{display:block;max-width:100%;height:auto}.ef-num{font-size:21px;font-weight:900;letter-spacing:-.4px;fill:#fff;font-family:Inter,Segoe UI,Roboto,Arial,sans-serif}.ef-lbl{font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:.3px;fill:#fff;opacity:.92;font-family:Inter,Segoe UI,Roboto,Arial,sans-serif}.ef-pct{font-size:10px;font-weight:800;fill:#344054;font-family:Inter,Segoe UI,Roboto,Arial,sans-serif}@media(max-width:900px){.efunnel-grid{grid-template-columns:1fr}}
 .funnel{display:grid;gap:7px}.frow{display:grid;grid-template-columns:155px 1fr 74px;gap:9px;align-items:center}.frow label{font-size:10px;color:#344054}.track{height:23px;background:#eef2f7;border-radius:8px;overflow:hidden}.fill{height:100%;display:flex;align-items:center;padding-left:8px;color:white;font-size:9px;font-weight:900;border-radius:8px;min-width:2px}.fval{text-align:right;font-size:10.5px;font-weight:900}.progress-wrap{margin-top:10px}.progress-label{display:flex;justify-content:space-between;font-size:9.5px;margin-bottom:5px}.progress{height:11px;border-radius:20px;background:#edf1f7;overflow:hidden}.progress>div{height:100%;border-radius:20px;background:var(--red)}
 .metric-scroll{max-height:315px;overflow:auto;border:1px solid #edf0f4;border-radius:9px}.metric-table{width:100%;border-collapse:separate;border-spacing:0;font-size:9.2px}.metric-table th{position:sticky;top:0;z-index:2;background:#f3f6fa;color:#475467;padding:7px 6px;text-align:right;border-bottom:1px solid #dfe5ec;white-space:nowrap}.metric-table td{padding:7px 6px;text-align:right;border-bottom:1px solid #eef2f6;white-space:nowrap}.metric-table th:first-child,.metric-table td:first-child{text-align:left}.metric-table tfoot td{font-weight:900;background:#f8fafc}.metric-table tbody tr:hover td{background:#fafcff}.sort-th{cursor:pointer}
 .chart-legend{display:flex;gap:15px;font-size:9.5px;color:#475467;margin-bottom:7px;flex-wrap:wrap}.chart-legend span{display:inline-flex;align-items:center;gap:5px}.sq{width:9px;height:9px;border-radius:2px;display:inline-block}.svg-chart{width:100%;height:250px;display:block}.axis-label{font-size:9px;fill:#667085}.bar-label{font-size:8px;font-weight:900;paint-order:stroke;stroke:#fff;stroke-width:2px}.daily-help{font-size:8.5px;color:#667085;margin-top:5px}
@@ -109,7 +110,7 @@
 </style></head>
 <body><div class="app">
 <header class="topbar"><div class="topbar-inner"><div class="brand"><div class="logo">A</div><div class="title"><h1>MONITOREO POSTVENTA BDC</h1><p>Septiembre 2026 · Primer Servicio + Retención · Seguimiento por VIN y citas Quiter</p></div></div><div class="cut-info"><div class="cut-pill"><b>Quiter U13 / U10</b>Archivo 09/sep · evaluable al 08/sep</div><div class="cut-pill"><b>Simetric I716</b>Corte 03/oct/2026 · septiembre completo</div><div class="cut-pill warn" style="display:none"><b>Desfase esperado</b>Simetric: 3 días</div><div class="cut-pill updated"><b>Última actualización</b>09/sep/2026</div><div class="cut-pill cadence"><b>Días operativos septiembre</b>26 · 7 transcurridos</div></div></div></header>
-<nav class="tab-nav"><button class="tab-btn active" data-tab="tabSeguimiento">1. Primer Servicio</button><button class="tab-btn" data-tab="tabHistoricos">2. Descartados (Perdidos) Ene-Ago</button><button class="tab-btn" data-tab="tabCitas">3. Citas totales</button><button class="tab-btn" data-tab="tabSegPerdidos">4. Perdidos</button><button class="tab-btn" data-tab="tabSegRiesgos">5. En riesgo</button><button class="tab-btn" data-tab="tabSegRetenidos">6. Retenidos</button><button class="tab-btn" data-tab="tabSegLeales">7. Leales</button><button class="tab-btn" data-tab="tabNoShows">8. No Shows</button><button class="tab-btn" data-tab="tabRanking">9. Ranking Ejecutivos</button><button class="tab-btn" data-tab="tabRetencionTotal">10. Retención Total</button></nav>
+<nav class="tab-nav"><button class="tab-btn active" data-tab="tabSeguimiento">1. Primer Servicio</button><button class="tab-btn" data-tab="tabHistoricos">2. Descartados (Perdidos) Ene-Sep</button><button class="tab-btn" data-tab="tabCitas">3. Citas totales</button><button class="tab-btn" data-tab="tabSegPerdidos">4. Perdidos</button><button class="tab-btn" data-tab="tabSegRiesgos">5. En riesgo</button><button class="tab-btn" data-tab="tabSegRetenidos">6. Retenidos</button><button class="tab-btn" data-tab="tabSegLeales">7. Leales</button><button class="tab-btn" data-tab="tabNoShows">8. No Shows</button><button class="tab-btn" data-tab="tabRanking">9. Ranking Ejecutivos</button><button class="tab-btn" data-tab="tabRetencionTotal">10. Retención Total</button><button class="tab-btn" data-tab="tabEmbudo">11. Embudo Comercial</button></nav>
 <div class="bdc-sync-strip" style="display:none">
   <div class="bdc-sync-copy">
     <b>BDC POSTVENTA · SEPTIEMBRE 2026 · v12.10.0 GitHub</b>
@@ -188,20 +189,20 @@ confirmarse cuando la fuente distinga el tipo de línea.</div>
 
 
 <section id="tabHistoricos" class="tab-pane"><div class="hist-page">
-<div class="hist-note"><b>Descartados (Perdidos) enero–agosto:</b> se consolidan <b>1,340 registros mensuales en 1,143 VIN únicos</b>. Hay información directa de enero, marzo, abril, mayo, junio, julio y agosto; febrero no cuenta con una base separada y sus posibles casos permanecen identificados en el mes fuente en el que fueron registrados. Estos VIN se excluyen de las hojas operativas activas y se conservan aquí para trazabilidad.</div>
+<div class="hist-note"><b>Descartados (Perdidos) enero–Sep.:</b> se consolidan <b>425 registros en 423 VIN únicos</b>. Hay información directa de enero, marzo, abril, mayo, junio, julio, agosto y, desde el corte 21/oct, Sep.; febrero no cuenta con una base separada y sus posibles casos permanecen identificados en el mes fuente en el que fueron registrados. Estos VIN se excluyen de las hojas operativas activas y se conservan aquí para trazabilidad.</div>
 <section class="hist-kpis">
-<div class="hist-kpi panel red"><div class="label">VIN históricos únicos</div><div class="value">1,143</div><div class="sub">Llave principal: VIN.</div></div>
-<div class="hist-kpi panel"><div class="label">Registros mensuales fuente</div><div class="value">1,340</div><div class="sub">Un VIN puede aparecer en más de un mes.</div></div>
-<div class="hist-kpi panel"><div class="label">Meses con base directa</div><div class="value">7</div><div class="sub">Ene, Mar, Abr, May, Jun, Jul y Ago.</div></div>
+<div class="hist-kpi panel red"><div class="label">VIN históricos únicos</div><div class="value">423</div><div class="sub">Llave principal: VIN.</div></div>
+<div class="hist-kpi panel"><div class="label">Registros fuente</div><div class="value">425</div><div class="sub">Un VIN puede aparecer en más de un mes.</div></div>
+<div class="hist-kpi panel"><div class="label">Meses con base directa</div><div class="value">8</div><div class="sub">Ene, Mar, Abr, May, Jun, Jul, Ago y Sep.</div></div>
 <div class="hist-kpi panel green"><div class="label">Con oferta validada</div><div class="value" id="hWithOffer">4</div><div class="sub">Conserva la validación previa del tablero.</div></div>
-<div class="hist-kpi panel amber"><div class="label">Sin oferta validada</div><div class="value" id="hWithoutOffer">1,052</div><div class="sub">Dentro de los 1,143 VIN históricos únicos.</div></div>
+<div class="hist-kpi panel amber"><div class="label">Sin oferta validada</div><div class="value" id="hWithoutOffer">1,052</div><div class="sub">Dentro de los 423 VIN históricos únicos.</div></div>
 </section>
 <section class="panel card" style="margin-top:12px">
 <div class="card-title"><h3>🔎 PRINCIPALES MOTIVOS DE DESCARTE (PERDIDOS)</h3><span class="hint">Da clic en una barra para filtrar la tabla de abajo por ese motivo · clic de nuevo para quitar el filtro</span></div>
 <div id="hMotivosChart"></div>
 </section>
 <div class="panel card" style="margin-top:12px">
-<div class="card-title"><h3>DESCARTADOS (PERDIDOS) ENERO–AGOSTO · 1,143 VIN ÚNICOS</h3><span class="hint">Filtros por año, modelo, motivo y oferta</span></div>
+<div class="card-title"><h3>DESCARTADOS (PERDIDOS) ENERO–SEP · 423 VIN ÚNICOS</h3><span class="hint">Filtros por año, modelo, motivo y oferta</span></div>
 <div class="hist-filters">
 <div><label>Región</label><select id="hRegion"></select></div>
 <div><label>Agencia</label><select id="hAgency"></select></div>
@@ -212,7 +213,7 @@ confirmarse cuando la fuente distinga el tipo de línea.</div>
 <div><label>Buscar cliente / VIN</label><input id="hSearch" placeholder="Cliente, VIN o comentario"></div>
 <button class="btn primary" id="hExport">⬇ Exportar detalle visible</button><button class="btn ghost" id="hReset" style="color:#17365D;border:1px solid #cfd9e5">↺ Limpiar</button>
 </div>
-<div class="table-wrap" style="max-height:560px"><table class="hist-table"><thead><tr><th>Origen histórico</th><th>Región</th><th>Agencia</th><th>Cliente</th><th>VIN</th><th>Año</th><th>Modelo</th><th>Mes(es) pérdida</th><th>Primera pérdida</th><th>Última pérdida</th><th>Motivo perdido</th><th>Comentario origen</th><th>Teléfono</th><th>Correo</th><th>Oferta comercial</th><th>N registros</th></tr></thead><tbody id="hBody"></tbody></table></div><div class="table-footer"><span id="hCount"></span><span>Total consolidado: 1,143 VIN únicos / 1,340 registros mensuales.</span></div>
+<div class="table-wrap" style="max-height:560px"><table class="hist-table"><thead><tr><th>Origen histórico</th><th>Región</th><th>Agencia</th><th>Cliente</th><th>VIN</th><th>Año</th><th>Modelo</th><th>Mes(es) pérdida</th><th>Primera pérdida</th><th>Última pérdida</th><th>Motivo perdido</th><th>Comentario origen</th><th>Teléfono</th><th>Correo</th><th>Oferta comercial</th><th>N registros</th></tr></thead><tbody id="hBody"></tbody></table></div><div class="table-footer"><span id="hCount"></span><span>Total consolidado: 423 VIN únicos / 425 registros (incluye Sep. desde el corte 21/oct).</span></div>
 </div></div></section>
 
 <section id="tabCitas" class="tab-pane"><div class="hist-page citas-page">
@@ -599,6 +600,12 @@ confirmarse cuando la fuente distinga el tipo de línea.</div>
   </div>
 </div></section>
 
+<section id="tabEmbudo" class="tab-pane"><div class="hist-page">
+<div class="seg-head"><div><h2>Embudo Comercial · Octubre 2026</h2><p>Leads → Citas → Concretadas, por base. Corte evaluable al 20/oct/2026, igual que el resto del tablero.</p></div></div>
+<div class="hist-note"><b>Cómo se define cada etapa:</b> <b>Leads</b> = universo total de la base (se haya o no contactado). <b>Citas</b> = VIN distintos con una cita agendada o concretada en octubre. <b>Concretadas</b> = VIN distintos con servicio realizado en octubre. Esta pestaña reutiliza los datos que ya existen en el tablero (no es una fuente nueva). <b>STN</b> todavía no se incluye: su universo vive en hojas del Maestro (STN / BI_VALIDA_STN / BI_STN_COLOCACION) que aún no están conectadas a este pipeline.</div>
+<div class="efunnel-grid" id="embudoWrap"></div>
+</div></section>
+
 </div>
 
 <script src="./data_primer_servicio.js"></script>
@@ -617,6 +624,7 @@ confirmarse cuando la fuente distinga el tipo de línea.</div>
 <script src="./data_bdc_leales_03.js"></script>
 <script src="./data_ranking_ejecutivos.js"></script>
 <script src="./data_citas_segmento.js"></script>
+<script src="./data_embudo.js"></script>
 <script src="./data_meta.js"></script>
 <script>
 const DATA=window.__DATA;
@@ -1653,7 +1661,46 @@ function exportRT(){
   const fields=["Base","Ciclo operativo","Resultado cita","Usuario cita U13","Mes","Región","Agencia origen","Cve","CSA","Cliente","VIN","Modelo sin versión","Versión","Año vehículo","Tipo venta","APV","Teléfono móvil / principal","Teléfono casa / alterno","Correo electrónico","Agencia última visita OR tipo 3","Fecha factura","Fecha último servicio","Último kilometraje registrado","Medio de contacto preferente","Cantidad VIN relacionados","Último estatus mes anterior","Condición","Garantía","Oferta comercial","Validación registro","Ejecutivo BDC","Estatus gestión BDC","Subestatus BDC","Comentario BDC","Fecha cita BDC","Histórico BDC · Ejecutivo","Histórico BDC · Fecha","Histórico BDC · Estatus","Histórico BDC · Subestatus","Histórico BDC · Comentario"];
   csvDownload(arr,fields,'BDC_POSTVENTA_RETENCION_TOTAL_'+MONTH_NAME_UPPER+'_2026.csv');
 }
-function initTabs(){document.querySelectorAll('.tab-btn').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('.tab-btn').forEach(x=>x.classList.toggle('active',x===b));document.querySelectorAll('.tab-pane').forEach(p=>p.classList.toggle('active',p.id===b.dataset.tab));if(b.dataset.tab==='tabHistoricos')renderHist();if(b.dataset.tab==='tabCitas')renderCitas();if(b.dataset.tab==='tabSegPerdidos')initSegment('Perdidos');if(b.dataset.tab==='tabSegRiesgos')initSegment('Riesgos');if(b.dataset.tab==='tabSegRetenidos')initSegment('Retenidos');if(b.dataset.tab==='tabSegLeales')initSegment('Leales');if(b.dataset.tab==='tabNoShows')renderNoShows();if(b.dataset.tab==='tabRanking')initRanking();if(b.dataset.tab==='tabRetencionTotal')initRT()}))}
+function initTabs(){document.querySelectorAll('.tab-btn').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('.tab-btn').forEach(x=>x.classList.toggle('active',x===b));document.querySelectorAll('.tab-pane').forEach(p=>p.classList.toggle('active',p.id===b.dataset.tab));if(b.dataset.tab==='tabHistoricos')renderHist();if(b.dataset.tab==='tabCitas')renderCitas();if(b.dataset.tab==='tabSegPerdidos')initSegment('Perdidos');if(b.dataset.tab==='tabSegRiesgos')initSegment('Riesgos');if(b.dataset.tab==='tabSegRetenidos')initSegment('Retenidos');if(b.dataset.tab==='tabSegLeales')initSegment('Leales');if(b.dataset.tab==='tabNoShows')renderNoShows();if(b.dataset.tab==='tabRanking')initRanking();if(b.dataset.tab==='tabRetencionTotal')initRT();if(b.dataset.tab==='tabEmbudo')renderEmbudo()}))}
+function efmtPct(a,b){return b?((100*a/b).toFixed(1)+'%'):'—'}
+function buildFunnelSVG(vals,labels,colors){
+  const W=260,STAGE_H=74,PCT_GAP=26;
+  const maxV=vals[0]||1;
+  const maxW=W-20,floorFrac=0.4;
+  const scaleW=v=>maxW*floorFrac+maxW*(1-floorFrac)*(v/maxV);
+  const n=vals.length;
+  const svgH=n*STAGE_H+(n-1)*PCT_GAP;
+  const cx=W/2;
+  let parts='',y=0;
+  for(let i=0;i<n;i++){
+    const topW=scaleW(vals[i]);
+    const nextVal=(i<n-1)?vals[i+1]:vals[i]*0.8;
+    const botW=scaleW(nextVal);
+    const x1t=cx-topW/2,x2t=cx+topW/2,x1b=cx-botW/2,x2b=cx+botW/2;
+    const yTop=y,yBot=y+STAGE_H;
+    parts+=`<polygon points="${x1t},${yTop} ${x2t},${yTop} ${x2b},${yBot} ${x1b},${yBot}" fill="${colors[i]}" stroke="#fff" stroke-width="2"/>`;
+    parts+=`<text x="${cx}" y="${yTop+STAGE_H/2-4}" text-anchor="middle" class="ef-num">${fmt(vals[i])}</text>`;
+    parts+=`<text x="${cx}" y="${yTop+STAGE_H/2+13}" text-anchor="middle" class="ef-lbl">${esc(labels[i])}</text>`;
+    y+=STAGE_H;
+    if(i<n-1){
+      const pct=efmtPct(vals[i+1],vals[i]);
+      const pillW=96,pillH=19,pillY=y+PCT_GAP/2-pillH/2;
+      parts+=`<rect x="${cx-pillW/2}" y="${pillY}" width="${pillW}" height="${pillH}" rx="9.5" fill="#eef1f6" stroke="#e3e7ee"/>`;
+      parts+=`<text x="${cx}" y="${pillY+pillH/2+3.5}" text-anchor="middle" class="ef-pct">↓ ${pct}</text>`;
+      y+=PCT_GAP;
+    }
+  }
+  return `<svg width="${W}" height="${svgH}" viewBox="0 0 ${W} ${svgH}">${parts}</svg>`;
+}
+function renderEmbudo(){
+  const rows=window.__EMBUDO||[];
+  const COLORS=['#0a2b61','#3276d2','#16a6a1'];
+  const LABELS=['Leads','Citas','Concretadas'];
+  $('embudoWrap').innerHTML=rows.map(r=>{
+    const svg=buildFunnelSVG([r.Leads,r.Citas,r.Concretadas],LABELS,COLORS);
+    return `<div class="efunnel-card"><h4>${esc(r.Base)}</h4>${svg}</div>`;
+  }).join('');
+}
 
 let rankMonth=null;
 function initRanking(){
