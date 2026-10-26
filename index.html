@@ -749,6 +749,33 @@ const CUT_SIMETRIC_DATE=(window.__META&&window.__META.cutSimetric)||CUT_DATE;
 const CUT_SIMETRIC_DAY=Number(CUT_SIMETRIC_DATE.slice(8,10));
 const CUT_SIMETRIC_MONTH_NUM=Number(CUT_SIMETRIC_DATE.slice(5,7));
 const CUT_SIMETRIC_MONTH_LABEL=({1:'ene',2:'feb',3:'mar',4:'abr',5:'may',6:'jun',7:'jul',8:'ago',9:'sep',10:'oct',11:'nov',12:'dic'})[CUT_SIMETRIC_MONTH_NUM]||'oct';
+// --- Pills informativos del encabezado (Quiter U13/U10, Simetric I716, Última
+// actualización, Días operativos): a petición de Frank (26-oct) quedan DESACOPLADOS
+// del corte real evaluable (CUT_DATE/CUT_ELAPSED, que sigue intacto para TODO lo demás:
+// clasificación Show/No Show/Cita futura, promedios y proyecciones de la pestaña de
+// Citas). "Quiter U13/U10" y "Simetric I716" muestran el día calendario que esas fuentes
+// realmente cubren (normalmente "ayer" respecto a hoy, por cómo se generan esos exports,
+// aunque la última evidencia real -- FEC.APER/FechaApertura -- caiga uno o dos días antes
+// por ser fin de semana u otro día de baja actividad). "Última actualización" y "Días
+// operativos" siempre usan la fecha real de hoy (window.__META.uiToday).
+const MONTH_LABELS_MAP={1:'ene',2:'feb',3:'mar',4:'abr',5:'may',6:'jun',7:'jul',8:'ago',9:'sep',10:'oct',11:'nov',12:'dic'};
+const UI_TODAY_DATE=(window.__META&&window.__META.uiToday)||CUT_DATE;
+const UI_TODAY_YEAR=Number(UI_TODAY_DATE.slice(0,4));
+const UI_TODAY_MONTH_NUM=Number(UI_TODAY_DATE.slice(5,7));
+const UI_TODAY_DAY=Number(UI_TODAY_DATE.slice(8,10));
+const UI_TODAY_MONTH_LABEL=MONTH_LABELS_MAP[UI_TODAY_MONTH_NUM]||'oct';
+const UI_TODAY_LABEL_FULL=String(UI_TODAY_DAY).padStart(2,'0')+'/'+UI_TODAY_MONTH_LABEL+'/'+UI_TODAY_YEAR;
+const UI_TODAY_DAYS_IN_MONTH=new Date(UI_TODAY_YEAR,UI_TODAY_MONTH_NUM,0).getDate();
+const UI_TODAY_SUNDAYS=new Set(Array.from({length:UI_TODAY_DAYS_IN_MONTH},(_,i)=>i+1).filter(d=>new Date(UI_TODAY_YEAR,UI_TODAY_MONTH_NUM-1,d).getDay()===0));
+const UI_TODAY_OPERATIVE_DAYS_TOTAL=UI_TODAY_DAYS_IN_MONTH-UI_TODAY_SUNDAYS.size;
+const UI_TODAY_ELAPSED=Array.from({length:Math.min(UI_TODAY_DAY,UI_TODAY_DAYS_IN_MONTH)},(_,i)=>i+1).filter(d=>!UI_TODAY_SUNDAYS.has(d)).length;
+const UI_YDAY_OBJ=new Date(UI_TODAY_YEAR,UI_TODAY_MONTH_NUM-1,UI_TODAY_DAY-1);
+const UI_YDAY_DAY=UI_YDAY_OBJ.getDate();
+const UI_YDAY_MONTH_NUM=UI_YDAY_OBJ.getMonth()+1;
+const UI_YDAY_YEAR=UI_YDAY_OBJ.getFullYear();
+const UI_YDAY_MONTH_LABEL=MONTH_LABELS_MAP[UI_YDAY_MONTH_NUM]||'oct';
+const UI_QUITER_DISPLAY_LABEL=String(UI_YDAY_DAY).padStart(2,'0')+'/'+UI_YDAY_MONTH_LABEL;
+const UI_SIMETRIC_DISPLAY_DAY=String(UI_YDAY_DAY).padStart(2,'0');
 function fixCutDateLabels(){
   // Reescribe los textos estáticos que mencionan el corte ("corte evaluable", "archivo
   // recibido", "vigentes desde", "días operativos transcurridos", el nombre del mes en
@@ -788,7 +815,7 @@ function fixCutDateLabels(){
     [/\bSeptiembre\b/g, MONTH_NAME_CAP],
     [/\bseptiembre\b/g, MONTH_NAME_LOWER],
   ];
-  document.querySelectorAll('.hint,.sub,.daily-help,.cut-pill,.loss-note,.hist-note,.footer-note,.label,.seg-head p,.table-footer,.card-title h3,.title p,.bdc-sync-copy b,option,title').forEach(el=>{
+  document.querySelectorAll('.hint,.sub,.daily-help,.loss-note,.hist-note,.footer-note,.label,.seg-head p,.table-footer,.card-title h3,.title p,.bdc-sync-copy b,option,title').forEach(el=>{
     const txt=el.textContent||'';
     if(/simetric/i.test(txt)) return; // nunca tocar nada del pill/nota de Simetric (se reescribe aparte)
     if(/objetivos primer servicio/i.test(txt)) return; // sigue atado al documento de metas, mes propio
@@ -796,14 +823,24 @@ function fixCutDateLabels(){
     phraseRules.forEach(([re,repl])=>{out=out.replace(re,repl)});
     if(out!==html) el.innerHTML=out;
   });
-  // Pill de Simetric: fuente independiente con su propio corte (window.__META.cutSimetric).
-  // Se reescribe aparte porque el bloque anterior lo excluye a propósito. Se compara el
-  // texto exacto del <b> (no un simple "contiene simetric") para no pisar por error el pill
-  // de "Desfase esperado" (que también menciona a Simetric en su propio texto).
+  // Pills del encabezado (.cut-pill): cada uno se reescribe por separado comparando el
+  // texto exacto de su <b> -- ya NO pasan por el bloque genérico de arriba (que sigue
+  // atado al corte real evaluable, correcto para el resto del tablero pero no para estos
+  // 4 pills informativos; ver nota junto a las constantes UI_TODAY_*/UI_YDAY_* más arriba).
+  // El pill "Desfase esperado" (oculto, display:none) no tiene regla -- se deja intacto.
   document.querySelectorAll('.cut-pill').forEach(el=>{
     const label=el.querySelector('b');
-    if(!label||label.textContent.trim()!=='Simetric I716') return;
-    el.innerHTML=`<b>Simetric I716</b>Corte ${CUT_SIMETRIC_DAY}/${CUT_SIMETRIC_MONTH_LABEL}/${CUT_YEAR} · información de ${MONTH_NAME_LOWER} al corte`;
+    if(!label) return;
+    const text=label.textContent.trim();
+    if(text==='Quiter U13 / U10'){
+      el.innerHTML=`<b>Quiter U13 / U10</b>Archivo ${UI_QUITER_DISPLAY_LABEL} · evaluable al ${UI_QUITER_DISPLAY_LABEL}`;
+    }else if(text==='Simetric I716'){
+      el.innerHTML=`<b>Simetric I716</b>Corte ${UI_SIMETRIC_DISPLAY_DAY}/${UI_YDAY_MONTH_LABEL}/${UI_YDAY_YEAR} · información de ${MONTH_NAME_LOWER} al corte`;
+    }else if(text==='Última actualización'){
+      el.innerHTML=`<b>Última actualización</b>${UI_TODAY_LABEL_FULL}`;
+    }else if(text.indexOf('Días operativos')===0){
+      el.innerHTML=`<b>Días operativos ${MONTH_NAME_LOWER}</b>${UI_TODAY_OPERATIVE_DAYS_TOTAL} · ${UI_TODAY_ELAPSED} transcurridos`;
+    }
   });
 }
 const fmt=v=>Number(v||0).toLocaleString('es-MX');
