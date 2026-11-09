@@ -110,7 +110,7 @@
 </style></head>
 <body><div class="app">
 <header class="topbar"><div class="topbar-inner"><div class="brand"><div class="logo">A</div><div class="title"><h1>MONITOREO POSTVENTA BDC</h1><p>Septiembre 2026 · Primer Servicio + Retención · Seguimiento por VIN y citas Quiter</p></div></div><div class="cut-info"><div class="cut-pill"><b>Quiter U13 / U10</b>Archivo 09/sep · evaluable al 08/sep</div><div class="cut-pill"><b>Simetric I716</b>Corte 03/oct/2026 · septiembre completo</div><div class="cut-pill warn" style="display:none"><b>Desfase esperado</b>Simetric: 3 días</div><div class="cut-pill updated"><b>Última actualización</b>09/sep/2026</div><div class="cut-pill cadence"><b>Días operativos septiembre</b>26 · 7 transcurridos</div></div></div></header>
-<nav class="tab-nav"><button class="tab-btn active" data-tab="tabSeguimiento">1. Primer Servicio</button><button class="tab-btn" data-tab="tabHistoricos">2. Descartados (validación)</button><button class="tab-btn" data-tab="tabCitas">3. Citas totales</button><button class="tab-btn" data-tab="tabSegPerdidos">4. Perdidos</button><button class="tab-btn" data-tab="tabSegRiesgos">5. En riesgo</button><button class="tab-btn" data-tab="tabSegRetenidos">6. Retenidos</button><button class="tab-btn" data-tab="tabSegLeales">7. Leales</button><button class="tab-btn" data-tab="tabNoShows">8. No Shows</button><button class="tab-btn" data-tab="tabRanking">9. Ranking Ejecutivos</button><button class="tab-btn" data-tab="tabRetencionTotal">10. Retención Total</button><button class="tab-btn" data-tab="tabOperativo">11. Embudo</button></nav>
+<nav class="tab-nav"><button class="tab-btn active" data-tab="tabSeguimiento">1. Primer Servicio</button><button class="tab-btn" data-tab="tabRetencionTotal">2. Retención Total</button><button class="tab-btn" data-tab="tabSegPerdidos">3. Perdidos</button><button class="tab-btn" data-tab="tabSegRiesgos">4. En riesgo</button><button class="tab-btn" data-tab="tabSegRetenidos">5. Retenidos</button><button class="tab-btn" data-tab="tabSegLeales">6. Leales</button><button class="tab-btn" data-tab="tabNoShows">7. No Shows</button><button class="tab-btn" data-tab="tabCitas">8. Citas totales</button><button class="tab-btn" data-tab="tabHistoricos">9. Descartados (validación)</button><button class="tab-btn" data-tab="tabRanking">10. Ranking Ejecutivos</button><button class="tab-btn" data-tab="tabOperativo">11. Embudo</button></nav>
 <div class="bdc-sync-strip" style="display:none">
   <div class="bdc-sync-copy">
     <b>BDC POSTVENTA · SEPTIEMBRE 2026 · v12.10.0 GitHub</b>
@@ -155,8 +155,9 @@ se alimentaba de ningún dato y quedó obsoleto. Nada en el JS depende de que ex
 (la única referencia, el resaltado de selección en línea 916, es inofensiva sobre
 una lista vacía). -->
 <section class="panel card objective-section" style="margin-bottom:12px">
-<div class="card-title"><h3>OBJETIVOS PRIMER SERVICIO · PROVISIONAL (meta oct-2026 reutilizada)</h3><span class="hint">Noviembre aún sin meta oficial propia (suele llegar ~día 5) · % objetivo = el de octubre, aplicado al universo real de noviembre · aplica al universo Marca</span></div>
+<div class="card-title"><h3 id="objectiveSectionTitle">OBJETIVOS PRIMER SERVICIO · PROVISIONAL (meta oct-2026 reutilizada)</h3><span class="hint" id="objectiveSectionHint">Noviembre aún sin meta oficial propia (suele llegar ~día 5) · % objetivo = el de octubre, aplicado al universo real de noviembre · aplica al universo Marca</span></div>
 <div id="objectiveHero"></div>
+<div class="loss-note" id="objectiveGroupNote" style="display:none"></div>
 <div class="objective-grid">
   <div><h4 class="objective-subtitle">REGIONES + GRUPO</h4><div id="objectiveRegions"></div></div>
   <div><h4 class="objective-subtitle">CVE / AGENCIA</h4><div id="objectiveAgencies"></div></div>
@@ -453,7 +454,7 @@ confirmarse cuando la fuente distinga el tipo de línea.</div>
 
 
 <section id="tabNoShows" class="tab-pane"><div class="hist-page citas-page">
-<div class="hist-note"><b>No Shows · todas las citas:</b> usa la misma base de <b>Citas totales U13</b> de la pestaña 3 (no un archivo nuevo), pero cubre <b>todos los tipos de servicio</b>, no sólo Primer Servicio. El "tipo de servicio" se infiere de <b>Des. avería</b> (texto libre de Quiter, no un catálogo oficial) porque <b>Tipo OR</b> sólo existe cuando la cita sí se cumplió — por definición un No Show nunca tiene Tipo OR. El "qué pasó después" rastrea, por VIN, si hubo otra cita más adelante en el mismo septiembre.</div>
+<div class="hist-note"><b>No Shows · todas las citas:</b> usa la misma base de <b>Citas totales U13</b> de la pestaña 8 (no un archivo nuevo), pero cubre <b>todos los tipos de servicio</b>, no sólo Primer Servicio. El "tipo de servicio" se infiere de <b>Des. avería</b> (texto libre de Quiter, no un catálogo oficial) porque <b>Tipo OR</b> sólo existe cuando la cita sí se cumplió — por definición un No Show nunca tiene Tipo OR. El "qué pasó después" rastrea, por VIN, si hubo otra cita más adelante en el mismo septiembre.</div>
 <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:10px 0">
   <label style="font-size:11px;font-weight:800;color:#344054">Ver resultados de:</label>
   <select id="nsUniverso" style="border:1px solid #d0d7e2;border-radius:8px;padding:7px 10px;font-size:11px;font-weight:700;background:#fff;color:#172033">
@@ -513,7 +514,7 @@ confirmarse cuando la fuente distinga el tipo de línea.</div>
 </div>
 </section>
 
-<div class="panel card" style="margin-top:12px"><div class="card-title"><h3>DETALLE · NO SHOWS CON REAGENDAMIENTO DETECTADO</h3><span class="hint">Máximo 300 filas; VIN con al menos una cita posterior en septiembre</span></div><div class="table-wrap" style="max-height:480px"><table class="hist-table"><thead><tr><th>VIN</th><th>Tipo de servicio</th><th>Usuario</th><th>Fecha No Show</th><th>Fecha cita siguiente</th><th>Resultado siguiente</th></tr></thead><tbody id="nsBody"></tbody></table></div><div class="table-footer"><span id="nsCount"></span><span>Fuente: Citas totales U13, misma base que la pestaña 3.</span></div></div>
+<div class="panel card" style="margin-top:12px"><div class="card-title"><h3>DETALLE · NO SHOWS CON REAGENDAMIENTO DETECTADO</h3><span class="hint">Máximo 300 filas; VIN con al menos una cita posterior en septiembre</span></div><div class="table-wrap" style="max-height:480px"><table class="hist-table"><thead><tr><th>VIN</th><th>Tipo de servicio</th><th>Usuario</th><th>Fecha No Show</th><th>Fecha cita siguiente</th><th>Resultado siguiente</th></tr></thead><tbody id="nsBody"></tbody></table></div><div class="table-footer"><span id="nsCount"></span><span>Fuente: Citas totales U13, misma base que la pestaña 8.</span></div></div>
 
 </div></section>
 
@@ -548,6 +549,15 @@ confirmarse cuando la fuente distinga el tipo de línea.</div>
 <section id="tabRetencionTotal" class="tab-pane"><div class="seg-page">
   <div class="seg-head"><div><h2>Retención Total</h2><p>Universo combinado: Leales + Retenidos + En riesgo + Perdidos · misma lógica y estructura que Primer Servicio.</p></div><div class="hint">Vista operativa por default: sólo casos pendientes</div></div>
   <div class="seg-note"><b>Qué es esto:</b> une los 4 segmentos de Retención (Perdidos, En riesgo, Retenidos, Leales) en un solo universo filtrable, replicando los paneles de Primer Servicio (Funnel, Monitoreo de Citas, Desempeño por Agencia, Resultado por Región, Avance por Modelo, Agentes/Ejecutivos y % de Contacto). Usa el filtro <b>Base</b> para aislar un segmento específico dentro de esta vista combinada.</div>
+  <section class="panel card objective-section" style="margin-bottom:12px">
+    <div class="card-title"><h3 id="RTObjectiveSectionTitle">OBJETIVOS RETENCIÓN TOTAL</h3><span class="hint" id="RTObjectiveSectionHint">—</span></div>
+    <div id="RTObjectiveHero"></div>
+    <div class="loss-note" id="RTObjectiveGroupNote" style="display:none"></div>
+    <div class="objective-grid">
+      <div><h4 class="objective-subtitle">REGIONES + GRUPO</h4><div id="RTObjectiveRegions"></div></div>
+      <div><h4 class="objective-subtitle">CVE / AGENCIA</h4><div id="RTObjectiveAgencies"></div></div>
+    </div>
+  </section>
   <section class="seg-kpis">
     <div class="seg-kpi panel"><div class="label">Universo Retención Total</div><div class="value" id="RTTotal">—</div><div class="sub">Suma de los 4 segmentos (vista "a trabajar").</div></div>
     <div class="seg-kpi panel blue"><div class="label">Universo total (agencias)</div><div class="value" id="RTUniverseAll">—</div><div class="sub" id="RTUniverseAllSub">Incluye excluidos por regla de 6 meses.</div></div>
@@ -940,13 +950,13 @@ function refreshAgencyOptions(){
     if(reg&&norm(r['Región objetivo'])!==reg)return false;
     return true;
   }).map(r=>norm(r['Agencia objetivo'])).filter(Boolean))];
-  setOptions('fAgency',vals);
+  setOptions('fAgency',vals.concat(agencyGroupLabels()));
 }
-function initFilters(){setOptions('fRegion',[...new Set(DATA.map(r=>norm(r['Región objetivo'])))]);setOptions('fAgency',[...new Set(DATA.map(r=>norm(r['Agencia objetivo'])))]);setOptions('fSource',[...new Set(DATA.map(r=>norm(r['Fuente cita'])).filter(x=>x&&x!=='None'))]);setOptions('fAgent',[...new Set(DATA.flatMap(r=>[norm(r['Ejecutivo Contact Center']),norm(r['Nombre agente'])]).filter(Boolean))]);initModelMulti();['fUniverse','fAgency','fUnit','fCita','fSource','fOffer','fAgent'].forEach(id=>$(id).addEventListener('change',()=>{if(id==='fUniverse'){updateUniverseReference();refreshAgencyOptions();}render()}));$('fRegion').addEventListener('change',()=>{refreshAgencyOptions();updateSheetAgencyStatus();render()});$('fSearch').addEventListener('input',render);$('fUniverse').value='consolidado';updateUniverseReference();$('resetBtn').onclick=()=>{['fRegion','fAgency','fUnit','fCita','fSource','fOffer','fAgent'].forEach(id=>$(id).value='');$('fUniverse').value='consolidado';refreshAgencyOptions();updateUniverseReference();selectedModels.clear();syncModelChecks();$('fSearch').value='';quick='all';document.querySelectorAll('#quickFilters .chip').forEach((b,i)=>b.classList.toggle('active',i===0));updateSheetAgencyStatus();render()};$('exportBtn').onclick=exportMain;$('sheetAgencyBtn').onclick=generateAgencyGoogleSheet;$('fAgency').addEventListener('change',updateSheetAgencyStatus);document.querySelectorAll('#quickFilters .chip').forEach(b=>b.onclick=()=>{document.querySelectorAll('#quickFilters .chip').forEach(x=>x.classList.remove('active'));b.classList.add('active');quick=b.dataset.q;renderOps(filtered())})}
+function initFilters(){setOptions('fRegion',[...new Set(DATA.map(r=>norm(r['Región objetivo'])))]);setOptions('fAgency',[...new Set(DATA.map(r=>norm(r['Agencia objetivo'])))].concat(agencyGroupLabels()));setOptions('fSource',[...new Set(DATA.map(r=>norm(r['Fuente cita'])).filter(x=>x&&x!=='None'))]);setOptions('fAgent',[...new Set(DATA.flatMap(r=>[norm(r['Ejecutivo Contact Center']),norm(r['Nombre agente'])]).filter(Boolean))]);initModelMulti();['fUniverse','fAgency','fUnit','fCita','fSource','fOffer','fAgent'].forEach(id=>$(id).addEventListener('change',()=>{if(id==='fUniverse'){updateUniverseReference();refreshAgencyOptions();}render()}));$('fRegion').addEventListener('change',()=>{refreshAgencyOptions();updateSheetAgencyStatus();render()});$('fSearch').addEventListener('input',render);$('fUniverse').value='consolidado';updateUniverseReference();$('resetBtn').onclick=()=>{['fRegion','fAgency','fUnit','fCita','fSource','fOffer','fAgent'].forEach(id=>$(id).value='');$('fUniverse').value='consolidado';refreshAgencyOptions();updateUniverseReference();selectedModels.clear();syncModelChecks();$('fSearch').value='';quick='all';document.querySelectorAll('#quickFilters .chip').forEach((b,i)=>b.classList.toggle('active',i===0));updateSheetAgencyStatus();render()};$('exportBtn').onclick=exportMain;$('sheetAgencyBtn').onclick=generateAgencyGoogleSheet;$('fAgency').addEventListener('change',updateSheetAgencyStatus);document.querySelectorAll('#quickFilters .chip').forEach(b=>b.onclick=()=>{document.querySelectorAll('#quickFilters .chip').forEach(x=>x.classList.remove('active'));b.classList.add('active');quick=b.dataset.q;renderOps(filtered())})}
 let quick='all';
 function filtered(){const universe=$('fUniverse').value,reg=$('fRegion').value,ag=$('fAgency').value,un=$('fUnit').value,ci=$('fCita').value,so=$('fSource').value,of=$('fOffer').value,ae=$('fAgent').value,q=norm($('fSearch').value).toLowerCase();return DATA.filter(r=>{
 if(universe==='marca'&&norm(r['Origen universo'])!=='MARCA')return false;
-if(universe==='grupo'&&norm(r['Origen universo'])!=='GRUPO EXCLUSIVO')return false;if(yes(r['Cliente perdido histórico']))return false;if(reg&&norm(r['Región objetivo'])!==reg)return false;if(ag&&norm(r['Agencia objetivo'])!==ag)return false;if(selectedModels.size&&!selectedModels.has(norm(r['Modelo corto'])))return false;if(un&&norm(r['Tipo venta'])!==un)return false;if(ci&&norm(r['Estatus monitoreo'])!==ci)return false;if(so&&norm(r['Fuente cita'])!==so)return false;if(of==='__SIN__'&&yes(r['Tiene oferta comercial']))return false;if(of==='__MULTI__'&&num(r['Núm. ofertas comerciales'])<2)return false;if(of&&!of.startsWith('__')&&!norm(r['Oferta comercial']).split(' | ').includes(of))return false;if(ae&&norm(r['Ejecutivo Contact Center'])!==ae&&norm(r['Nombre agente'])!==ae)return false;if(q&&!([r.Cliente,r.VIN,r['Agencia objetivo'],r['Modelo corto'],r['Oferta comercial']].some(v=>norm(v).toLowerCase().includes(q))))return false;return true})}
+if(universe==='grupo'&&norm(r['Origen universo'])!=='GRUPO EXCLUSIVO')return false;if(yes(r['Cliente perdido histórico']))return false;if(reg&&norm(r['Región objetivo'])!==reg)return false;if(ag&&!matchesAgencyFilter(r['Agencia objetivo'],ag))return false;if(selectedModels.size&&!selectedModels.has(norm(r['Modelo corto'])))return false;if(un&&norm(r['Tipo venta'])!==un)return false;if(ci&&norm(r['Estatus monitoreo'])!==ci)return false;if(so&&norm(r['Fuente cita'])!==so)return false;if(of==='__SIN__'&&yes(r['Tiene oferta comercial']))return false;if(of==='__MULTI__'&&num(r['Núm. ofertas comerciales'])<2)return false;if(of&&!of.startsWith('__')&&!norm(r['Oferta comercial']).split(' | ').includes(of))return false;if(ae&&norm(r['Ejecutivo Contact Center'])!==ae&&norm(r['Nombre agente'])!==ae)return false;if(q&&!([r.Cliente,r.VIN,r['Agencia objetivo'],r['Modelo corto'],r['Oferta comercial']].some(v=>norm(v).toLowerCase().includes(q))))return false;return true})}
 function badge(s){const x=norm(s);let c='gray';if(x==='Show')c='green';else if(x==='No Show'||x==='Perdido')c='red';else if(x==='Cita futura')c='blue';else if(x==='Servicio sin cita')c='teal';else if(x==='Sin cita programada')c='amber';return `<span class="badge ${c}">${esc(x||'—')}</span>`}
 
 function objRegionNorm(v){
@@ -954,6 +964,53 @@ function objRegionNorm(v){
   if(x==='QRO'||x==='QUERETARO')return 'QUERÉTARO';
   if(x==='MICHOACAN')return 'MICHOACÁN';
   return x;
+}
+// Punto 2 (hallazgo 05-nov-2026): agrupación "<Agencia> Total" para las 5
+// agencias con satélite(s) que SIMAnalytics reporta bajo un mismo Cve
+// combinado (Madero+Uriangato, Chapultepec+Acámbaro, Zitácuaro+Huétamo+Valle
+// De Bravo, Zamora+Sahuayo, Constituyentes+Campa+Juriquilla). agGroupNorm usa
+// el mismo criterio robusto que objRegionNorm (mayúsculas sin acentos) porque
+// el campo "Agencia"/"Agencia objetivo" en los datos no siempre llega con la
+// misma capitalización/acentos que META.agencyTotalGroups (que viene en
+// mayúsculas sin acento desde el pipeline Python).
+function agGroupNorm(v){
+  return String(v??'').toUpperCase().normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/\s+/g,' ').trim();
+}
+function agencyGroupInfo(label){
+  const groups=(window.__META&&META.agencyTotalGroups)||{};
+  for(const cve in groups){ if(groups[cve].label===label) return {cve, label:groups[cve].label, parent:groups[cve].parent, satellites:groups[cve].satellites||[]}; }
+  return null;
+}
+function agencyGroupLabels(){
+  const groups=(window.__META&&META.agencyTotalGroups)||{};
+  return Object.values(groups).map(g=>g.label);
+}
+function agencyGroupLabelForMember(normValue){
+  const groups=(window.__META&&META.agencyTotalGroups)||{};
+  for(const cve in groups){
+    const g=groups[cve];
+    if(agGroupNorm(g.parent)===normValue||(g.satellites||[]).map(agGroupNorm).includes(normValue))return g.label;
+  }
+  return null;
+}
+function agencyGroupMembersSet(label){
+  const info=agencyGroupInfo(label);
+  if(!info)return null;
+  return new Set([info.parent,...info.satellites].map(agGroupNorm));
+}
+function matchesAgencyFilter(rowAgencyValue,filterValue){
+  if(!filterValue)return true;
+  const members=agencyGroupMembersSet(filterValue);
+  if(members)return members.has(agGroupNorm(rowAgencyValue));
+  return norm(rowAgencyValue)===filterValue;
+}
+// Filas de un Cve para las tablas/objetivos de CVE·Agencia: si ese Cve es uno
+// de los 5 grupos "Total", combina padre+satélite(s); si no, solo la propia
+// agencia (comparando por agGroupNorm, robusto a acentos/capitalización).
+function agencyScopeRows(poolRows,cveEntry){
+  const members=cveEntry.groupLabel?agencyGroupMembersSet(cveEntry.groupLabel):new Set([agGroupNorm(cveEntry.agency||'')]);
+  if(!members)return [];
+  return poolRows.filter(r=>members.has(agGroupNorm(r['Agencia']||r['Agencia objetivo'])));
 }
 function objWorked(r){
   // NOV2026: 'Trabajado antes Universo Marca'/'Cliente perdido histórico' ya
@@ -967,6 +1024,11 @@ function objWorked(r){
 function renderObjectives(){
   const O=META?.primerServiceObjectives;
   if(!O){$('objectiveHero').innerHTML='<div class="loss-note">Sin objetivos cargados.</div>';return}
+  // Encabezado dinámico (hallazgo 05-nov-2026, Fix #5 parte 2): antes decía
+  // siempre "PROVISIONAL (meta oct-2026 reutilizada)" como texto fijo en el
+  // HTML, aunque ya se cargara una meta oficial — ahora lo arma data_meta.js.
+  if($('objectiveSectionTitle')&&O.headerTitle)$('objectiveSectionTitle').textContent=O.headerTitle;
+  if($('objectiveSectionHint')&&O.headerHint)$('objectiveSectionHint').textContent=O.headerHint;
   const marca=DATA.filter(r=>norm(r['Origen universo'])==='MARCA');
   const u=$('fUniverse').value, reg=norm($('fRegion').value), ag=norm($('fAgency').value);
   let scope=O.group, label='GRUPO AUTOCOM', scopeRows=marca, scopeType='grupo';
@@ -976,13 +1038,29 @@ function renderObjectives(){
       scope=O.regions[rk]; label=rk; scopeRows=marca.filter(r=>objRegionNorm(r['Región objetivo'])===rk); scopeType='región';
     }
   }
+  let groupNote='';
   if(ag){
-    const agRows=marca.filter(r=>norm(r['Agencia objetivo'])===ag);
-    const cves=[...new Set(agRows.map(r=>norm(r['Cve']).replace(/\.0$/,'')).filter(Boolean))];
-    if(cves.length===1&&O.agencies?.[cves[0]]){
-      const c=cves[0]; scope=O.agencies[c]; label=`CVE ${c} · ${ag}`; scopeRows=marca.filter(r=>norm(r['Cve']).replace(/\.0$/,'')===c); scopeType='CVE';
+    const groupInfo=agencyGroupInfo(ag);
+    if(groupInfo&&O.agencies?.[groupInfo.cve]){
+      // Punto 2 (hallazgo 05-nov-2026): "<Agencia> Total" = padre + satélite(s)
+      // combinados, igualando la población del Cve oficial de SIMAnalytics.
+      const c=groupInfo.cve; scope=O.agencies[c]; label=`CVE ${c} · ${ag}`;
+      const members=agencyGroupMembersSet(ag);
+      scopeRows=marca.filter(r=>members.has(agGroupNorm(r['Agencia objetivo']))); scopeType='CVE (combinado)';
+    }else{
+      const agRows=marca.filter(r=>norm(r['Agencia objetivo'])===ag);
+      const cves=[...new Set(agRows.map(r=>norm(r['Cve']).replace(/\.0$/,'')).filter(Boolean))];
+      if(cves.length===1&&O.agencies?.[cves[0]]){
+        const c=cves[0]; scope=O.agencies[c]; label=`CVE ${c} · ${ag}`; scopeRows=agRows; scopeType='CVE';
+        if(O.agencies[c].groupLabel)groupNote=`Esta meta oficial es a nivel Cve combinado (incluye su/sus agencia(s) satélite). Para ver el universo igual de combinado, selecciona "${O.agencies[c].groupLabel}" en el filtro de Agencia.`;
+      }else{
+        const matchLabel=agencyGroupLabelForMember(agGroupNorm(ag));
+        groupNote=matchLabel?`"${esc(ag)}" reporta objetivo bajo el Cve de su agencia matriz en SIMAnalytics — no tiene meta individual propia. Selecciona la opción "${esc(matchLabel)}" en el filtro de Agencia para ver su objetivo combinado oficial.`:'';
+      }
     }
   }
+  const gnEl=$('objectiveGroupNote');
+  if(gnEl){if(groupNote){gnEl.style.display='';gnEl.innerHTML=groupNote;}else{gnEl.style.display='none';gnEl.textContent='';}}
   const worked=scopeRows.filter(objWorked).length;
   const hist=scopeRows.filter(r=>yes(r['Cliente perdido histórico'])).length;
   const sin=Number(scope?.sin_primer_servicio||0);
@@ -1006,8 +1084,9 @@ function renderObjectives(){
   }).join('')+`<tr><td><b>GRUPO AUTOCOM</b></td><td><b>${fmt(O.group.sin_primer_servicio)}</b></td><td class="objective-worked"><b>${fmt(marca.filter(objWorked).length)}</b></td><td><b>${Number(O.group.primer_servicio_pct).toFixed(2)}%</b></td><td><b>${Number(O.group.objetivo_pct).toFixed(2)}%</b></td><td><b>${fmt(O.group.objetivo_vin)}</b></td><td class="objective-gap"><b>${fmt(Math.abs(O.group.gap_objetivo))}</b></td></tr>`;
   $('objectiveRegions').innerHTML=`<div class="metric-scroll"><table class="objective-table"><thead><tr><th>Ámbito</th><th>Sin 1er Serv.</th><th>Antecedente BDC</th><th>Actual</th><th>Objetivo</th><th>Obj. VIN</th><th>Faltan</th></tr></thead><tbody>${regionRows}</tbody></table></div>`;
   const agencyRows=Object.entries(O.agencies).sort((a,b)=>Number(a[0])-Number(b[0])).map(([c,x])=>{
-    const rr=marca.filter(r=>norm(r['Cve']).replace(/\.0$/,'')===c), w=rr.filter(objWorked).length;
-    return `<tr><td>${esc(c)}</td><td>${esc(x.agency||'')}</td><td>${fmt(rr.length)}</td><td class="objective-worked">${fmt(w)}</td><td>${Number(x.primer_servicio_pct).toFixed(2)}%</td><td>${Number(x.objetivo_pct).toFixed(2)}%</td><td>${fmt(x.objetivo_vin)}</td><td class="objective-gap">${fmt(Math.abs(x.gap_objetivo))}</td></tr>`;
+    const rr=agencyScopeRows(marca,x), w=rr.filter(objWorked).length;
+    const nameLabel=x.groupLabel?`${esc(x.agency||'')} <small style="color:#8157b7;font-weight:700">(combinado)</small>`:esc(x.agency||'');
+    return `<tr><td>${esc(c)}</td><td>${nameLabel}</td><td>${fmt(rr.length)}</td><td class="objective-worked">${fmt(w)}</td><td>${Number(x.primer_servicio_pct).toFixed(2)}%</td><td>${Number(x.objetivo_pct).toFixed(2)}%</td><td>${fmt(x.objetivo_vin)}</td><td class="objective-gap">${fmt(Math.abs(x.gap_objetivo))}</td></tr>`;
   }).join('');
   $('objectiveAgencies').innerHTML=`<div class="metric-scroll"><table class="objective-table"><thead><tr><th>CVE</th><th>Agencia referencia</th><th>Sin 1er Serv.</th><th>Antecedente BDC</th><th>Actual</th><th>Objetivo</th><th>Obj. VIN</th><th>Faltan</th></tr></thead><tbody>${agencyRows}</tbody></table></div>`;
 }
@@ -1342,7 +1421,7 @@ function segFillSelect(el,vals,label='Todos'){
 }
 function segIsOffer(v){const x=norm(v).toUpperCase();return x!==''&&x!=='SIN OFERTA'&&x!=='SIN OFERTA VIGENTE'}
 function ensureSegmentAgentPanel(key){if(segEl(key,'AgentTable'))return;const anchor=segEl(key,'Total')?.closest('.seg-kpis');if(!anchor)return;anchor.insertAdjacentHTML('afterend',`<div class="panel card" style="margin-bottom:12px"><div class="card-title"><h3>PRODUCTIVIDAD POR EJECUTIVO · ${esc(key.toUpperCase())}</h3><span class="hint">Asignados → citas → shows; respeta los filtros de la pestaña</span></div><div id="${key}AgentTable"></div></div>`)}
-function segmentProductRows(key){const life=norm(segEl(key,'Life').value),result=norm(segEl(key,'Result').value),region=norm(segEl(key,'Region').value),agency=norm(segEl(key,'Agency').value),cve=norm(segEl(key,'Cve').value),year=norm(segEl(key,'Year').value),model=norm(segEl(key,'Model').value),apv=norm(segEl(key,'Apv').value),offer=norm(segEl(key,'OfferFilter').value),search=norm(segEl(key,'Search').value).toLowerCase();return BDC_PRODUCTIVITY.filter(r=>{if(norm(r['Segmento tablero'])!==key)return false;if(life&&norm(r['Ciclo operativo'])!==life)return false;if(result&&norm(r['Resultado cita'])!==result)return false;if(region&&norm(r['Región'])!==region)return false;if(agency&&norm(r['Agencia'])!==agency)return false;if(cve&&norm(r['Cve'])!==cve)return false;if(year&&norm(r['Año'])!==year)return false;if(model&&norm(r['Modelo'])!==model)return false;if(apv&&norm(r['APV'])!==apv)return false;if(offer==='CON_OFERTA'&&!segIsOffer(r['Oferta comercial']))return false;if(offer==='SIN_OFERTA'&&segIsOffer(r['Oferta comercial']))return false;if(search&&![r.VIN,r.Ejecutivo,r['Estatus gestión BDC'],r['Resultado cita']].some(v=>norm(v).toLowerCase().includes(search)))return false;return true})}
+function segmentProductRows(key){const life=norm(segEl(key,'Life').value),result=norm(segEl(key,'Result').value),region=norm(segEl(key,'Region').value),agency=norm(segEl(key,'Agency').value),cve=norm(segEl(key,'Cve').value),year=norm(segEl(key,'Year').value),model=norm(segEl(key,'Model').value),apv=norm(segEl(key,'Apv').value),offer=norm(segEl(key,'OfferFilter').value),search=norm(segEl(key,'Search').value).toLowerCase();return BDC_PRODUCTIVITY.filter(r=>{if(norm(r['Segmento tablero'])!==key)return false;if(life&&norm(r['Ciclo operativo'])!==life)return false;if(result&&norm(r['Resultado cita'])!==result)return false;if(region&&norm(r['Región'])!==region)return false;if(agency&&!matchesAgencyFilter(r['Agencia'],agency))return false;if(cve&&norm(r['Cve'])!==cve)return false;if(year&&norm(r['Año'])!==year)return false;if(model&&norm(r['Modelo'])!==model)return false;if(apv&&norm(r['APV'])!==apv)return false;if(offer==='CON_OFERTA'&&!segIsOffer(r['Oferta comercial']))return false;if(offer==='SIN_OFERTA'&&segIsOffer(r['Oferta comercial']))return false;if(search&&![r.VIN,r.Ejecutivo,r['Estatus gestión BDC'],r['Resultado cita']].some(v=>norm(v).toLowerCase().includes(search)))return false;return true})}
 function renderSegmentAgent(key){ensureSegmentAgentPanel(key);const target=segEl(key,'AgentTable');if(!target)return;const rows=segmentProductRows(key),agent=r=>norm(r.Ejecutivo)||'SIN ASIGNAR';const groups=[...new Set(rows.map(agent))].map(a=>[a,rows.filter(r=>agent(r)===a)]).sort((a,b)=>b[1].length-a[1].length);target.innerHTML=`<div class="metric-scroll"><table class="metric-table"><thead><tr><th>Ejecutivo</th><th>Asignados</th><th>Citas</th><th>Shows</th><th>No Shows</th><th>Perdidos</th><th>Retorno sin evidencia</th><th>% cita/asig.</th><th>% show/cita</th><th>% show/asig.</th><th>% perdido/asig.</th></tr></thead><tbody>${groups.map(([a,rr])=>{const c=rr.filter(r=>!['','Sin cita','Sin cita programada'].includes(norm(r['Resultado cita']))).length,s=rr.filter(r=>norm(r['Resultado cita'])==='Show').length,n=rr.filter(r=>norm(r['Resultado cita'])==='No Show').length,l=rr.filter(r=>norm(r['Estatus gestión BDC']).toUpperCase().includes('PERDID')).length,rv=rr.filter(r=>norm(r['Estatus gestión BDC']).toUpperCase().includes('RETORN')&&norm(r['Resultado cita'])!=='Show').length;return `<tr><td>${esc(a)}</td><td>${rr.length}</td><td>${c}</td><td>${s}</td><td>${n}</td><td>${l}</td><td>${rv}</td><td>${pct(c,rr.length)}</td><td>${pct(s,s+n)}</td><td>${pct(s,rr.length)}</td><td>${pct(l,rr.length)}</td></tr>`}).join('')}</tbody></table></div>`}
 function initSegment(key){
   if(SEG_STATE[key])return;
@@ -1352,7 +1431,7 @@ function initSegment(key){
   segFillSelect(segEl(key,'Life'),data.map(r=>r['Ciclo operativo']),'Todos');
   segFillSelect(segEl(key,'Result'),data.map(r=>r['Resultado cita']),'Todos');
   segFillSelect(segEl(key,'Region'),data.map(r=>r['Región']),'Todas');
-  segFillSelect(segEl(key,'Agency'),data.map(r=>r['Agencia']),'Todas');
+  segFillSelect(segEl(key,'Agency'),data.map(r=>r['Agencia']).concat(agencyGroupLabels()),'Todas');
   segFillSelect(segEl(key,'Cve'),data.map(r=>r['Cve']),'Todas');
   segFillSelect(segEl(key,'Year'),data.map(r=>r['Año']),'Todos');
   segFillSelect(segEl(key,'Model'),data.map(r=>r['Modelo']),'Todos');
@@ -1391,7 +1470,7 @@ function filteredSegment(key,forcePendingDefault=false){
     if(life&&norm(r['Ciclo operativo'])!==life)return false;
     if(result&&norm(r['Resultado cita'])!==result)return false;
     if(region&&norm(r['Región'])!==region)return false;
-    if(agency&&norm(r['Agencia'])!==agency)return false;
+    if(agency&&!matchesAgencyFilter(r['Agencia'],agency))return false;
     if(cve&&norm(r['Cve'])!==cve)return false;
     if(year&&norm(r['Año'])!==year)return false;
     if(model&&norm(r['Modelo'])!==model)return false;
@@ -1563,7 +1642,7 @@ function initRT(){
   segFillSelect(rtEl('Life'),data.map(r=>r['Ciclo operativo']),'Todos');
   segFillSelect(rtEl('Result'),data.map(r=>r['Resultado cita']),'Todos');
   segFillSelect(rtEl('Region'),data.map(r=>r['Región']),'Todas');
-  segFillSelect(rtEl('Agency'),data.map(r=>r['Agencia']),'Todas');
+  segFillSelect(rtEl('Agency'),data.map(r=>r['Agencia']).concat(agencyGroupLabels()),'Todas');
   segFillSelect(rtEl('Cve'),data.map(r=>r['Cve']),'Todas');
   segFillSelect(rtEl('Year'),data.map(r=>r['Año']),'Todos');
   segFillSelect(rtEl('Model'),data.map(r=>r['Modelo']),'Todos');
@@ -1599,7 +1678,7 @@ function filteredRT(forcePendingDefault=false){
     if(life&&norm(r['Ciclo operativo'])!==life)return false;
     if(result&&norm(r['Resultado cita'])!==result)return false;
     if(region&&norm(r['Región'])!==region)return false;
-    if(agency&&norm(r['Agencia'])!==agency)return false;
+    if(agency&&!matchesAgencyFilter(r['Agencia'],agency))return false;
     if(cve&&norm(r['Cve'])!==cve)return false;
     if(year&&norm(r['Año'])!==year)return false;
     if(model&&norm(r['Modelo'])!==model)return false;
@@ -1668,6 +1747,60 @@ function renderRTFunnel(m){
   if(!el)return;
   el.innerHTML=stages.map(([l,v,c])=>`<div class="frow"><label>${l}</label><div class="track"><div class="fill" style="width:${Math.max(1,100*v/max)}%;background:${c}">${v?esc(v):''}</div></div><div class="fval">${v} · ${pct(v,max)}</div></div>`).join('');
 }
+function renderRTObjectives(){
+  const O=META?.retentionObjectives;
+  const heroEl=rtEl('ObjectiveHero');
+  if(!heroEl)return;
+  if(!O){heroEl.innerHTML='<div class="loss-note">Sin objetivos cargados.</div>';return}
+  if(rtEl('ObjectiveSectionTitle')&&O.headerTitle)rtEl('ObjectiveSectionTitle').textContent=O.headerTitle;
+  if(rtEl('ObjectiveSectionHint')&&O.headerHint)rtEl('ObjectiveSectionHint').textContent=O.headerHint;
+  const pool=rtData();
+  const reg=norm(rtEl('Region')?.value), ag=norm(rtEl('Agency')?.value);
+  let scope=O.group, label='GRUPO AUTOCOM', scopeRows=pool, scopeType='grupo', groupNote='';
+  if(reg){
+    const rk=objRegionNorm(reg);
+    if(O.regions?.[rk]){ scope=O.regions[rk]; label=rk; scopeRows=pool.filter(r=>objRegionNorm(r['Región'])===rk); scopeType='región'; }
+  }
+  if(ag){
+    const groupInfo=agencyGroupInfo(ag);
+    if(groupInfo&&O.agencies?.[groupInfo.cve]){
+      const c=groupInfo.cve; scope=O.agencies[c]; label=`CVE ${c} · ${ag}`;
+      const members=agencyGroupMembersSet(ag);
+      scopeRows=pool.filter(r=>members.has(agGroupNorm(r['Agencia']))); scopeType='CVE (combinado)';
+    }else{
+      const agRows=pool.filter(r=>norm(r['Agencia'])===ag);
+      const cves=[...new Set(agRows.map(r=>norm(r['Cve']).replace(/\.0$/,'')).filter(Boolean))];
+      if(cves.length===1&&O.agencies?.[cves[0]]){
+        const c=cves[0]; scope=O.agencies[c]; label=`CVE ${c} · ${ag}`; scopeRows=agRows; scopeType='CVE';
+        if(O.agencies[c].groupLabel)groupNote=`Esta meta oficial es a nivel Cve combinado (incluye su/sus agencia(s) satélite). Para ver el universo igual de combinado, selecciona "${O.agencies[c].groupLabel}" en el filtro de Agencia.`;
+      }else{
+        const matchLabel=agencyGroupLabelForMember(agGroupNorm(ag));
+        groupNote=matchLabel?`"${esc(ag)}" reporta objetivo bajo el Cve de su agencia matriz en SIMAnalytics — no tiene meta individual propia. Selecciona la opción "${esc(matchLabel)}" en el filtro de Agencia para ver su objetivo combinado oficial.`:'';
+      }
+    }
+  }
+  const gnEl=rtEl('ObjectiveGroupNote');
+  if(gnEl){if(groupNote){gnEl.style.display='';gnEl.innerHTML=groupNote;}else{gnEl.style.display='none';gnEl.textContent='';}}
+  heroEl.innerHTML=`<div class="objective-hero">
+    <div class="objective-hero-card primary"><div class="lbl">OBJETIVO SELECCIONADO · ${esc(scopeType)}</div><div class="val">${esc(label)}</div><div class="small">Meta oficial SIMAnalytics 'Service Retention' sobre el universo Retención Total (Perdidos+Riesgos+Retenidos+Leales).</div></div>
+    <div class="objective-hero-card"><div class="lbl">RETENCIÓN ACTUAL</div><div class="val">${Number(scope.retencion_pct).toFixed(2)}%</div><div class="small">${fmt(scope.retenidos_con_show)} con show</div></div>
+    <div class="objective-hero-card"><div class="lbl">OBJETIVO</div><div class="val">${Number(scope.objetivo_pct).toFixed(2)}%</div><div class="small">CDO ${scope.cdo_pct!=null?Number(scope.cdo_pct).toFixed(1)+'%':'—'}</div></div>
+    <div class="objective-hero-card"><div class="lbl">OBJETIVO VIN</div><div class="val">${fmt(scope.objetivo_vin)}</div><div class="small">Faltan ${fmt(Math.abs(scope.gap_objetivo))} VIN para meta</div></div>
+    <div class="objective-hero-card"><div class="lbl">SIN SHOW</div><div class="val">${fmt(scope.sin_show)}</div><div class="small">${fmt(scopeRows.length)} VIN cruzados en el universo actual</div></div>
+  </div>`;
+  const regionOrder=['MICHOACÁN','QUERÉTARO','CDMX'];
+  const regionRows=regionOrder.map(k=>{
+    const x=O.regions[k];
+    return `<tr><td>${esc(k)}</td><td>${fmt(x.sin_show)}</td><td>${Number(x.retencion_pct).toFixed(2)}%</td><td>${Number(x.objetivo_pct).toFixed(2)}%</td><td>${fmt(x.objetivo_vin)}</td><td class="objective-gap">${fmt(Math.abs(x.gap_objetivo))}</td></tr>`;
+  }).join('')+`<tr><td><b>GRUPO AUTOCOM</b></td><td><b>${fmt(O.group.sin_show)}</b></td><td><b>${Number(O.group.retencion_pct).toFixed(2)}%</b></td><td><b>${Number(O.group.objetivo_pct).toFixed(2)}%</b></td><td><b>${fmt(O.group.objetivo_vin)}</b></td><td class="objective-gap"><b>${fmt(Math.abs(O.group.gap_objetivo))}</b></td></tr>`;
+  if(rtEl('ObjectiveRegions'))rtEl('ObjectiveRegions').innerHTML=`<div class="metric-scroll"><table class="objective-table"><thead><tr><th>Ámbito</th><th>Sin show</th><th>Actual</th><th>Objetivo</th><th>Obj. VIN</th><th>Faltan</th></tr></thead><tbody>${regionRows}</tbody></table></div>`;
+  const agencyRows=Object.entries(O.agencies).sort((a,b)=>Number(a[0])-Number(b[0])).map(([c,x])=>{
+    const rr=agencyScopeRows(pool,x);
+    const nameLabel=x.groupLabel?`${esc(x.agency||'')} <small style="color:#8157b7;font-weight:700">(combinado)</small>`:esc(x.agency||'');
+    return `<tr><td>${esc(c)}</td><td>${nameLabel}</td><td>${fmt(rr.length)}</td><td>${Number(x.retencion_pct).toFixed(2)}%</td><td>${Number(x.objetivo_pct).toFixed(2)}%</td><td>${fmt(x.objetivo_vin)}</td><td class="objective-gap">${fmt(Math.abs(x.gap_objetivo))}</td></tr>`;
+  }).join('');
+  if(rtEl('ObjectiveAgencies'))rtEl('ObjectiveAgencies').innerHTML=`<div class="metric-scroll"><table class="objective-table"><thead><tr><th>CVE</th><th>Agencia referencia</th><th>Universo</th><th>Actual</th><th>Objetivo</th><th>Obj. VIN</th><th>Faltan</th></tr></thead><tbody>${agencyRows}</tbody></table></div>`;
+}
 function renderRTContacto(arr){
   const target=rtEl('ContactoTable');
   if(!target)return;
@@ -1708,6 +1841,7 @@ function renderRT(forcePendingDefault=false){
   rtEl('Pending').textContent=fmt(pending.length);
   rtEl('Show').textContent=fmt(show);
   renderRTFunnel({total:all.length,pending:pending.length,noCita,noShow,future,show,offer});
+  renderRTObjectives();
   renderRTMonitoreo();
 
   const arr=filteredRT(forcePendingDefault);
@@ -2112,7 +2246,7 @@ const syncPrimerServicioBtnV121=document.getElementById('syncPrimerServicioBtn')
 if(syncPrimerServicioBtnV121)syncPrimerServicioBtnV121.addEventListener('click',syncPrimerServicioV121_);
 
 
-/* === No Shows (todas las citas) — pestaña 8 === */
+/* === No Shows (todas las citas) — pestaña 7 === */
 const NS_CAT_ORDER=['Primer servicio','Mantenimiento por kilometraje','Servicio por tiempo','Diagnóstico / revisión / reparación','Alineación / servicio menor','Otros'];
 const NS_CAT_COLOR={'Primer servicio':'#2a78d6','Mantenimiento por kilometraje':'#eb6834','Servicio por tiempo':'#1baf7a','Diagnóstico / revisión / reparación':'#eda100','Alineación / servicio menor':'#e87ba4','Otros':'#8b95a5'};
 function categoriaAveria(desc){const d=norm(desc).toUpperCase();if(!d)return 'Otros';if(d.includes('PRIMER SERVICIO'))return 'Primer servicio';if(d.includes('ALINEACION'))return 'Alineación / servicio menor';if(d.includes('SERVICIO POR TIEMPO')||d.includes('SERV POR TIEMPO')||d.includes('S/TIEMPO'))return 'Servicio por tiempo';if(/\d[.,]?\d{3}\s*,?\s*K\s*M/.test(d)||d.includes('MANTEN')||d.startsWith('SERV'))return 'Mantenimiento por kilometraje';if(d.includes('REVISION')||d.includes('DIAGNOSTIC')||d.includes('GARANTIA')||d.includes('REPARACION')||d.includes('FALLA'))return 'Diagnóstico / revisión / reparación';return 'Otros'}
