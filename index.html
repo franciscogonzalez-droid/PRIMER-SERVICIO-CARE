@@ -627,7 +627,7 @@ confirmarse cuando la fuente distinga el tipo de línea.</div>
 </div>
 <div class="efunnel-group-label">Primer Servicio</div>
 <div class="efunnel-grid efunnel-grid-main" id="operativoWrapMain"></div>
-<div class="efunnel-group-label">Retención — Leales · Retenidos · Riesgos · Total combinado</div>
+<div class="efunnel-group-label">Retención — Leales · Retenidos · Riesgos · Perdidos · Total combinado</div>
 <div class="efunnel-grid" id="operativoWrapSeg"></div>
 </div></section>
 
@@ -1976,7 +1976,7 @@ function buildOperativoFilterMaps(){
     }
   };
   DATA.forEach(r=>scan(r['Región objetivo'],r['Agencia objetivo']));
-  ['Leales','Retenidos','Riesgos'].forEach(key=>(BDC_SEGMENTS[key]||[]).forEach(r=>scan(r['Región'],r['Agencia'])));
+  ['Leales','Retenidos','Riesgos','Perdidos'].forEach(key=>(BDC_SEGMENTS[key]||[]).forEach(r=>scan(r['Región'],r['Agencia'])));
   OP_AGENCY_LABELS={};Object.keys(agencyLabelCount).forEach(ak=>OP_AGENCY_LABELS[ak]=Object.entries(agencyLabelCount[ak]).sort((a,b)=>b[1]-a[1])[0][0]);
   OP_AGENCY_TO_REGION={};Object.keys(agencyRegionCleanCount).forEach(ak=>OP_AGENCY_TO_REGION[ak]=Object.entries(agencyRegionCleanCount[ak]).sort((a,b)=>b[1]-a[1])[0][0]);
   OP_AGENCY_TO_REGION['INFINITI UNIVERSIDAD']='CDMX INFINITI';
@@ -2054,7 +2054,7 @@ function buildOperativoRows(regionKey,agencyKey){
   // con cita de octubre que ya salieron del pendiente -- toda cita real
   // implica contacto. Esto NO toca BDC_SEGMENTS ni el universo que se muestra
   // en las pestañas de segmento ni en Retención Total.
-  const segKeys=['Leales','Retenidos','Riesgos'];
+  const segKeys=['Leales','Retenidos','Riesgos','Perdidos']; // 09-nov-2026: se agrega Perdidos (petición de Frank), misma lógica que las otras 3 bases
   const segResults={};
   segKeys.forEach(key=>{
     const rows=(BDC_SEGMENTS[key]||[]).filter(matchSeg);
@@ -2074,8 +2074,8 @@ function buildOperativoRows(regionKey,agencyKey){
     segResults[key]=res;
     out.push(res);
   });
-  // Total combinado (Leales+Retenidos+Riesgos)
-  const tot={Base:'Total combinado (Leales+Retenidos+Riesgos)',Potencial:0,Contactable:0,Contactado:0,
+  // Total combinado (Leales+Retenidos+Riesgos+Perdidos)
+  const tot={Base:'Total combinado (Leales+Retenidos+Riesgos+Perdidos)',Potencial:0,Contactable:0,Contactado:0,
     ia:0,humano:0,Citas:0,Show:0,NoShow:null,Futura:0,hasNoShow:false};
   segKeys.forEach(key=>{const r=segResults[key];tot.Potencial+=r.Potencial;tot.Contactable+=r.Contactable;tot.Contactado+=r.Contactado;tot.ia+=r.ia;tot.humano+=r.humano;tot.Citas+=r.Citas;tot.Show+=r.Show;tot.Futura+=r.Futura});
   out.push(tot);
