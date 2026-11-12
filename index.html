@@ -138,7 +138,7 @@
 <section id="tabSeguimiento" class="tab-pane active"><div class="layout">
 <aside class="sidebar"><div class="side-panel panel"><h3>FILTROS</h3>
 <div class="filter"><label>Universo de trabajo</label><select id="fUniverse"><option value="consolidado" selected>Consolidado referencia · 2,061</option><option value="marca">Universo Marca referencia · 1,597</option><option value="grupo">Grupo exclusivo activo · 464</option></select><div class="filter-note">Filtro real fila por fila. MARCA tiene prioridad cuando un VIN aparece en ambas bases. Grupo aporta únicamente VIN exclusivos.</div></div>
-<div class="filter"><label>Región</label><select id="fRegion"></select></div><div class="filter"><label>Agencia</label><select id="fAgency"></select></div><div class="filter"><label>Modelo(s)</label><details class="model-multi" id="modelMulti"><summary id="modelSummary">Todos los modelos</summary><div class="model-multi-body"><div class="model-quick" id="modelQuick"></div><div class="model-checks" id="modelChecks"></div><button type="button" class="model-clear" id="modelClear">Limpiar selección</button></div></details></div><div class="filter"><label>Tipo de unidad / venta</label><select id="fUnit"><option value="">Todos</option><option value="MEN">Menudeo (MEN)</option><option value="FLO">Flotilla (FLO)</option></select></div><div class="filter"><label>Tipo de cita</label><select id="fCita"><option value="">Todas</option><option value="Cita futura">Futuras confirmadas</option><option value="Cita futura SICOP · Reconfirmar">SICOP · Reconfirmar</option><option value="Show">Shows</option><option value="No Show">No Shows</option><option value="Sin cita programada">Sin cita programada</option><option value="Perdido">Perdidos septiembre</option><option value="Perdido histórico">Perdidos históricos Ene–Ago</option><option value="Servicio sin cita">Servicio sin cita</option></select></div><div class="filter"><label>Fuente de la cita</label><select id="fSource"></select></div><div class="filter"><label>Oferta comercial</label><select id="fOffer"><option value="">Todas</option><option value="Primer Servicio">Primer Servicio</option><option value="Retenidos en Riesgo">Retenidos en Riesgo</option><option value="Leales Fuera de Garantia">Leales Fuera de Garantía</option><option value="__MULTI__">Múltiples ofertas</option><option value="__SIN__">Sin oferta</option></select><div class="filter-note">Audiencia Consolidado · Mes 2610 · sólo StatusCliente = POTENCIAL.</div></div><div class="filter"><label>Modalidad de la cita</label><select disabled><option>Pendiente de integrar</option></select></div><div class="filter"><label>Ejecutivo / agente</label><select id="fAgent"></select></div><div class="filter"><label>Buscar cliente / VIN</label><input id="fSearch" placeholder="Ej. 3N1... o apellido"></div><div class="actions"><button class="btn primary" id="exportBtn">⬇ Exportar base filtrada</button><button class="btn green" id="sheetAgencyBtn" disabled style="display:none">☁ Generar / actualizar Google Sheet</button><div class="sheet-status" id="sheetAgencyStatus" style="display:none">Selecciona una agencia. Genera/actualiza su archivo; BDC Primer Servicio se actualiza con el botón global.</div><button class="btn ghost" id="resetBtn">↺ Restablecer filtros</button><button class="btn red" onclick="window.print()">🖨 Imprimir / PDF</button></div></div>
+<div class="filter"><label>Región</label><select id="fRegion"></select></div><div class="filter"><label>Agencia</label><select id="fAgency"></select></div><div class="filter"><label>Modelo(s)</label><details class="model-multi" id="modelMulti"><summary id="modelSummary">Todos los modelos</summary><div class="model-multi-body"><div class="model-quick" id="modelQuick"></div><div class="model-checks" id="modelChecks"></div><button type="button" class="model-clear" id="modelClear">Limpiar selección</button></div></details></div><div class="filter"><label>Tipo de unidad / venta</label><select id="fUnit"><option value="">Todos</option><option value="MEN">Menudeo (MEN)</option><option value="FLO">Flotilla (FLO)</option></select></div><div class="filter"><label>Tipo de cita</label><select id="fCita"><option value="">Todas</option><option value="Cita futura">Futuras confirmadas</option><option value="Cita futura SICOP · Reconfirmar">SICOP · Reconfirmar</option><option value="Show">Shows</option><option value="No Show">No Shows</option><option value="Sin cita programada">Sin cita programada</option><option value="Perdido">Perdidos septiembre</option><option value="Perdido histórico">Perdidos históricos Ene–Ago</option><option value="Servicio sin cita">Servicio sin cita</option></select></div><div class="filter"><label>Fuente de la cita</label><select id="fSource"></select></div><div class="filter"><label>Oferta comercial</label><select id="fOffer"><option value="">Todas</option><option value="Primer Servicio">Primer Servicio</option><option value="Retenidos en Riesgo">Retenidos en Riesgo</option><option value="Leales Fuera de Garantia">Leales Fuera de Garantía</option><option value="Inactivos">Inactivos</option><option value="__MULTI__">Múltiples ofertas</option><option value="__SIN__">Sin oferta</option></select><div class="filter-note">Audiencia Consolidado · Mes 2611 · sólo StatusCliente = POTENCIAL.</div></div><div class="filter"><label>Modalidad de la cita</label><select disabled><option>Pendiente de integrar</option></select></div><div class="filter"><label>Ejecutivo / agente</label><select id="fAgent"></select></div><div class="filter"><label>Buscar cliente / VIN</label><input id="fSearch" placeholder="Ej. 3N1... o apellido"></div><div class="actions"><button class="btn primary" id="exportBtn">⬇ Exportar base filtrada</button><button class="btn green" id="sheetAgencyBtn" disabled style="display:none">☁ Generar / actualizar Google Sheet</button><div class="sheet-status" id="sheetAgencyStatus" style="display:none">Selecciona una agencia. Genera/actualiza su archivo; BDC Primer Servicio se actualiza con el botón global.</div><button class="btn ghost" id="resetBtn">↺ Restablecer filtros</button><button class="btn red" onclick="window.print()">🖨 Imprimir / PDF</button></div></div>
 <div class="side-note panel" style="display:none"><h4>ACTUALIZACIÓN DE UNIVERSO · 07/SEP</h4>
 <p><b>Nueva fuente Marca:</b> <b>1,597 VIN</b> de “Datos Subyacentes Sin1erServ”. Sustituye la referencia anterior de 1,488.</p>
 <p><b>Conciliación contra la referencia anterior:</b> 1,435 VIN permanecen; <b>162 históricos de agosto reaparecen</b> en la fuente Nissan y <b>53 VIN dejan de aparecer</b> (52 ya estaban clasificados como Show y 1 por ajuste de fuente).</p>
@@ -146,7 +146,7 @@
 <p><b>Consolidado de referencia:</b> 1,597 Marca + 464 Grupo exclusivo = <b>2,061 VIN</b>.</p>
 <p><b>Trazabilidad:</b> los 162 históricos reincorporados conservan su bandera de agosto y se mantienen como salida histórica en BDC; no se contabilizan como pérdida nueva de septiembre.</p>
 <p><b>Objetivos:</b> el documento oficial cargado contiene meta por CVE/agencia, región y Grupo Autocom. La meta oficial aplica al universo Marca.</p>
-<p><b>Oferta comercial:</b> Audiencia Consolidado · Mes 2610 · StatusCliente POTENCIAL.</p>
+<p><b>Oferta comercial:</b> Audiencia Consolidado · Mes 2611 · StatusCliente POTENCIAL.</p>
 </div></aside>
 <main class="main">
 <!-- NOV2026: se retiró el "cleanup-strip" (3 tarjetas + nota de cruce) — era texto
@@ -192,7 +192,7 @@ confirmarse cuando la fuente distinga el tipo de línea.</div>
 <div class="hist-note"><b>Descartados · vista de validación (noviembre):</b> arquitectura NUEVA desde este refresco — ya no es la consolidación histórica Ene–Sep de meses anteriores. Es la hoja <b>DESCARTADOS</b> del Maestro (Nissan + Infiniti) tal cual, en bruto: clientes que el BDC marcó como pérdida confirmada este corte. Frank pidió conservar esta vista para, mes con mes, validar con las bases propias si en efecto no regresaron al taller (p. ej. por una promoción posterior) antes de darlos por perdidos de forma definitiva. Estos VIN se excluyen de las hojas operativas activas (Perdidos/Riesgos/Retenidos/Leales) y se conservan aquí solo para trazabilidad y auditoría.</div>
 <section class="hist-kpis">
 <div class="hist-kpi panel red"><div class="label">VIN en Descartados</div><div class="value" id="hUniqueVin">—</div><div class="sub">Llave principal: VIN.</div></div>
-<div class="hist-kpi panel"><div class="label">Registros fuente</div><div class="value" id="hTotalRecords">—</div><div class="sub">Nissan (18 agencias) + Infiniti.</div></div>
+<div class="hist-kpi panel"><div class="label">Registros fuente</div><div class="value" id="hTotalRecords">—</div><div class="sub" id="hTotalRecordsSub">Nissan + Infiniti.</div></div>
 <div class="hist-kpi panel"><div class="label">Corte</div><div class="value">Noviembre</div><div class="sub">Roster del mes en curso, hoja DESCARTADOS.</div></div>
 <div class="hist-kpi panel green"><div class="label">Con oferta comercial</div><div class="value" id="hWithOffer">—</div><div class="sub">Dato real de la hoja DESCARTADOS.</div></div>
 <div class="hist-kpi panel amber"><div class="label">Sin oferta comercial</div><div class="value" id="hWithoutOffer">—</div><div class="sub">Dentro del total de VIN en Descartados.</div></div>
@@ -213,7 +213,7 @@ confirmarse cuando la fuente distinga el tipo de línea.</div>
 <div><label>Buscar cliente / VIN</label><input id="hSearch" placeholder="Cliente, VIN o comentario"></div>
 <button class="btn primary" id="hExport">⬇ Exportar detalle visible</button><button class="btn ghost" id="hReset" style="color:#17365D;border:1px solid #cfd9e5">↺ Limpiar</button>
 </div>
-<div class="table-wrap" style="max-height:560px"><table class="hist-table"><thead><tr><th>Origen histórico</th><th>Región</th><th>Agencia</th><th>Cliente</th><th>VIN</th><th>Año</th><th>Modelo</th><th>Mes(es) pérdida</th><th>Primera pérdida</th><th>Última pérdida</th><th>Motivo perdido</th><th>Comentario origen</th><th>Teléfono</th><th>Correo</th><th>Oferta comercial</th><th>N registros</th></tr></thead><tbody id="hBody"></tbody></table></div><div class="table-footer"><span id="hCount"></span><span>Hoja DESCARTADOS del Maestro Nissan + Infiniti, corte de noviembre.</span></div>
+<div class="table-wrap" style="max-height:560px"><table class="hist-table"><thead><tr><th>Origen</th><th>Región</th><th>Agencia</th><th>Cliente</th><th>VIN</th><th>Año</th><th>Modelo</th><th>Mes(es) pérdida</th><th>Primera pérdida</th><th>Última pérdida</th><th>Motivo perdido</th><th>Comentario origen</th><th>Teléfono</th><th>Correo</th><th>Oferta comercial</th><th>N registros</th></tr></thead><tbody id="hBody"></tbody></table></div><div class="table-footer"><span id="hCount"></span><span>Hoja DESCARTADOS del Maestro Nissan + Infiniti, corte de noviembre.</span></div>
 </div></div></section>
 
 <section id="tabCitas" class="tab-pane"><div class="hist-page citas-page">
@@ -257,7 +257,7 @@ confirmarse cuando la fuente distinga el tipo de línea.</div>
   <div class="seg-note"><b>Lógica operativa vigente:</b> los VIN con <b>servicio validado por FEC.APER/CUMPLIDA</b>, <b>Cita futura</b> o <b>Retorno con evidencia</b> salen del trabajo activo. Los <b>Sin cita</b>, <b>No Show</b>, <b>Cita cancelada</b> y retornos sin evidencia permanecen visibles para seguimiento. El histórico Ene–Ago se excluye de la base activa.</div>
   <section class="seg-kpis">
     <div class="seg-kpi panel"><div class="label">Universo del segmento</div><div class="value" id="PerdidosTotal">—</div><div class="sub">VIN únicos de la base (vista "a trabajar").</div></div>
-    <div class="seg-kpi panel blue"><div class="label">Universo total (agencias)</div><div class="value" id="PerdidosUniverseAll">—</div><div class="sub" id="PerdidosUniverseAllSub">Incluye excluidos por regla de 6 meses.</div></div>
+    <div class="seg-kpi panel blue"><div class="label">Universo total (agencias + flotillas)</div><div class="value" id="PerdidosUniverseAll">—</div><div class="sub" id="PerdidosUniverseAllSub">Incluye excluidos por regla de 6 meses.</div></div>
     <div class="seg-kpi panel red"><div class="label">Pendientes BDC</div><div class="value" id="PerdidosPending">—</div><div class="sub">Sin cita + No Show + canceladas.</div></div>
     <div class="seg-kpi panel amber"><div class="label">Sin cita</div><div class="value" id="PerdidosNoCita">—</div><div class="sub">Principal universo a trabajar.</div></div>
     <div class="seg-kpi panel amber"><div class="label">No Shows</div><div class="value" id="PerdidosNoShow">—</div><div class="sub">Requieren recuperación.</div></div>
@@ -307,7 +307,7 @@ confirmarse cuando la fuente distinga el tipo de línea.</div>
   <div class="seg-note"><b>Lógica operativa vigente:</b> los VIN con <b>servicio validado por FEC.APER/CUMPLIDA</b>, <b>Cita futura</b> o <b>Retorno con evidencia</b> salen del trabajo activo. Los <b>Sin cita</b>, <b>No Show</b>, <b>Cita cancelada</b> y retornos sin evidencia permanecen visibles para seguimiento. El histórico Ene–Ago se excluye de la base activa.</div>
   <section class="seg-kpis">
     <div class="seg-kpi panel"><div class="label">Universo del segmento</div><div class="value" id="RiesgosTotal">—</div><div class="sub">VIN únicos de la base (vista "a trabajar").</div></div>
-    <div class="seg-kpi panel blue"><div class="label">Universo total (agencias)</div><div class="value" id="RiesgosUniverseAll">—</div><div class="sub" id="RiesgosUniverseAllSub">Incluye excluidos por regla de 6 meses.</div></div>
+    <div class="seg-kpi panel blue"><div class="label">Universo total (agencias + flotillas)</div><div class="value" id="RiesgosUniverseAll">—</div><div class="sub" id="RiesgosUniverseAllSub">Incluye excluidos por regla de 6 meses.</div></div>
     <div class="seg-kpi panel red"><div class="label">Pendientes BDC</div><div class="value" id="RiesgosPending">—</div><div class="sub">Sin cita + No Show + canceladas.</div></div>
     <div class="seg-kpi panel amber"><div class="label">Sin cita</div><div class="value" id="RiesgosNoCita">—</div><div class="sub">Principal universo a trabajar.</div></div>
     <div class="seg-kpi panel amber"><div class="label">No Shows</div><div class="value" id="RiesgosNoShow">—</div><div class="sub">Requieren recuperación.</div></div>
@@ -357,7 +357,7 @@ confirmarse cuando la fuente distinga el tipo de línea.</div>
   <div class="seg-note"><b>Lógica operativa vigente:</b> los VIN con <b>servicio validado por FEC.APER/CUMPLIDA</b>, <b>Cita futura</b> o <b>Retorno con evidencia</b> salen del trabajo activo. Los <b>Sin cita</b>, <b>No Show</b>, <b>Cita cancelada</b> y retornos sin evidencia permanecen visibles para seguimiento. El histórico Ene–Ago se excluye de la base activa.</div>
   <section class="seg-kpis">
     <div class="seg-kpi panel"><div class="label">Universo del segmento</div><div class="value" id="RetenidosTotal">—</div><div class="sub">VIN únicos de la base (vista "a trabajar").</div></div>
-    <div class="seg-kpi panel blue"><div class="label">Universo total (agencias)</div><div class="value" id="RetenidosUniverseAll">—</div><div class="sub" id="RetenidosUniverseAllSub">Incluye excluidos por regla de 6 meses.</div></div>
+    <div class="seg-kpi panel blue"><div class="label">Universo total (agencias + flotillas)</div><div class="value" id="RetenidosUniverseAll">—</div><div class="sub" id="RetenidosUniverseAllSub">Incluye excluidos por regla de 6 meses.</div></div>
     <div class="seg-kpi panel red"><div class="label">Pendientes BDC</div><div class="value" id="RetenidosPending">—</div><div class="sub">Sin cita + No Show + canceladas.</div></div>
     <div class="seg-kpi panel amber"><div class="label">Sin cita</div><div class="value" id="RetenidosNoCita">—</div><div class="sub">Principal universo a trabajar.</div></div>
     <div class="seg-kpi panel amber"><div class="label">No Shows</div><div class="value" id="RetenidosNoShow">—</div><div class="sub">Requieren recuperación.</div></div>
@@ -407,7 +407,7 @@ confirmarse cuando la fuente distinga el tipo de línea.</div>
   <div class="seg-note"><b>Lógica operativa vigente:</b> los VIN con <b>servicio validado por FEC.APER/CUMPLIDA</b>, <b>Cita futura</b> o <b>Retorno con evidencia</b> salen del trabajo activo. Los <b>Sin cita</b>, <b>No Show</b>, <b>Cita cancelada</b> y retornos sin evidencia permanecen visibles para seguimiento. El histórico Ene–Ago se excluye de la base activa.</div>
   <section class="seg-kpis">
     <div class="seg-kpi panel"><div class="label">Universo del segmento</div><div class="value" id="LealesTotal">—</div><div class="sub">VIN únicos de la base (vista "a trabajar").</div></div>
-    <div class="seg-kpi panel blue"><div class="label">Universo total (agencias)</div><div class="value" id="LealesUniverseAll">—</div><div class="sub" id="LealesUniverseAllSub">Incluye excluidos por regla de 6 meses.</div></div>
+    <div class="seg-kpi panel blue"><div class="label">Universo total (agencias + flotillas)</div><div class="value" id="LealesUniverseAll">—</div><div class="sub" id="LealesUniverseAllSub">Incluye excluidos por regla de 6 meses.</div></div>
     <div class="seg-kpi panel red"><div class="label">Pendientes BDC</div><div class="value" id="LealesPending">—</div><div class="sub">Sin cita + No Show + canceladas.</div></div>
     <div class="seg-kpi panel amber"><div class="label">Sin cita</div><div class="value" id="LealesNoCita">—</div><div class="sub">Principal universo a trabajar.</div></div>
     <div class="seg-kpi panel amber"><div class="label">No Shows</div><div class="value" id="LealesNoShow">—</div><div class="sub">Requieren recuperación.</div></div>
@@ -519,7 +519,7 @@ confirmarse cuando la fuente distinga el tipo de línea.</div>
 </div></section>
 
 <section id="tabRanking" class="tab-pane"><div class="hist-page citas-page">
-<div class="hist-note"><b>Ranking Ejecutivos — noviembre 2026 (metodología nueva):</b> a partir de este mes ya NO viene del libro "Citas Nissan (Respuestas)" — se calcula directo del universo de trabajo (18 agencias Nissan + Infiniti) y de Campañas Especiales Noviembre/Octubre, usando las columnas propias del Maestro ('Ejecutivo BDC', 'Cita agendada BDC', 'Fecha cita BDC', 'Cita futura o concretada'). <b>Agendadas</b> = 'Cita agendada BDC' = Sí o 'Estatus gestión BDC' = 'Cita agendada'. <b>Concretadas</b> = agendadas con 'Cita futura o concretada' = 'Concretada'. <b>Objetivo age./Objetivo show</b> quedan vacíos este mes: Frank aún no comparte la meta oficial por ejecutivo de noviembre. Agosto/Septiembre/Octubre quedan congelados con la metodología anterior, sin recalcular. Se detectaron variantes de un mismo nombre con distinta mayúscula/espaciado en la columna 'Ejecutivo BDC' de origen (p. ej. "Erika Carmona" / "Erika CARMONA" / "ErikaCarmona") — no se unificaron automáticamente para no fusionar por error a dos personas distintas; se reporta como hallazgo para limpiar en la fuente.</div>
+<div class="hist-note"><b>Ranking Ejecutivos — noviembre 2026 (metodología nueva):</b> a partir de este mes ya NO viene del libro "Citas Nissan (Respuestas)" — se calcula directo del universo de trabajo (18 agencias Nissan + Infiniti) y de Campañas Especiales Noviembre (desde el 10-nov ya incluye Inactivos; la hoja de octubre se retiró), usando las columnas propias del Maestro ('Ejecutivo BDC', 'Cita agendada BDC', 'Fecha cita BDC', 'Cita futura o concretada'). <b>Agendadas</b> = 'Cita agendada BDC' = Sí o 'Estatus gestión BDC' = 'Cita agendada'. <b>Concretadas</b> = agendadas con 'Cita futura o concretada' = 'Concretada'. <b>Objetivo age./Objetivo show</b> quedan vacíos este mes: Frank aún no comparte la meta oficial por ejecutivo de noviembre. Agosto/Septiembre/Octubre quedan congelados con la metodología anterior, sin recalcular. Se detectaron variantes de un mismo nombre con distinta mayúscula/espaciado en la columna 'Ejecutivo BDC' de origen (p. ej. "Erika Carmona" / "Erika CARMONA" / "ErikaCarmona") — no se unificaron automáticamente para no fusionar por error a dos personas distintas; se reporta como hallazgo para limpiar en la fuente.</div>
 <div style="display:flex;align-items:center;gap:9px;margin-bottom:4px"><label for="rankMonthSelect" style="font-size:11px;font-weight:800;color:#344054">Mes:</label><select id="rankMonthSelect" style="border:1px solid #d0d7e2;border-radius:8px;padding:7px 10px;font-size:11px;font-weight:700;background:#fff;color:#172033"></select></div>
 <section class="hist-kpis">
 <div class="hist-kpi panel"><div class="label">TOTAL CITAS AGENDADAS (NISSAN)</div><div class="value" id="rkTotalAgendadas">—</div><div class="sub" id="rkTotalAgendadasSub">—</div></div>
@@ -560,7 +560,7 @@ confirmarse cuando la fuente distinga el tipo de línea.</div>
   </section>
   <section class="seg-kpis">
     <div class="seg-kpi panel"><div class="label">Universo Retención Total</div><div class="value" id="RTTotal">—</div><div class="sub">Suma de los 4 segmentos (vista "a trabajar").</div></div>
-    <div class="seg-kpi panel blue"><div class="label">Universo total (agencias)</div><div class="value" id="RTUniverseAll">—</div><div class="sub" id="RTUniverseAllSub">Incluye excluidos por regla de 6 meses.</div></div>
+    <div class="seg-kpi panel blue"><div class="label">Universo total (agencias + flotillas)</div><div class="value" id="RTUniverseAll">—</div><div class="sub" id="RTUniverseAllSub">Incluye excluidos por regla de 6 meses.</div></div>
     <div class="seg-kpi panel red"><div class="label">Perdidos</div><div class="value" id="RTBasePerdidos">—</div><div class="sub">VIN de la base Perdidos.</div></div>
     <div class="seg-kpi panel amber"><div class="label">En riesgo</div><div class="value" id="RTBaseRiesgos">—</div><div class="sub">VIN de la base En riesgo.</div></div>
     <div class="seg-kpi panel blue"><div class="label">Retenidos</div><div class="value" id="RTBaseRetenidos">—</div><div class="sub">VIN de la base Retenidos.</div></div>
@@ -617,7 +617,7 @@ confirmarse cuando la fuente distinga el tipo de línea.</div>
 
 <section id="tabOperativo" class="tab-pane"><div class="hist-page">
 <div class="seg-head"><div><h2>Embudo · Noviembre 2026</h2><p>Potencial → Contactable → Contactado → Cita → Show, por base.</p></div></div>
-<div class="hist-note" style="font-size:9.5px;line-height:1.5"><b>De dónde sale cada dato:</b> Potencial = universo de cada base · Contactable/Contactado = fórmula de contacto ya usada en el resto del tablero · Cita/Show = evidencia real Quiter/Simetric. <b>Objetivo</b> (píldora lateral de cada etapa) = meta compartida por Marisol, medida sobre la etapa anterior — <span style="color:#178a43">verde cumple</span>, <span style="color:#9a6700">ámbar cerca</span>, <span style="color:#b42318">rojo por debajo</span>.</div>
+<div class="hist-note" style="font-size:9.5px;line-height:1.5"><b>De dónde sale cada dato:</b> Potencial = universo de cada base · Contactable = “¿Cuenta como contactable?” = Sí · Contactado = gestión del mes en curso en Clientes Contactados (toda cita del mes cuenta) · Cita/Show = evidencia real Quiter/Simetric. <b>Objetivo</b> (píldora lateral de cada etapa) = meta compartida por Marisol, medida sobre la etapa anterior — <span style="color:#178a43">verde cumple</span>, <span style="color:#9a6700">ámbar cerca</span>, <span style="color:#b42318">rojo por debajo</span>.</div>
 <div class="panel card" style="margin:10px 0 16px;padding:10px 12px">
 <div class="seg-filters" style="grid-template-columns:repeat(3,minmax(150px,230px));margin-bottom:0">
   <div><label>Región</label><select id="opRegion"></select></div>
@@ -625,9 +625,10 @@ confirmarse cuando la fuente distinga el tipo de línea.</div>
   <div style="display:flex;align-items:flex-end"><button class="btn ghost" id="opReset" style="color:#17365D;border:1px solid #cfd9e5;background:#fff;width:100%">↺ Limpiar filtros</button></div>
 </div>
 </div>
+<div class="hist-note" id="operativoSubNote" style="font-size:9.5px;line-height:1.5;display:none"></div>
 <div class="efunnel-group-label">Primer Servicio</div>
 <div class="efunnel-grid efunnel-grid-main" id="operativoWrapMain"></div>
-<div class="efunnel-group-label">Retención — Leales · Retenidos · Riesgos · Perdidos · Total combinado</div>
+<div class="efunnel-group-label">Retención — Leales · Retenidos · Riesgos · Perdidos · Inactivos · Total combinado</div>
 <div class="efunnel-grid" id="operativoWrapSeg"></div>
 </div></section>
 
@@ -649,6 +650,7 @@ confirmarse cuando la fuente distinga el tipo de línea.</div>
 <script src="./data_ranking_ejecutivos.js"></script>
 <script src="./data_citas_segmento.js"></script>
 <script src="./data_embudo.js"></script>
+<script src="./data_inactivos.js"></script>
 <script src="./data_meta.js"></script>
 <script>
 const DATA=window.__DATA;
@@ -956,7 +958,7 @@ function initFilters(){setOptions('fRegion',[...new Set(DATA.map(r=>norm(r['Regi
 let quick='all';
 function filtered(){const universe=$('fUniverse').value,reg=$('fRegion').value,ag=$('fAgency').value,un=$('fUnit').value,ci=$('fCita').value,so=$('fSource').value,of=$('fOffer').value,ae=$('fAgent').value,q=norm($('fSearch').value).toLowerCase();return DATA.filter(r=>{
 if(universe==='marca'&&norm(r['Origen universo'])!=='MARCA')return false;
-if(universe==='grupo'&&norm(r['Origen universo'])!=='GRUPO EXCLUSIVO')return false;if(yes(r['Cliente perdido histórico']))return false;if(reg&&norm(r['Región objetivo'])!==reg)return false;if(ag&&!matchesAgencyFilter(r['Agencia objetivo'],ag))return false;if(selectedModels.size&&!selectedModels.has(norm(r['Modelo corto'])))return false;if(un&&norm(r['Tipo venta'])!==un)return false;if(ci&&norm(r['Estatus monitoreo'])!==ci)return false;if(so&&norm(r['Fuente cita'])!==so)return false;if(of==='__SIN__'&&yes(r['Tiene oferta comercial']))return false;if(of==='__MULTI__'&&num(r['Núm. ofertas comerciales'])<2)return false;if(of&&!of.startsWith('__')&&!norm(r['Oferta comercial']).split(' | ').includes(of))return false;if(ae&&norm(r['Ejecutivo Contact Center'])!==ae&&norm(r['Nombre agente'])!==ae)return false;if(q&&!([r.Cliente,r.VIN,r['Agencia objetivo'],r['Modelo corto'],r['Oferta comercial']].some(v=>norm(v).toLowerCase().includes(q))))return false;return true})}
+if(universe==='grupo'&&norm(r['Origen universo'])!=='GRUPO EXCLUSIVO')return false;if(yes(r['Cliente perdido histórico']))return false;if(reg&&norm(r['Región objetivo'])!==reg)return false;if(ag&&!matchesAgencyFilter(r['Agencia objetivo'],ag))return false;if(selectedModels.size&&!selectedModels.has(norm(r['Modelo corto'])))return false;if(un&&norm(r['Tipo venta'])!==un)return false;if(ci&&norm(r['Estatus monitoreo'])!==ci)return false;if(so&&norm(r['Fuente cita'])!==so)return false;if(of==='__SIN__'&&yes(r['Tiene oferta comercial']))return false;if(of==='__MULTI__'&&num(r['Núm. ofertas comerciales'])<2)return false;if(of&&!of.startsWith('__')&&!norm(r['Oferta comercial']).toLowerCase().includes(of.toLowerCase()))return false;if(ae&&norm(r['Ejecutivo Contact Center'])!==ae&&norm(r['Nombre agente'])!==ae)return false;if(q&&!([r.Cliente,r.VIN,r['Agencia objetivo'],r['Modelo corto'],r['Oferta comercial']].some(v=>norm(v).toLowerCase().includes(q))))return false;return true})}
 function badge(s){const x=norm(s);let c='gray';if(x==='Show')c='green';else if(x==='No Show'||x==='Perdido')c='red';else if(x==='Cita futura')c='blue';else if(x==='Servicio sin cita')c='teal';else if(x==='Sin cita programada')c='amber';return `<span class="badge ${c}">${esc(x||'—')}</span>`}
 
 function objRegionNorm(v){
@@ -1577,7 +1579,7 @@ function renderSegment(key,forcePendingDefault=false){
   const univ=(window.__META&&META.segmentUniverse&&META.segmentUniverse[key])||null;
   if(univ&&segEl(key,'UniverseAll')){
     segEl(key,'UniverseAll').textContent=fmt(univ.total);
-    segEl(key,'UniverseAllSub').textContent=`Incluye ${fmt(univ.excluidos)} excluidos (regla 6 meses) · fuente: agencias filtradas por Segmento`;
+    segEl(key,'UniverseAllSub').textContent=`Incluye ${fmt(univ.excluidos)} excluidos (regla 6 meses)${univ.aContactar!=null?` · potencial trabajable (A contactar): ${fmt(univ.aContactar)}`:''} · fuente: agencias + flotillas y arrendadoras, filtradas por Segmento`;
   }
   segEl(key,'Pending').textContent=fmt(pending.length);
   segEl(key,'NoCita').textContent=fmt(noCita);
@@ -1833,10 +1835,10 @@ function renderRT(forcePendingDefault=false){
   const show=all.filter(r=>r['Resultado cita']==='Show').length;
   const offer=all.filter(r=>segIsOffer(r['Oferta comercial'])).length;
   rtEl('Total').textContent=fmt(all.length);
-  const rtUniv=(window.__META&&META.segmentUniverse)?RT_KEYS.reduce((a,k)=>{const u=META.segmentUniverse[k];return u?{total:a.total+u.total,excluidos:a.excluidos+u.excluidos}:a},{total:0,excluidos:0}):null;
+  const rtUniv=(window.__META&&META.segmentUniverse)?RT_KEYS.reduce((a,k)=>{const u=META.segmentUniverse[k];return u?{total:a.total+u.total,excluidos:a.excluidos+u.excluidos,aContactar:a.aContactar+(u.aContactar||0)}:a},{total:0,excluidos:0,aContactar:0}):null;
   if(rtUniv&&rtEl('UniverseAll')){
     rtEl('UniverseAll').textContent=fmt(rtUniv.total);
-    rtEl('UniverseAllSub').textContent=`Incluye ${fmt(rtUniv.excluidos)} excluidos (regla 6 meses) · fuente: agencias filtradas por Segmento`;
+    rtEl('UniverseAllSub').textContent=`Incluye ${fmt(rtUniv.excluidos)} excluidos (regla 6 meses) · potencial trabajable (A contactar): ${fmt(rtUniv.aContactar)} · fuente: agencias + flotillas y arrendadoras, filtradas por Segmento`;
   }
   rtEl('Pending').textContent=fmt(pending.length);
   rtEl('Show').textContent=fmt(show);
@@ -1989,8 +1991,10 @@ function buildOperativoFilterMaps(){
 function refreshOpAgencyOptions(){
   const agSel=$('opAgency'),cur=agSel.value,rk=$('opRegion').value;
   const keys=Object.keys(OP_AGENCY_LABELS).filter(ak=>!rk||OP_AGENCY_TO_REGION[ak]===rk).sort((a,b)=>OP_AGENCY_LABELS[a].localeCompare(OP_AGENCY_LABELS[b],'es'));
-  agSel.innerHTML='<option value="">Todas</option>'+keys.map(ak=>`<option value="${ak}">${esc(OP_AGENCY_LABELS[ak])}</option>`).join('');
-  if(keys.includes(cur))agSel.value=cur;
+  // 12-nov: Los Reyes como subagencia de Uruapan (valor "URUAPAN|LOS REYES"); "Uruapan" la incluye.
+  const opts=[];keys.forEach(ak=>{opts.push(`<option value="${ak}">${esc(OP_AGENCY_LABELS[ak])}</option>`);if(ak==='URUAPAN')opts.push(`<option value="URUAPAN|LOS REYES">Los Reyes (subagencia de Uruapan)</option>`)});
+  agSel.innerHTML='<option value="">Todas</option>'+opts.join('');
+  if(keys.includes(cur)||(cur==='URUAPAN|LOS REYES'&&keys.includes('URUAPAN')))agSel.value=cur;
 }
 function initOperativoFilters(){
   if(!OP_REGION_LABELS)buildOperativoFilterMaps();
@@ -2015,70 +2019,91 @@ function initOperativoFilters(){
 // "no show" de "aun sin concretar".
 const OPERATIVO_OBJETIVOS={Contactable:100,Contactado:80,Citas:75,Show:85}; // tabla compartida por Marisol 22/oct (col. PS y RT identicas); cada % medido sobre la etapa inmediata anterior
 function buildOperativoRows(regionKey,agencyKey){
-  const PREFIX='2026-11';
+  // 10-nov-2026 (decisión de Frank, estructura V5): Contactable = "¿Cuenta como
+  // contactable?" = Sí; Contactado = estatus VERDE del mes en curso ("Estatus
+  // gestión BDC") en la categoría Clientes Contactados; toda cita real del mes
+  // cuenta como contactable y contactado. Cita/Show siguen con evidencia de
+  // Quiter. Universo = unión por VIN de la hoja y de las citas del mes (antes se
+  // sumaban las citas aparte y en noviembre se contaban doble).
+  const PREFIX=META&&META.cutQuiter?META.cutQuiter.slice(0,7):'2026-11';
   const out=[];
+  const soloSub=agencyKey&&agencyKey.includes('|')?agencyKey.split('|'):null;   // ["URUAPAN","LOS REYES"]
   const matchOn=agencyField=>r=>{
     const res=opResolveRow(r[agencyField]);
     if(!res)return false;
+    if(soloSub)return res.agencyKey===soloSub[0]&&foldKey(r.Subagencia||r.subagencia||r.s)===soloSub[1];
     return(!regionKey||res.regionKey===regionKey)&&(!agencyKey||res.agencyKey===agencyKey);
   };
+  // 12-nov: cita y show solo del mes en curso; las citas ya agendadas para meses siguientes van aparte.
+  const sigMes=(()=>{const [y,m]=PREFIX.split('-').map(Number);const d=new Date(y,m,1);return ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'][d.getMonth()]})();
+  const visita=rows=>rows.filter(r=>r['Visita no registrada']==='Sí'&&yes(r['¿Cuenta como contactable?'])).length;
   const matchPS=matchOn('Agencia objetivo');
+  // V6 (11-nov): agrupados = VIN con el mismo teléfono que un VIN líder (hoja FLOTILLAS Y ARRENDADORAS).
+  // No son contactables ni suman al potencial de retención; se atienden con la llamada del líder.
+  const matchAgr=matchOn('agencia');
+  const agrupadosDe=base=>((META&&META.agrupados)||[]).filter(a=>a.base===base&&matchAgr(a)).reduce((t,a)=>t+a.n,0);
   const matchSeg=matchOn('Agencia');
   const matchCita=matchOn('Agencia');
-  // Primer Servicio. Contactado = version "ampliada": union de (a) estatus
-  // autorreportado dentro de "Clientes Contactados" (formula de Diana) y (b)
-  // VIN con evidencia real de cita (Estatus monitoreo), que por definicion
-  // implica que SI hubo contacto aunque el estatus BDC nunca se haya
-  // actualizado (validado con Frank 22/oct: 85% de las citas reales tenian el
-  // campo de estatus BDC en blanco).
+  const tally=(byVin,citasVins)=>{
+    let cbl=0,cdo=0,ia=0,hum=0;
+    new Set([...byVin.keys(),...citasVins]).forEach(v=>{
+      const r=byVin.get(v),c=citasVins.has(v),st=r?r['Estatus gestión BDC']:'';
+      const ok=c||(r&&yes(r['¿Cuenta como contactable?']));
+      if(ok)cbl++;
+      if(c||(ok&&isContactado(st)))cdo++;
+      if(ok&&isContactoIA(st))ia++;
+      if(ok&&isContactoHumano(st))hum++;
+    });
+    return {pot:new Set([...byVin.keys(),...citasVins]).size,cbl,cdo,ia,hum};
+  };
   {
     const psRows=DATA.filter(matchPS);
-    const cs=contactSummary(psRows,'Último estatus mes anterior');
+    const byVin=new Map();psRows.forEach(r=>{const v=norm(r.VIN);if(v&&!byVin.has(v))byVin.set(v,r)});
     const em=r=>norm(r['Estatus monitoreo']);
-    const citasRows=psRows.filter(r=>['Cita futura','Cita futura SICOP · Reconfirmar','Show','No Show'].includes(em(r)));
-    const showN=psRows.filter(r=>em(r)==='Show').length;
-    const noShowN=psRows.filter(r=>em(r)==='No Show').length;
-    const citasN=citasRows.length;
-    const statusField='Último estatus mes anterior';
-    const yaContactadoVins=new Set(psRows.filter(r=>!isVinSinCalidad(r[statusField])&&isContactado(r[statusField])).map(r=>norm(r.VIN)));
-    let addedByCita=0;
-    citasRows.forEach(r=>{if(!yaContactadoVins.has(norm(r.VIN)))addedByCita++});
-    out.push({Base:'Primer Servicio',Potencial:psRows.length,Contactable:cs.contactable,Contactado:cs.contactados+addedByCita,
-      ia:cs.ia,humano:cs.humano,Citas:citasN,Show:showN,NoShow:noShowN,Futura:citasN-showN-noShowN,hasNoShow:true});
+    const delMes=r=>norm(r['Fecha cita']).startsWith(PREFIX);
+    const citasVins=new Set(psRows.filter(r=>['Cita futura','Cita futura SICOP · Reconfirmar','Show','No Show'].includes(em(r))&&delMes(r)).map(r=>norm(r.VIN)));
+    const showN=psRows.filter(r=>em(r)==='Show'&&delMes(r)).length;
+    const noShowN=psRows.filter(r=>em(r)==='No Show'&&delMes(r)).length;
+    const sigN=new Set(psRows.filter(r=>em(r).startsWith('Cita futura')&&norm(r['Fecha cita'])>PREFIX&&!delMes(r)).map(r=>norm(r.VIN))).size;
+    const t=tally(byVin,citasVins);
+    out.push({Base:'Primer Servicio',Potencial:t.pot,Contactable:t.cbl,Contactado:t.cdo,ia:t.ia,humano:t.hum,
+      Citas:citasVins.size,Show:showN,NoShow:noShowN,Futura:citasVins.size-showN-noShowN,hasNoShow:true,agrupados:agrupadosDe('Primer Servicio'),sig:sigN,visita:visita(psRows)});
   }
-  // Leales / Retenidos / Riesgos. Fusion aprobada con Frank el 22/oct: estas 3
-  // hojas del Maestro traen SOLO lo pendiente de gestionar -- en cuanto un VIN
-  // agenda una cita, el Maestro lo saca de aqui. Se confirmo 0% de traslape de
-  // VIN entre ese log de citas y el pendiente actual. Por eso, SOLO dentro de
-  // este embudo, se amplian Potencial/Contactable/Contactado sumando los VIN
-  // con cita de octubre que ya salieron del pendiente -- toda cita real
-  // implica contacto. Esto NO toca BDC_SEGMENTS ni el universo que se muestra
-  // en las pestañas de segmento ni en Retención Total.
-  const segKeys=['Leales','Retenidos','Riesgos','Perdidos']; // 09-nov-2026: se agrega Perdidos (petición de Frank), misma lógica que las otras 3 bases
+  const segKeys=['Leales','Retenidos','Riesgos','Perdidos'];
   const segResults={};
   segKeys.forEach(key=>{
     const rows=(BDC_SEGMENTS[key]||[]).filter(matchSeg);
-    const cs=contactSummary(rows,'Histórico BDC · Estatus');
-    const citasVins=new Set(),showVins=new Set();
+    const byVin=new Map();rows.forEach(r=>{const v=norm(r.VIN);if(v&&!byVin.has(v))byVin.set(v,r)});
+    const citasVins=new Set(),showVins=new Set(),sigVins=new Set();
     (CITAS_SEGMENTO[key]||[]).filter(matchCita).forEach(r=>{
       const v=norm(r.VIN); if(!v)return;
       const fut=r.FechaCitaFutura||'',conc=r.FechaCitaConcretada||'';
       if((fut&&fut.startsWith(PREFIX))||(conc&&conc.startsWith(PREFIX)))citasVins.add(v);
       if(conc&&conc.startsWith(PREFIX))showVins.add(v);
+      if(fut&&fut.slice(0,7)>PREFIX)sigVins.add(v);
     });
-    const res={Base:key,
-      Potencial:rows.length+citasVins.size,
-      Contactable:cs.contactable+citasVins.size,
-      Contactado:cs.contactados+citasVins.size,
-      ia:cs.ia,humano:cs.humano,Citas:citasVins.size,Show:showVins.size,NoShow:null,Futura:citasVins.size-showVins.size,hasNoShow:false};
+    citasVins.forEach(v=>sigVins.delete(v));
+    const t=tally(byVin,citasVins);
+    const res={Base:key,Potencial:t.pot,Contactable:t.cbl,Contactado:t.cdo,ia:t.ia,humano:t.hum,
+      Citas:citasVins.size,Show:showVins.size,NoShow:null,Futura:citasVins.size-showVins.size,hasNoShow:false,agrupados:agrupadosDe(key),sig:sigVins.size,visita:visita(rows)};
     segResults[key]=res;
     out.push(res);
   });
-  // Total combinado (Leales+Retenidos+Riesgos+Perdidos)
-  const tot={Base:'Total combinado (Leales+Retenidos+Riesgos+Perdidos)',Potencial:0,Contactable:0,Contactado:0,
-    ia:0,humano:0,Citas:0,Show:0,NoShow:null,Futura:0,hasNoShow:false};
-  segKeys.forEach(key=>{const r=segResults[key];tot.Potencial+=r.Potencial;tot.Contactable+=r.Contactable;tot.Contactado+=r.Contactado;tot.ia+=r.ia;tot.humano+=r.humano;tot.Citas+=r.Citas;tot.Show+=r.Show;tot.Futura+=r.Futura});
+  {
+    // 12-nov: Inactivos (Campañas especiales, sin VIN que ya estén en otra base). Contactable = "Sí contactable".
+    const rows=(window.__INACTIVOS||[]).map(x=>({VIN:x.v,Agencia:x.a,Subagencia:x.s,'¿Cuenta como contactable?':x.c?'Sí':'No','Estatus gestión BDC':x.e,ci:x.ci,sh:x.sh,ns:x.ns})).filter(matchSeg);
+    const byVin=new Map();rows.forEach(r=>{if(!byVin.has(r.VIN))byVin.set(r.VIN,r)});
+    const citasVins=new Set(rows.filter(r=>r.ci).map(r=>r.VIN)),showN=rows.filter(r=>r.sh).length;
+    const t=tally(byVin,citasVins);
+    const res={Base:'Inactivos',Potencial:t.pot,Contactable:t.cbl,Contactado:t.cdo,ia:t.ia,humano:t.hum,
+      Citas:citasVins.size,Show:showN,NoShow:null,Futura:citasVins.size-showN,hasNoShow:false,agrupados:0,sig:rows.filter(r=>r.ns).length,visita:0};
+    segResults['Inactivos']=res;out.push(res);
+  }
+  const tot={Base:'Total combinado (Leales+Retenidos+Riesgos+Perdidos+Inactivos)',Potencial:0,Contactable:0,Contactado:0,
+    ia:0,humano:0,Citas:0,Show:0,NoShow:null,Futura:0,hasNoShow:false,agrupados:0,sig:0,visita:0};
+  [...segKeys,'Inactivos'].forEach(key=>{const r=segResults[key];tot.sig+=r.sig;tot.visita+=r.visita;tot.agrupados+=r.agrupados;tot.Potencial+=r.Potencial;tot.Contactable+=r.Contactable;tot.Contactado+=r.Contactado;tot.ia+=r.ia;tot.humano+=r.humano;tot.Citas+=r.Citas;tot.Show+=r.Show;tot.Futura+=r.Futura});
   out.push(tot);
+  out.forEach(r=>r.sigMes=sigMes);
   return out;
 }
 function renderOperativo(){
@@ -2093,9 +2118,14 @@ function renderOperativo(){
     const vals=[r.Potencial,r.Contactable,r.Contactado,r.Citas,r.Show];
     const svg=buildFunnelSVG(vals,LABELS,COLORS,objetivos);
     const noShowTxt=r.hasNoShow?`${fmt(r.NoShow)} (${efmtPct(r.NoShow,r.Citas)})`:'no disponible';
-    const breakdown=`<div class="ef-breakdown"><b>Resultado de citas:</b> Show ${fmt(r.Show)} (${efmtPct(r.Show,r.Citas)}) · No Show ${noShowTxt} · Futuras ${fmt(Math.max(r.Futura,0))} (${efmtPct(Math.max(r.Futura,0),r.Citas)})${r.ia||r.humano?` · incl. ${fmt(r.ia)} IA sola y ${fmt(r.humano)} IA+persona`:''}</div>`;
+    const breakdown=`<div class="ef-breakdown"><b>Resultado de citas:</b> Show ${fmt(r.Show)} (${efmtPct(r.Show,r.Citas)}) · No Show ${noShowTxt} · Futuras ${fmt(Math.max(r.Futura,0))} (${efmtPct(Math.max(r.Futura,0),r.Citas)})${r.ia||r.humano?` · incl. ${fmt(r.ia)} IA sola y ${fmt(r.humano)} IA+persona`:''}${r.sig?`<br><b>Citas agendadas para ${r.sigMes}:</b> ${fmt(r.sig)} (no suman a la cita del mes)`:''}${r.visita?`<br><b>Visita a taller no registrada como servicio:</b> ${fmt(r.visita)} VIN contactables, validar antes de llamar`:''}${r.agrupados?`<br><b>Agrupados:</b> ${fmt(r.agrupados)} VIN con el mismo teléfono que otro VIN (se atienden con la llamada del líder; no suman al contactable)`:''}</div>`;
     return `<div class="efunnel-card"><h4>${esc(r.Base)}</h4>${svg}${breakdown}</div>`;
   };
+  // V6: Los Reyes es subagencia de Uruapan (Agencia = "Uruapan · Los Reyes"); se cuenta dentro de Uruapan.
+  const agBase=agencyKey?agencyKey.split('|')[0]:'';
+  const subs=((META&&META.subagencias)||[]).filter(x=>{const res=opResolveRow(x.agencia);return res&&(!regionKey||res.regionKey===regionKey)&&(!agBase||res.agencyKey===agBase)});
+  const subNote=$('operativoSubNote');
+  if(subNote){subNote.innerHTML=subs.length?subs.map(x=>`<b>${esc(x.agencia)}</b> incluye la subagencia <b>${esc(x.subagencia)}</b>: ${fmt(x.total)} VIN en el universo (${fmt(x.aContactar)} a contactar) · Primer Servicio ${fmt(x['base_Primer Servicio']||0)} · Leales ${fmt(x.base_Leales||0)} · Retenidos ${fmt(x.base_Retenidos||0)} · Riesgos ${fmt(x.base_Riesgos||0)} · Perdidos ${fmt(x.base_Perdidos||0)}.`).join('<br>'):'';subNote.style.display=subs.length?'':'none'}
   $('operativoWrapMain').innerHTML=rows.filter(r=>r.Base==='Primer Servicio').map(card).join('');
   $('operativoWrapSeg').innerHTML=rows.filter(r=>r.Base!=='Primer Servicio').map(card).join('');
 }
@@ -2189,15 +2219,15 @@ function renderHistMotivos(){
   });
 }
 function histFiltered(){const reg=$('hRegion').value,ag=$('hAgency').value,yr=$('hYear').value,mo=$('hModel').value,re=$('hReason').value,of=$('hOffer').value,q=norm($('hSearch').value).toLowerCase();return HIST_LOST_GROUP.filter(r=>{if(reg&&norm(r.Región)!==reg)return false;if(ag&&norm(r.Agencia)!==ag)return false;if(yr&&norm(r['Año unidad'])!==yr)return false;if(mo&&norm(r.Modelo)!==mo)return false;if(re&&norm(r['Motivo perdido'])!==re)return false;if(of==='CON_OFERTA'&&!norm(r['Oferta comercial']))return false;if(of==='SIN_OFERTA'&&norm(r['Oferta comercial']))return false;if(q&&![r.Cliente,r.VIN,r.Agencia,r.Modelo,r['Motivo perdido'],r['Comentario origen'],r['Mes(es) pérdida'],r['Oferta comercial']].some(v=>norm(v).toLowerCase().includes(q)))return false;return true})}
-function renderHist(){const rows=histFiltered();if($('hUniqueVin'))$('hUniqueVin').textContent=fmt(new Set(HIST_LOST_GROUP.map(r=>norm(r.VIN))).size);if($('hTotalRecords'))$('hTotalRecords').textContent=fmt(HIST_LOST_GROUP.length);const histHasOffer=r=>{const v=norm(r['Oferta comercial']).toUpperCase();return v&&v!=='SIN OFERTA'};$('hWithOffer').textContent=fmt(HIST_LOST_GROUP.filter(histHasOffer).length);$('hWithoutOffer').textContent=fmt(HIST_LOST_GROUP.filter(r=>!histHasOffer(r)).length);$('hBody').innerHTML=rows.map(r=>`<tr><td><span class="badge blue">${esc(r['Origen histórico'])}</span></td><td>${esc(r.Región)}</td><td>${esc(r.Agencia)}</td><td>${esc(r.Cliente)}</td><td>${esc(r.VIN)}</td><td>${esc(r['Año unidad'])}</td><td>${esc(r.Modelo)}</td><td>${esc(r['Mes(es) pérdida'])}</td><td>${esc(r['Primera pérdida'])}</td><td>${esc(r['Última pérdida'])}</td><td>${esc(r['Motivo perdido'])}</td><td title="${esc(r['Comentario origen'])}">${esc(r['Comentario origen'])}</td><td>${esc(r.Teléfono)}</td><td>${esc(r.Correo)}</td><td>${r['Oferta comercial']?`<span class="offer-pill">${esc(r['Oferta comercial'])}</span>`:'<span class="offer-pill offer-none">Sin oferta</span>'}</td><td>${esc(r['N registros histórico'])}</td></tr>`).join('');$('hCount').textContent=`${fmt(rows.length)} de ${fmt(HIST_LOST_GROUP.length)} VIN históricos únicos`}
+function renderHist(){const rows=histFiltered();if($('hUniqueVin'))$('hUniqueVin').textContent=fmt(new Set(HIST_LOST_GROUP.map(r=>norm(r.VIN))).size);if($('hTotalRecords'))$('hTotalRecords').textContent=fmt(HIST_LOST_GROUP.length);if($('hTotalRecordsSub')){const nC=HIST_LOST_GROUP.filter(r=>norm(r['Origen histórico']).startsWith('Campañas especiales')).length;$('hTotalRecordsSub').textContent=`Bases de trabajo ${fmt(HIST_LOST_GROUP.length-nC)} · Campañas especiales ${fmt(nC)} (grupo aparte, ver columna Origen).`}const histHasOffer=r=>{const v=norm(r['Oferta comercial']).toUpperCase();return v&&v!=='SIN OFERTA'};$('hWithOffer').textContent=fmt(HIST_LOST_GROUP.filter(histHasOffer).length);$('hWithoutOffer').textContent=fmt(HIST_LOST_GROUP.filter(r=>!histHasOffer(r)).length);$('hBody').innerHTML=rows.map(r=>`<tr><td><span class="badge blue">${esc(r['Origen histórico'])}</span></td><td>${esc(r.Región)}</td><td>${esc(r.Agencia)}</td><td>${esc(r.Cliente)}</td><td>${esc(r.VIN)}</td><td>${esc(r['Año unidad'])}</td><td>${esc(r.Modelo)}</td><td>${esc(r['Mes(es) pérdida'])}</td><td>${esc(r['Primera pérdida'])}</td><td>${esc(r['Última pérdida'])}</td><td>${esc(r['Motivo perdido'])}</td><td title="${esc(r['Comentario origen'])}">${esc(r['Comentario origen'])}</td><td>${esc(r.Teléfono)}</td><td>${esc(r.Correo)}</td><td>${r['Oferta comercial']?`<span class="offer-pill">${esc(r['Oferta comercial'])}</span>`:'<span class="offer-pill offer-none">Sin oferta</span>'}</td><td>${esc(r['N registros histórico'])}</td></tr>`).join('');$('hCount').textContent=`${fmt(rows.length)} de ${fmt(HIST_LOST_GROUP.length)} VIN históricos únicos`}
 function refreshHistAgencies(){const reg=$('hRegion').value;setOptions('hAgency',[...new Set(HIST_LOST_GROUP.filter(r=>!reg||norm(r.Región)===reg).map(r=>norm(r.Agencia)).filter(Boolean))])}
 function initHist(){setOptions('hRegion',[...new Set(HIST_LOST_GROUP.map(r=>norm(r.Región)).filter(Boolean))]);setOptions('hAgency',[...new Set(HIST_LOST_GROUP.map(r=>norm(r.Agencia)).filter(Boolean))]);setOptions('hYear',[...new Set(HIST_LOST_GROUP.map(r=>norm(r['Año unidad'])).filter(Boolean))]);setOptions('hModel',[...new Set(HIST_LOST_GROUP.map(r=>norm(r.Modelo)).filter(Boolean))]);setOptions('hReason',[...new Set(HIST_LOST_GROUP.map(r=>norm(r['Motivo perdido'])).filter(Boolean))]);$('hRegion').addEventListener('change',()=>{refreshHistAgencies();renderHist()});['hAgency','hYear','hModel','hReason','hOffer'].forEach(id=>$(id).addEventListener('change',()=>{renderHist();renderHistMotivos()}));$('hSearch').addEventListener('input',renderHist);$('hReset').onclick=()=>{['hRegion','hAgency','hYear','hModel','hReason','hOffer'].forEach(id=>$(id).value='');refreshHistAgencies();$('hSearch').value='';renderHist();renderHistMotivos()};$('hExport').onclick=()=>{const rows=histFiltered(),fields=['Región','Agencia','Cliente','VIN','Año unidad','Modelo','Mes(es) pérdida','Primera pérdida','Última pérdida','Motivo perdido','Comentario origen','Teléfono','Correo','Oferta comercial','Tiene oferta comercial','N registros histórico'];csvDownload(rows,fields,'historicos_clientes_perdidos_ene_ago_1056_vin.csv')};renderHist();renderHistMotivos()}
 
 const TALLER_AGENCY_MAP={
- '1':'MADERO','2':'URIANGATO','5':'CHAPULTEPEC','6':'ACAMBARO','7':'ZITACUARO','8':'VALLE DE BRAVO','10':'HUETAMO','11':'URUAPAN','12':'LOS REYES','13':'ZAMORA','14':'SAHUAYO','15':'CONSTITUYENTES','16':'CONSTITUYENTES','17':'LA CAPILLA','18':'BERNARDO QUINTANA','20':'SAN JUAN DEL RIO','45':'JURIQUILLA','67':'CAMPA','90':'REVOLUCION','91':'PATRIOTISMO'
+ '1':'MADERO','2':'URIANGATO','5':'CHAPULTEPEC','6':'ACAMBARO','7':'ZITACUARO','8':'VALLE DE BRAVO','10':'HUETAMO','11':'URUAPAN','12':'URUAPAN','13':'ZAMORA','14':'SAHUAYO','15':'CONSTITUYENTES','16':'CONSTITUYENTES','17':'LA CAPILLA','18':'BERNARDO QUINTANA','20':'SAN JUAN DEL RIO','45':'JURIQUILLA','67':'CAMPA','90':'REVOLUCION','91':'PATRIOTISMO','92':'INFINITI'
 };
 const VIN_AGENCY_MAP=new Map(DATA.map(r=>[norm(r.VIN),norm(r['Agencia objetivo'])]).filter(([v,a])=>v&&a));
-function citasAgencyLabel(r){const vin=norm(r.VIN),exact=vin&&VIN_AGENCY_MAP.get(vin);return exact||TALLER_AGENCY_MAP[norm(r['Taller Quiter'])]||`Taller ${norm(r['Taller Quiter'])||'sin código'}`}
+function citasAgencyLabel(r){const vin=norm(r.VIN),exact=norm(r['Agencia Quiter'])||(vin&&VIN_AGENCY_MAP.get(vin));return exact||TALLER_AGENCY_MAP[norm(r['Taller Quiter'])]||`Taller ${norm(r['Taller Quiter'])||'sin código'}`}
 function citasType(r){const e=norm(r['Estado cita']).toUpperCase();if(e.startsWith('AC '))return 'Anulada';if(e.startsWith('CC '))return 'Confirmada';if(e.startsWith('CR '))return 'Reprogramada';if(e.startsWith('CI '))return 'Cita';return e||'Sin tipo'}
 function citasFiltered(){const reg=$('cRegion').value,ta=$('cTaller').value,ty=$('cType').value,cl=$('cClass').value,sg=$('cSegmento').value,us=$('cUser').value,yr=$('cYear').value,mo=$('cModel').value,q=norm($('cSearch').value).toLowerCase();return CITAS_TOTAL_DATA.filter(r=>{if(reg&&norm(r.Región)!==reg)return false;if(ta&&citasAgencyLabel(r)!==ta)return false;if(ty&&citasType(r)!==ty)return false;if(cl&&norm(r.Clasificación)!==cl)return false;if(sg&&citasSegmento(r)!==sg)return false;if(us&&norm(r.Usuario)!==us)return false;if(yr&&norm(r['Año unidad'])!==yr)return false;if(mo&&norm(r.Modelo)!==mo)return false;if(q&&![r.Referencia,r.VIN,r.Cliente,r.Modelo,r.Usuario,citasAgencyLabel(r),citasType(r)].some(v=>norm(v).toLowerCase().includes(q)))return false;return true})}
 function citasClassBadge(s){const x=norm(s);let c='gray';if(x==='Show')c='green';else if(x==='No Show')c='red';else if(x==='Cita futura')c='blue';else if(x==='Cancelada')c='amber';else if(x==='Show con fecha futura')c='purple';return `<span class="badge ${c}">${esc(x)}</span>`}
