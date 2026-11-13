@@ -16,7 +16,7 @@ details.src div{position:absolute;right:0;top:30px;background:#fff;border:1px so
 .dl{position:relative;margin-left:auto}.dl .menu{display:none;position:absolute;right:0;top:36px;background:#fff;border:1px solid #e3e8ef;border-radius:10px;box-shadow:0 8px 24px rgba(16,24,40,.14);width:330px;padding:6px;z-index:30}.dl.open .menu{display:block}
 .menu button{display:flex;justify-content:space-between;gap:10px;width:100%;text-align:left;border:0;background:none;padding:9px 10px;border-radius:7px;font:inherit;font-size:12.5px;cursor:pointer;color:#1c2536}.menu button:hover{background:#f1f4f9}.menu b{color:#0a2b61}.menu small{display:block;color:#667085;font-size:11px}
 .wrap{padding:18px 28px 28px;display:grid;gap:16px;max-width:1500px;margin:0 auto}.g2{display:grid;grid-template-columns:1fr 1fr;gap:16px}.g3{display:grid;grid-template-columns:1.75fr 1fr;gap:16px}.gf{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px}
-.card{background:#fff;border:1px solid #e3e8ef;border-radius:14px;padding:16px 18px;min-width:0}.card.big{padding:18px 20px}
+.wrap>*{min-width:0}.card{background:#fff;border:1px solid #e3e8ef;border-radius:14px;padding:16px 18px;min-width:0}.card.big{padding:18px 20px}
 .row{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}.ct{font-size:15px;font-weight:700;color:#0a2b61}.cs{color:#667085;font-size:11.5px}
 .num{font-size:40px;font-weight:800;color:#0a2b61;letter-spacing:-1px;line-height:1}.of{font-size:14px;color:#475467;font-weight:600}.pct{font-size:23px;font-weight:800}.pct small{font-size:11.5px;color:#667085;font-weight:500}
 .bar{position:relative;height:14px;background:#edf0f5;border-radius:7px;margin:14px 0 8px}.bar i{position:absolute;left:0;top:0;bottom:0;background:#3276d2;border-radius:7px}.bar b{position:absolute;top:-5px;bottom:-5px;width:3px;background:#1c2536;border-radius:2px}.bar u{position:absolute;top:-3px;width:10px;height:20px;margin-left:-5px;border:2px solid #7a5af8;border-radius:5px;background:#fff}
@@ -41,8 +41,14 @@ h3{margin:0 0 2px;font-size:13.5px;color:#0a2b61}.h3s{color:#667085;font-size:11
 .mut{color:#98a2b3;font-size:10.5px}td.l{text-align:left;white-space:normal}
 .hb{display:grid;grid-template-columns:minmax(150px,1.3fr) 1.2fr 52px 44px;gap:10px;align-items:center;padding:6px 0;border-bottom:1px solid #f0f2f6}.hb:last-of-type{border:0}.hb span{font-weight:600}.hb small{display:block;color:#667085;font-weight:400}.hb div{height:10px;background:#edf0f5;border-radius:5px;overflow:hidden}.hb i{display:block;height:100%;border-radius:5px}.hb b{text-align:right;font-size:14px;color:#0a2b61}.hb em{font-style:normal;color:#667085;text-align:right;font-size:11.5px}
 details.det{min-width:0}details.det>summary{cursor:pointer;font-weight:700;color:#0a2b61;background:#fff;border:1px solid #e3e8ef;border-radius:12px;padding:11px 16px;list-style:none}details.det>summary::before{content:'▸ '}details.det[open]>summary::before{content:'▾ '}details.det[open]>summary{margin-bottom:10px}
+.card.hoy{border:1.5px solid #c9d6ea;background:#fbfcfe}.card.hoy.drag{border-color:#3276d2;background:#eef4fd}.card.hoy h3{font-size:15px}
+.hoyc{display:flex;gap:12px;align-items:flex-end;flex-wrap:wrap;margin-top:12px}.hoyc label{display:block;font-size:10px;color:#667085;text-transform:uppercase;letter-spacing:.4px;font-weight:600;margin-bottom:2px}.hoyc select,.hoyc input{border:1px solid #cfd6e0;border-radius:8px;padding:6px 8px;background:#fff;color:#1c2536;font:inherit;font-size:12.5px}.hoyx{color:#475467;font-size:12px;padding-bottom:7px}
+.strip6 div.hot{background:#fdecea;border-color:#f6c9c4}.strip6 div.hot b{color:#b42318}
+.note.warn{background:#fff4db;border-color:#f0dca8;color:#6b4d00;margin-top:10px}
+.hoyt{max-height:520px;overflow:auto;border:1px solid #e9edf3;border-radius:10px;background:#fff}.hoyt th{position:sticky;top:0;background:#f7f9fc;z-index:1}.hoyt td{white-space:normal;vertical-align:top}.hoyt td:nth-child(-n+2),.hoyt td:nth-child(4){white-space:nowrap}.hoyt small,.hoy td small{display:block;color:#667085;font-size:10.5px;font-weight:400}
+details.guia{margin-top:12px}details.guia>summary{cursor:pointer;font-weight:700;color:#0a2b61;font-size:12px;margin-bottom:8px}.g3c{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.g3c>div{background:#fff;border:1px solid #e9edf3;border-radius:10px;padding:10px 12px;font-size:11.5px;color:#475467;line-height:1.5}.g3c>div>b:first-child{display:block;color:#0a2b61;font-size:12px;margin-bottom:3px}
 .foot{color:#667085;font-size:11px;text-align:right}
-@media(max-width:980px){.row{flex-wrap:wrap}.strip6{grid-template-columns:1fr 1fr 1fr}.hb{grid-template-columns:1fr 70px 44px 40px}.g2,.g3{grid-template-columns:1fr}.strip{grid-template-columns:1fr 1fr}.grid4{grid-template-columns:1fr 1fr}.wrap,.top,.nav,.flt{padding-left:16px;padding-right:16px}.dl{margin-left:0}}
+@media(max-width:980px){.g3c{grid-template-columns:1fr}.row{flex-wrap:wrap}.strip6{grid-template-columns:1fr 1fr 1fr}.hb{grid-template-columns:1fr 70px 44px 40px}.g2,.g3{grid-template-columns:1fr}.strip{grid-template-columns:1fr 1fr}.grid4{grid-template-columns:1fr 1fr}.wrap,.top,.nav,.flt{padding-left:16px;padding-right:16px}.dl{margin-left:0}}
 </style></head><body>
 <div class="top"><div><h1>MONITOREO POSTVENTA BDC</h1><p id="sub"></p></div>
 <details class="src"><summary>Fuentes</summary><div id="srcTxt"></div></details></div>
@@ -188,9 +194,9 @@ function cardEmb(b){const fut=Math.max(b.cita-b.show-b.noshow,0),pc=(a,c)=>c?(a/
   return `<div class="card"><h3>${esc(b.base)}</h3>${funnelSVG([b.pot,b.cbl,b.cdo,b.cita,b.show])}<div class="fx"><b>Resultado de citas:</b> Show ${fmt(b.show)} (${pc(b.show,b.cita)})${b.noshow?` · No show ${fmt(b.noshow)} (${pc(b.noshow,b.cita)})`:''} · Futuras ${fmt(fut)} (${pc(fut,b.cita)})${
    b.sig?`<br><b>Citas agendadas para ${sm}:</b> ${fmt(b.sig)} (no suman a la cita del mes)`:''}${b.vis?`<br><b>Visita a taller no registrada como servicio:</b> ${fmt(b.vis)} VIN contactables, validar antes de llamar`:''}${b.agr?`<br><b>Agrupados:</b> ${fmt(b.agr)} VIN con el mismo teléfono que otro (se atienden con la llamada del líder)`:''}</div></div>`}
 /* ---------- descargas ---------- */
-function csv(name,cols,data){const q=v=>{const s=String(v??'');return /[",\n]/.test(s)?'"'+s.replace(/"/g,'""')+'"':s};
+function csv(name,cols,data,stamp){const q=v=>{const s=String(v??'');return /[",\n]/.test(s)?'"'+s.replace(/"/g,'""')+'"':s};
   const txt='﻿'+[cols.join(','),...data.map(r=>r.map(q).join(','))].join('\r\n'),a=document.createElement('a');
-  a.href=URL.createObjectURL(new Blob([txt],{type:'text/csv;charset=utf-8'}));a.download=name+'_'+filtroTxt().replace(/[^A-Za-z0-9áéíóúñÁÉÍÓÚÑ]+/g,'_')+'_'+T.corte+'.csv';document.body.appendChild(a);a.click();a.remove()}
+  a.href=URL.createObjectURL(new Blob([txt],{type:'text/csv;charset=utf-8'}));a.download=name+'_'+filtroTxt().replace(/[^A-Za-z0-9áéíóúñÁÉÍÓÚÑ]+/g,'_')+'_'+(stamp||T.corte)+'.csv';document.body.appendChild(a);a.click();a.remove()}
 const COLS=['VIN','Cliente','Teléfono principal','Teléfono 2','Modelo','Año','Agencia','Subagencia','Base','Tipo de cliente','Etapa','Oferta','Último servicio','Asesor que vendió (APV)','Asesor de servicio (última cita)','Ejecutivo call center','Estatus de gestión','Fecha de cita'];
 const fila=r=>[r[0],r[13],r[14],r[15],T.mod[r[4]],r[16],agName(r[2]),r[3]?'Los Reyes':'',T.bases[r[1]],TC[r[5]],T.et[r[12]],T.of[r[17]],r[18],T.apv[r[19]],T.as[r[20]],T.ej[r[10]],T.st[r[11]],r[21]];
 function descargas(){const R=rows(),uniq=L=>{const s=new Set();return L.filter(r=>!s.has(r[0])&&s.add(r[0]))},
@@ -246,13 +252,106 @@ function vCitas(){const R=rows(),C=citasSel(),v=cnt(C),t=v[0]+v[1]+v[2]+v[3],p=a
   const bs=k==='ps'?'':tablaCitas('Por base','A qué base del call center pertenece el cliente de la cita',C,baseCita,'Base');
   const us=tablaCitas('Por usuario que agendó','Usuario de Quiter que registró la cita',C,c=>usrName(T.usr[c[9]]),'Usuario',25);
   const prev=SR.slice().sort((a,b)=>a[19]<b[19]?1:-1).slice(0,100);
-  return `${cab}${chartMes(R,true)}<div class="g2">${quien}${desp}</div>${ag}<div class="${bs?'g2':''}">${ts}${bs}</div>
+  return `${vHoy()}${cab}${chartMes(R,true)}<div class="g2">${quien}${desp}</div>${ag}<div class="${bs?'g2':''}">${ts}${bs}</div>
    <div class="card"><div class="row"><div><h3>Descargas de citas</h3><div class="h3s">Respetan los filtros y la selección de arriba (${ambito})</div></div></div>
     <div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn" onclick="dlCitas('todas')">⬇ Todas las citas (${fmt(t)})</button><button class="btn" onclick="dlCitas('nsall')">⬇ No shows del mes (${fmt(v[1])})</button><button class="btn" onclick="dlCitas('ns')">⬇ No shows sin reagendar (${fmt(SR.length)})</button><button class="btn" onclick="dlCitas('venir')">⬇ Por venir sin confirmar (${fmt(v[2]-conf)})</button><button class="btn" onclick="dlCitas('canc')">⬇ Canceladas (${fmt(v[3])})</button></div></div>
    <details class="det"><summary>Ver por usuario que agendó</summary>${us}</details>
    <details class="det"><summary>Ver detalle · no shows sin reagendar (${fmt(SR.length)})</summary><div class="card"><div class="tw"><table><thead><tr><th>VIN</th><th style="text-align:left">Cliente</th><th>Teléfono</th><th style="text-align:left">Modelo</th><th style="text-align:left">Agencia</th><th>Fecha de cita</th><th style="text-align:left">Servicio solicitado</th><th style="text-align:left">Agendó</th><th style="text-align:left">Situación en call center</th></tr></thead><tbody>${
      prev.map(c=>`<tr><td>${esc(c[11])}</td><td class="l">${esc(cliCita(c))}</td><td>${esc(c[14])}</td><td class="l">${esc(T.um[c[15]])}</td><td class="l">${esc(agName(c[2]))}</td><td>${esc(c[19])}</td><td class="l">${esc(c[17])}</td><td class="l">${esc(usrName(T.usr[c[9]]))}</td><td class="l">${esc(sitNS(c))}</td></tr>`).join('')}</tbody></table></div>${SR.length>prev.length?`<div class="fx">Se muestran los 100 más recientes; la descarga trae los ${fmt(SR.length)}.</div>`:''}</div></details>
    <div class="foot">Selección: ${esc(filtroTxt())} · ${ambito} · Corte ${T.corte.slice(8,10)} de ${MESES[T.mesNum-1]}</div>`}
+/* ---------- no shows de hoy: el reporte del día se lee en este navegador, no se sube a ningún lado ---------- */
+let HOY=null,hoyMsg='',hoyBusy=false;
+const BROW=new Map();T.rows.forEach(r=>{if(!BROW.has(r[0]))BROW.set(r[0],r)});
+const EJK=new Set(T.ej.filter(Boolean).map(e=>{const w=fold(e).toLowerCase().split(/\s+/),a=({lupita:'martha',josaphat:'josatfat'})[w[0]]||w[0];return a.slice(0,4)+'|'+w.slice(1).join('')}));
+const grpU=u=>{u=fold(u).toLowerCase();if(u==='userqis-sicop')return 1;if(u==='userqis-autocom')return 2;const i=u.indexOf('.');return i>0&&EJK.has(u.slice(0,i).slice(0,4)+'|'+u.slice(i+1).replace(/\./g,''))?0:3};
+const p2=n=>String(n).padStart(2,'0'),hm=m=>p2(Math.floor(m/60))+':'+p2(m%60),ymd=d=>d.getFullYear()+'-'+p2(d.getMonth()+1)+'-'+p2(d.getDate());
+const fechaTxt=s=>+s.slice(8,10)+' de '+MESES[+s.slice(5,7)-1],durTxt=m=>m>=60?Math.floor(m/60)+' h '+p2(m%60)+' min':m+' min',dig=s=>String(s??'').replace(/\D/g,'').slice(-10);
+function xFecha(v){if(v===''||v==null)return '';
+  if(typeof v==='number'){const d=XLSX.SSF.parse_date_code(Math.floor(v));return d&&d.y>1990?d.y+'-'+p2(d.m)+'-'+p2(d.d):''}
+  const s=String(v).trim();let m=s.match(/^(\d{4})-(\d{1,2})-(\d{1,2})/);if(m)return m[1]+'-'+p2(m[2])+'-'+p2(m[3]);
+  m=s.match(/^(\d{1,2})[\/.-](\d{1,2})[\/.-](\d{2,4})/);return m?(m[3].length===2?'20'+m[3]:m[3])+'-'+p2(m[2])+'-'+p2(m[1]):''}
+function xHora(v){if(v===''||v==null)return null;if(typeof v==='number')return Math.round((v-Math.floor(v))*1440)%1440;
+  const m=String(v).match(/(\d{1,2}):(\d{2})/);return m?+m[1]*60+ +m[2]:null}
+function loadXLSX(){return new Promise((ok,no)=>{if(window.XLSX)return ok();const s=document.createElement('script');s.src='./xlsx.full.min.js';s.onload=()=>ok();
+  s.onerror=()=>no(new Error('Falta el archivo xlsx.full.min.js junto al tablero (viene en el zip).'));document.head.appendChild(s)})}
+function hoyFile(f){if(!f)return;hoyBusy=true;hoyMsg='';render();
+  loadXLSX().then(()=>f.arrayBuffer()).then(b=>new Promise(r=>setTimeout(()=>r(b),40))).then(b=>hoyParse(f,b))
+   .catch(e=>{hoyMsg=e&&e.message?e.message:'No se pudo leer el archivo.'}).then(()=>{hoyBusy=false;render()})}
+function hoyParse(f,buf){const wb=XLSX.read(buf,{type:'array'}),A=XLSX.utils.sheet_to_json(wb.Sheets[wb.SheetNames[0]],{header:1,raw:true,defval:''});
+  const key=s=>fold(s).replace(/[^A-Z0-9]/g,'');let hi=-1,H;
+  for(let i=0;i<Math.min(A.length,15);i++){const k=A[i].map(key);if(k.includes('VIN')&&k.includes('FECCITA')){hi=i;H=k;break}}
+  if(hi<0)throw new Error('Este archivo no parece el reporte de citas de Quiter (U13): no encuentro las columnas "VIN" y "Fec.cita".');
+  const ix=n=>H.indexOf(n),c={tal:ix('TALLER'),ref:ix('REFERENCIA'),tipo:ix('TIPODECITA'),cita:ix('CITA'),vin:ix('VIN'),mod:ix('MARCAMODELO'),anio:ix('ANOVEHIC'),usr:ix('USUARIO'),fc:ix('FECCITA'),est:ix('ESTADO'),fa:ix('FECAPER'),as:ix('ASESOROR'),cli:ix('CONTACTO'),av:ix('DESCAVERIA'),tel:ix('TELEFONO'),anu:ix('ANU'),obs:ix('OBSERVACIONES'),ex:ix('EXITO')};
+  const falt=[['est','Estado'],['fa','FEC.APER'],['ex','EXITO']].filter(([k])=>c[k]<0).map(x=>x[1]);
+  if(c.fa<0&&c.ex<0&&c.cita<0)throw new Error('El reporte no trae cómo saber si el cliente llegó (columnas "FEC.APER", "EXITO" o "Cita").');
+  const g=(r,i)=>i>=0&&i<r.length?r[i]:'',S=v=>String(v??'').trim(),rows=[];
+  for(let i=hi+1;i<A.length;i++){const r=A[i],fecha=xFecha(g(r,c.fc));if(!fecha)continue;
+    const vin=S(g(r,c.vin)).toUpperCase(),est=S(g(r,c.est)),tal=S(g(r,c.tal)),ag=T.tal[tal];
+    rows.push({fecha,hc:xHora(g(r,c.fc+1)),vin,tal,ag:ag==null?-1:ag,sub:tal==='12'?1:0,b:BROW.get(vin)||null,est,
+      canc:S(g(r,c.anu))==='1'||fold(est).includes('ANULACION'),
+      llego:(c.ex>=0&&+g(r,c.ex)===100)||fold(g(r,c.cita))==='CUMPLIDA'||(c.fa>=0&&!!xFecha(g(r,c.fa))),ha:c.fa>=0?xHora(g(r,c.fa+1)):null,
+      cli:S(g(r,c.cli)),tel:S(g(r,c.tel)),mod:S(g(r,c.mod)),anio:S(g(r,c.anio)),usr:S(g(r,c.usr)),as:S(g(r,c.as)),av:S(g(r,c.av)),tipo:S(g(r,c.tipo)),ref:S(g(r,c.ref)),obs:S(g(r,c.obs))})}
+  if(!rows.length)throw new Error('El reporte no trae citas con fecha.');
+  const mod=new Date(f.lastModified||Date.now()),fd=ymd(mod),dias=[...new Set(rows.map(x=>x.fecha))].sort();
+  const day=dias.includes(fd)?fd:(dias.filter(d=>d<=fd).pop()||dias[dias.length-1]);
+  HOY={name:f.name,size:f.size,mod,fd,rows,dias,day,ref:day===fd?mod.getHours()*60+mod.getMinutes():1439,tol:45,falt}}
+function hoyMatch(x){if(F.ag!==''){if(x.ag!==+F.ag)return false;if(F.sub&&!x.sub)return false}else if(F.reg&&(x.ag<0||T.ag[x.ag].r!==F.reg))return false;
+  if(detalle()){const b=x.b;if(!b)return false;if(F.mod!==''&&b[4]!==+F.mod)return false;if(F.tc!==''&&b[5]!==+F.tc)return false;if(F.un!==''&&b[6]!==+F.un)return false}return true}
+const agHoy=x=>x.ag<0?'Taller '+(x.tal||'sin código'):agName(x.ag)+(x.sub?' · Los Reyes':'');
+function hoyCalc(){const h=HOY,D=h.rows.filter(x=>x.fecha===h.day&&hoyMatch(x)),lleg=new Set(D.filter(x=>x.llego&&!x.canc&&x.vin).map(x=>x.vin)),porVin=new Map();
+  h.rows.forEach(x=>{if(x.canc||!x.vin)return;if(!porVin.has(x.vin))porVin.set(x.vin,[]);porVin.get(x.vin).push(x)});
+  D.forEach(x=>{x.late=x.hc==null?null:h.ref-x.hc;
+    x.k=x.canc?'canc':(x.llego||(x.vin&&lleg.has(x.vin)))?'llego':x.hc==null?(h.ref>=1439?'ns':'pv'):x.late>=h.tol?'ns':x.late>=0?'tol':'pv';
+    const o=(porVin.get(x.vin)||[]).filter(y=>y!==x&&(y.fecha>x.fecha||(y.fecha===x.fecha&&(y.hc??0)>(x.hc??0)))).sort((a,b)=>a.fecha<b.fecha?-1:a.fecha>b.fecha?1:(a.hc??0)-(b.hc??0))[0];
+    x.otra=o?(o.fecha===x.fecha?'Hoy':fechaTxt(o.fecha))+(o.hc!=null?' '+hm(o.hc):''):''});
+  const by=k=>D.filter(x=>x.k===k).sort((a,b)=>(b.hc??0)-(a.hc??0));
+  return {D,ns:by('ns'),tol:by('tol'),pv:by('pv'),llego:by('llego'),canc:by('canc')}}
+const SITH={ns:'Posible no show',tol:'En tolerancia',pv:'Por llegar',llego:'Ya llegó',canc:'Cancelada'};
+const HCOLS=['Situación','Hora de cita','Minutos de retraso','Cliente','Teléfono (reporte)','Teléfono principal (base)','Teléfono 2 (base)','VIN','Modelo','Año','Agencia','Taller Quiter','Servicio solicitado','Estado de la cita','Tipo de cita','Quién agendó','Usuario que agendó','Asesor de servicio','Base','Ejecutivo call center','Asesor que vendió (APV)','Otra cita del cliente','Referencia','Observaciones'];
+const filaHoy=x=>{const b=x.b;return [SITH[x.k],x.hc==null?'':hm(x.hc),x.k==='ns'||x.k==='tol'?(x.late??''):'',x.cli||(b?b[13]:''),x.tel,b?b[14]:'',b?b[15]:'',x.vin,x.mod,x.anio,agHoy(x),x.tal,x.av,x.est,x.tipo,GRP[grpU(x.usr)],usrName(x.usr),x.as,b?T.bases[b[1]]:'Fuera de la base del call center',b?T.ej[b[10]]:'',b?T.apv[b[19]]:'',x.otra,x.ref,x.obs]};
+function dlHoy(k){const r=hoyCalc(),L=k==='todo'?r.D.slice().sort((a,b)=>(a.hc??0)-(b.hc??0)):k==='ns2'?r.ns.concat(r.tol):r.ns;
+  csv(k==='todo'?'Citas_del_dia':'Posibles_no_shows',HCOLS,L.map(filaHoy),HOY.day+'_'+hm(Math.min(HOY.ref,1439)).replace(':','')+'h')}
+function hoySet(k,v){const h=HOY;if(k==='day'){h.day=v;h.ref=v===h.fd?h.mod.getHours()*60+h.mod.getMinutes():1439}else if(k==='ref'){const m=xHora(v);if(m!=null)h.ref=m}else h.tol=+v;render()}
+function hoyDrop(e){e.preventDefault();e.currentTarget.classList.remove('drag');const f=e.dataTransfer&&e.dataTransfer.files[0];if(f)hoyFile(f)}
+function hoyGuia(abierta){const L=T.lagOR||{};
+  return `<details class="guia"${abierta?' open':''}><summary>Cómo usarlo y qué cuidar</summary><div class="g3c">
+   <div><b>1 · Es "posible" no show</b>Regla: cita del día, no cancelada, sin orden abierta y ya pasó su hora más la tolerancia. ${L.n?`Este mes, de ${fmt(L.n)} clientes que sí llegaron, al <b>${L.m30}%</b> le abrieron la orden más de 30 min después de la hora de la cita, al <b>${L.m45}%</b> más de 45 y al <b>${L.m60}%</b> más de 60. `:''}Antes de marcar, confirma con el asesor que el cliente no está en la agencia.</div>
+   <div><b>2 · El tablero detecta, no captura</b>La llamada y su resultado se capturan en el archivo de trabajo, como siempre; en el corte de la noche se ve si la cita se rescató. El reporte se lee en esta computadora: no se sube a internet, no lo ven otras personas y se borra al cerrar o recargar la página. Para compartir la lista, descárgala.</div>
+   <div><b>3 · Reporte del día y recién bajado</b>Baja de Quiter el reporte de citas solo con la fecha de hoy (pesa poco y carga en segundos) y súbelo enseguida. La hora del reporte se toma del archivo; corrígela si no coincide. Si ya pasaron más de 30 minutos, baja uno nuevo para no llamar a quien ya llegó.</div></div></details>`}
+function vHoy(){
+  const up=(txt,cls)=>`<label class="btn ${cls}">${txt}<input type="file" accept=".xls,.xlsx,.csv" hidden onchange="hoyFile(this.files[0])"></label>`;
+  const dnd=`ondragover="event.preventDefault();this.classList.add('drag')" ondragleave="this.classList.remove('drag')" ondrop="hoyDrop(event)"`;
+  if(hoyBusy)return `<div class="card hoy"><h3>No shows de hoy</h3><div class="h3s">Leyendo el reporte… tarda unos segundos.</div></div>`;
+  if(!HOY)return `<div class="card hoy" ${dnd}><div class="row"><div><h3>No shows de hoy <span class="pill n sm">carga rápida</span></h3><div class="h3s">Sube el reporte de citas del día (U13 de Quiter) y ve en segundos a quién marcar para rescatar la cita. También puedes arrastrar el archivo aquí.</div></div>${up('⬆ Subir reporte de citas','pri')}</div>
+    ${hoyMsg?`<div class="note warn">${esc(hoyMsg)}</div>`:''}${hoyGuia(true)}</div>`;
+  const h=HOY,r=hoyCalc(),now=new Date(),real=ymd(now),edad=Math.round((now-h.mod)/60000),esHoy=h.day===real,act=r.llego.length+r.ns.length;
+  const dias=h.dias.filter(d=>d<=(h.fd>real?h.fd:real)).slice(-12).reverse();if(!dias.includes(h.day))dias.unshift(h.day);
+  const tile=(l,n,s,c)=>`<div${c?` class="${c}"`:''}><small>${l}</small><b>${fmt(n)}</b><em>${s}</em></div>`;
+  const av=[];
+  if(esHoy&&edad>30)av.push(`El reporte se bajó hace ${durTxt(edad)}. Baja uno nuevo para no marcarle a quien ya llegó.`);
+  if(!esHoy)av.push(`Estás viendo el ${fechaTxt(h.day)}, no el día de hoy${h.day<real?' (día ya cerrado: se cuentan todas las citas sin orden abierta)':''}.`);
+  if(h.falt.length)av.push(`El reporte no trae la columna ${h.falt.join(', ')}; revisa que sea el U13 completo.`);
+  const sinMapa=[...new Set(r.D.filter(x=>x.ag<0).map(x=>x.tal))];if(sinMapa.length)av.push(`Taller sin agencia asignada: ${esc(sinMapa.join(', '))}.`);
+  const tel=x=>{const b=x.b,t=esc(x.tel||'—');return b&&b[14]&&dig(b[14])!==dig(x.tel)?`${t}<small>base: ${esc(b[14])}</small>`:t};
+  const filas=L=>L.map(x=>`<tr><td><b>${x.hc==null?'—':hm(x.hc)}</b></td><td class="${x.k==='ns'?'rt':'at'}">${x.late==null?'—':durTxt(x.late)}</td><td class="l"><b>${esc(x.cli||(x.b?x.b[13]:'')||'—')}</b><small>${esc(x.vin||'sin VIN')}</small></td><td>${tel(x)}</td><td class="l">${esc(agHoy(x))}</td><td class="l">${esc(x.mod)}</td><td class="l">${esc(x.av)}</td><td class="l">${esc(x.est.replace(/^[A-Z]{2} /,''))}</td><td class="l">${esc(usrName(x.usr))}<small>${GRP[grpU(x.usr)]}</small></td><td class="l">${esc(x.as)}</td><td class="l">${x.b?esc(T.bases[x.b[1]])+(T.ej[x.b[10]]?`<small>${esc(T.ej[x.b[10]])}</small>`:''):'<span class="mut">Fuera de la base</span>'}</td><td class="l">${x.otra?`<span class="pill a sm">${esc(x.otra)}</span>`:''}</td></tr>`).join('');
+  const tabla=L=>`<div class="tw hoyt"><table><thead><tr><th>Hora</th><th>Retraso</th><th style="text-align:left">Cliente</th><th>Teléfono</th><th style="text-align:left">Agencia</th><th style="text-align:left">Modelo</th><th style="text-align:left">Servicio solicitado</th><th style="text-align:left">Estado de la cita</th><th style="text-align:left">Agendó</th><th style="text-align:left">Asesor de servicio</th><th style="text-align:left">Base · ejecutivo</th><th style="text-align:left">Otra cita</th></tr></thead><tbody>${filas(L)}</tbody></table></div>`;
+  const m=new Map();r.D.forEach(x=>{const a=agHoy(x);if(!m.has(a))m.set(a,{t:0,llego:0,ns:0,tol:0,pv:0,canc:0});const o=m.get(a);o.t++;o[x.k]++});
+  const porAg=[...m].sort((a,b)=>b[1].ns-a[1].ns||b[1].t-a[1].t);
+  return `<div class="card hoy" ${dnd}><div class="row"><div><h3>No shows de hoy · ${fechaTxt(h.day)} · ${esc(filtroTxt())}</h3><div class="h3s">${esc(h.name)} · ${fmt(h.rows.length)} citas en el archivo · reporte del ${fechaTxt(h.fd)} a las ${hm(h.mod.getHours()*60+h.mod.getMinutes())}${esHoy&&edad>=0?` (hace ${durTxt(edad)})`:''}</div></div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap">${up('⬆ Subir uno nuevo','pri')}<button class="btn" onclick="HOY=null;hoyMsg='';render()">Quitar</button></div></div>
+   <div class="hoyc"><div><label>Día</label><select onchange="hoySet('day',this.value)">${dias.map(d=>`<option value="${d}"${d===h.day?' selected':''}>${fechaTxt(d)}${d===real?' (hoy)':''}</option>`).join('')}</select></div>
+    <div><label>Hora del reporte</label><input type="time" value="${hm(Math.min(h.ref,1439))}" onchange="hoySet('ref',this.value)"></div>
+    <div><label>Tolerancia</label><select onchange="hoySet('tol',this.value)">${[30,45,60,90].map(t=>`<option value="${t}"${t===h.tol?' selected':''}>${t} minutos</option>`).join('')}</select></div>
+    <div class="hoyx">Posible no show = cita sin orden abierta cuya hora fue antes de las <b>${hm(Math.max(Math.min(h.ref,1439)-h.tol,0))}</b></div></div>
+   ${hoyMsg?`<div class="note warn">${esc(hoyMsg)} Se conserva el reporte anterior.</div>`:''}${av.map(a=>`<div class="note warn">${a}</div>`).join('')}
+   <div class="strip6">${tile('Citas del día',r.D.length-r.canc.length,'sin contar canceladas')}${tile('Ya llegaron',r.llego.length,'con orden abierta')}${tile('Posibles no shows',r.ns.length,act?pc1(r.ns.length,act)+' de las que ya debían llegar':'para marcar ahora','hot')}${tile('En tolerancia',r.tol.length,'ya es su hora, aún dentro de '+h.tol+' min')}${tile('Por llegar',r.pv.length,'aún no es su hora')}${tile('Canceladas',r.canc.length,'no se marcan')}</div>
+   ${r.D.length?'':`<div class="note">El reporte no trae citas del ${fechaTxt(h.day)} para esta selección.</div>`}
+   ${r.ns.length?`<div class="gl" style="margin:16px 0 6px">Posibles no shows · para marcar ahora (${fmt(r.ns.length)}) · primero las citas más recientes</div>${tabla(r.ns)}
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:12px"><button class="btn pri" onclick="dlHoy('ns')">⬇ Descargar posibles no shows (${fmt(r.ns.length)})</button>${r.tol.length?`<button class="btn" onclick="dlHoy('ns2')">⬇ Con los que están en tolerancia (${fmt(r.ns.length+r.tol.length)})</button>`:''}<button class="btn" onclick="dlHoy('todo')">⬇ Todas las citas del día (${fmt(r.D.length)})</button></div>`
+     :r.D.length?`<div class="note" style="margin-top:12px">Sin posibles no shows a esta hora.</div><div style="margin-top:10px"><button class="btn" onclick="dlHoy('todo')">⬇ Todas las citas del día (${fmt(r.D.length)})</button></div>`:''}
+   ${r.tol.length?`<details class="guia"><summary>Ver citas en tolerancia (${fmt(r.tol.length)}) · ya es su hora y aún no tienen orden</summary>${tabla(r.tol)}</details>`:''}
+   ${porAg.length>1?`<details class="guia"><summary>Ver por agencia</summary><div class="tw"><table><thead><tr><th>Agencia</th><th>Citas del día</th><th>Ya llegaron</th><th>Posibles no shows</th><th>En tolerancia</th><th>Por llegar</th><th>Canceladas</th></tr></thead><tbody>${porAg.map(([a,o])=>`<tr><td><b>${esc(a)}</b></td><td>${o.t-o.canc}</td><td>${o.llego}</td><td class="${o.ns?'rt':''}"><b>${o.ns}</b></td><td>${o.tol}</td><td>${o.pv}</td><td>${o.canc}</td></tr>`).join('')}</tbody></table></div></details>`:''}
+   ${hoyGuia(false)}</div>`}
 /* ---------- vistas ---------- */
 function vResumen(){const R=rows(),PB=porBase(R),rt=suma(PB.slice(1,5),'Retención');
   return `<div class="g2">${cardObj('Primer Servicio','Unidades con su primer servicio realizado','ps',PB[0].show,PB[0].pot,'servicios')}${cardObj('Retención','Clientes de la base que ya regresaron a servicio','rt',rt.show,rt.pot,'clientes')}</div>
