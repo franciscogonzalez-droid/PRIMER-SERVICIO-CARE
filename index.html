@@ -263,7 +263,7 @@ function vCitas(){const R=rows(),C=citasSel(),v=cnt(C),t=v[0]+v[1]+v[2]+v[3],p=a
 let HOY=null,hoyMsg='',hoyBusy=false;
 const BROW=new Map();T.rows.forEach(r=>{if(!BROW.has(r[0]))BROW.set(r[0],r)});
 const EJK=new Set(T.ej.filter(Boolean).map(e=>{const w=fold(e).toLowerCase().split(/\s+/),a=({lupita:'martha',josaphat:'josatfat'})[w[0]]||w[0];return a.slice(0,4)+'|'+w.slice(1).join('')}));
-const grpU=u=>{u=fold(u).toLowerCase();if(u==='userqis-sicop')return 1;if(u==='userqis-autocom')return 2;const i=u.indexOf('.');return i>0&&EJK.has(u.slice(0,i).slice(0,4)+'|'+u.slice(i+1).replace(/\./g,''))?0:3};
+const grpU=u=>{u=fold(u).toLowerCase();if(u==='userqis-sicop')return 1;if(u==='userqis-autocom')return 2;const i=u.indexOf('.');if(i<=0)return 3;const f=u.slice(0,i).slice(0,4)+'|',l=u.slice(i+1).replace(/\./g,'');return EJK.has(f+l)||(u.length>=15&&[...EJK].some(k=>k.startsWith(f+l)))?0:3};
 const p2=n=>String(n).padStart(2,'0'),hm=m=>p2(Math.floor(m/60))+':'+p2(m%60),ymd=d=>d.getFullYear()+'-'+p2(d.getMonth()+1)+'-'+p2(d.getDate());
 const fechaTxt=s=>+s.slice(8,10)+' de '+MESES[+s.slice(5,7)-1],durTxt=m=>m>=60?Math.floor(m/60)+' h '+p2(m%60)+' min':m+' min',dig=s=>String(s??'').replace(/\D/g,'').slice(-10);
 function xFecha(v){if(v===''||v==null)return '';
@@ -280,8 +280,9 @@ function hoyFile(f){if(!f)return;hoyBusy=true;hoyMsg='';render();
 function hoyParse(f,buf){const wb=XLSX.read(buf,{type:'array'}),A=XLSX.utils.sheet_to_json(wb.Sheets[wb.SheetNames[0]],{header:1,raw:true,defval:''});
   const key=s=>fold(s).replace(/[^A-Z0-9]/g,'');let hi=-1,H;
   for(let i=0;i<Math.min(A.length,15);i++){const k=A[i].map(key);if(k.includes('VIN')&&k.includes('FECCITA')){hi=i;H=k;break}}
-  if(hi<0)throw new Error('Este archivo no parece el reporte de citas de Quiter (U13): no encuentro las columnas "VIN" y "Fec.cita".');
-  const ix=n=>H.indexOf(n),c={tal:ix('TALLER'),ref:ix('REFERENCIA'),tipo:ix('TIPODECITA'),cita:ix('CITA'),vin:ix('VIN'),mod:ix('MARCAMODELO'),anio:ix('ANOVEHIC'),usr:ix('USUARIO'),fc:ix('FECCITA'),est:ix('ESTADO'),fa:ix('FECAPER'),as:ix('ASESOROR'),cli:ix('CONTACTO'),av:ix('DESCAVERIA'),tel:ix('TELEFONO'),anu:ix('ANU'),obs:ix('OBSERVACIONES'),ex:ix('EXITO')};
+  if(hi<0)throw new Error('Este archivo no parece el reporte "Citas Call Center" de Quiter: no encuentro las columnas "VIN" y "Fec.cita".');
+  const ix=n=>{let i=H.indexOf(n);if(i<0)i=H.findIndex(h=>h.length>=4&&h.length<n.length&&n.startsWith(h));return i},c={tal:ix('TALLER'),ref:ix('REFERENCIA'),tipo:ix('TIPODECITA'),cita:ix('CITA'),vin:ix('VIN'),mod:ix('MARCAMODELO'),anio:ix('ANOVEHIC'),usr:ix('USUARIO'),fc:ix('FECCITA'),est:ix('ESTADO'),fa:ix('FECAPER'),as:ix('ASESOROR'),cli:ix('CONTACTO'),av:ix('DESCAVERIA'),tel:ix('TELEFONO'),anu:ix('ANU'),obs:ix('OBSERVACIONES'),ex:ix('EXITO')};
+  const sinCampos=!H.includes('TALLER')&&H.includes('TALL'),conTotales=A.some(r=>/^(\*\*\*|Tota)/.test(String(r[0]??'')));
   const falt=[['est','Estado'],['fa','FEC.APER'],['ex','EXITO']].filter(([k])=>c[k]<0).map(x=>x[1]);
   if(c.fa<0&&c.ex<0&&c.cita<0)throw new Error('El reporte no trae cómo saber si el cliente llegó (columnas "FEC.APER", "EXITO" o "Cita").');
   const g=(r,i)=>i>=0&&i<r.length?r[i]:'',S=v=>String(v??'').trim(),rows=[];
@@ -294,7 +295,7 @@ function hoyParse(f,buf){const wb=XLSX.read(buf,{type:'array'}),A=XLSX.utils.she
   if(!rows.length)throw new Error('El reporte no trae citas con fecha.');
   const mod=new Date(f.lastModified||Date.now()),fd=ymd(mod),dias=[...new Set(rows.map(x=>x.fecha))].sort();
   const day=dias.includes(fd)?fd:(dias.filter(d=>d<=fd).pop()||dias[dias.length-1]);
-  HOY={name:f.name,size:f.size,mod,fd,rows,dias,day,ref:day===fd?mod.getHours()*60+mod.getMinutes():1439,tol:45,falt}}
+  HOY={name:f.name,size:f.size,mod,fd,rows,dias,day,ref:day===fd?mod.getHours()*60+mod.getMinutes():1439,tol:45,falt,sinCampos,conTotales}}
 function hoyMatch(x){if(F.ag!==''){if(x.ag!==+F.ag)return false;if(F.sub&&!x.sub)return false}else if(F.reg&&(x.ag<0||T.ag[x.ag].r!==F.reg))return false;
   if(detalle()){const b=x.b;if(!b)return false;if(F.mod!==''&&b[4]!==+F.mod)return false;if(F.tc!==''&&b[5]!==+F.tc)return false;if(F.un!==''&&b[6]!==+F.un)return false}return true}
 const agHoy=x=>x.ag<0?'Taller '+(x.tal||'sin código'):agName(x.ag)+(x.sub?' · Los Reyes':'');
@@ -317,12 +318,12 @@ function hoyGuia(abierta){const L=T.lagOR||{};
   return `<details class="guia"${abierta?' open':''}><summary>Cómo usarlo y qué cuidar</summary><div class="g3c">
    <div><b>1 · Es "posible" no show</b>Regla: cita del día, no cancelada, sin orden abierta y ya pasó su hora más la tolerancia. ${L.n?`Este mes, de ${fmt(L.n)} clientes que sí llegaron, al <b>${L.m30}%</b> le abrieron la orden más de 30 min después de la hora de la cita, al <b>${L.m45}%</b> más de 45 y al <b>${L.m60}%</b> más de 60. `:''}Antes de marcar, confirma con el asesor que el cliente no está en la agencia.</div>
    <div><b>2 · El tablero detecta, no captura</b>La llamada y su resultado se capturan en el archivo de trabajo, como siempre; en el corte de la noche se ve si la cita se rescató. El reporte se lee en esta computadora: no se sube a internet, no lo ven otras personas y se borra al cerrar o recargar la página. Para compartir la lista, descárgala.</div>
-   <div><b>3 · Reporte del día y recién bajado</b>Baja de Quiter el reporte de citas solo con la fecha de hoy (pesa poco y carga en segundos) y súbelo enseguida. La hora del reporte se toma del archivo; corrígela si no coincide. Si ya pasaron más de 30 minutos, baja uno nuevo para no llamar a quien ya llegó.</div></div></details>`}
+   <div><b>3 · Reporte del día y recién bajado</b>En Quiter, reporte "Citas Call Center": F. cita = fecha de hoy, y palomea <b>Campos completos</b> y <b>Suprimir totales</b> (sin ellas los datos salen cortados). Súbelo enseguida. La hora del reporte se toma del archivo; corrígela si no coincide. Si ya pasaron más de 30 minutos, baja uno nuevo para no llamar a quien ya llegó.</div></div></details>`}
 function vHoy(){
   const up=(txt,cls)=>`<label class="btn ${cls}">${txt}<input type="file" accept=".xls,.xlsx,.csv" hidden onchange="hoyFile(this.files[0])"></label>`;
   const dnd=`ondragover="event.preventDefault();this.classList.add('drag')" ondragleave="this.classList.remove('drag')" ondrop="hoyDrop(event)"`;
   if(hoyBusy)return `<div class="card hoy"><h3>No shows de hoy</h3><div class="h3s">Leyendo el reporte… tarda unos segundos.</div></div>`;
-  if(!HOY)return `<div class="card hoy" ${dnd}><div class="row"><div><h3>No shows de hoy <span class="pill n sm">carga rápida</span></h3><div class="h3s">Sube el reporte de citas del día (U13 de Quiter) y ve en segundos a quién marcar para rescatar la cita. También puedes arrastrar el archivo aquí.</div></div>${up('⬆ Subir reporte de citas','pri')}</div>
+  if(!HOY)return `<div class="card hoy" ${dnd}><div class="row"><div><h3>No shows de hoy <span class="pill n sm">carga rápida</span></h3><div class="h3s">Sube el reporte "Citas Call Center" de Quiter con las citas de hoy y ve en segundos a quién marcar para rescatar la cita. También puedes arrastrar el archivo aquí.</div></div>${up('⬆ Subir reporte de citas','pri')}</div>
     ${hoyMsg?`<div class="note warn">${esc(hoyMsg)}</div>`:''}${hoyGuia(true)}</div>`;
   const h=HOY,r=hoyCalc(),now=new Date(),real=ymd(now),edad=Math.round((now-h.mod)/60000),esHoy=h.day===real,act=r.llego.length+r.ns.length;
   const dias=h.dias.filter(d=>d<=(h.fd>real?h.fd:real)).slice(-12).reverse();if(!dias.includes(h.day))dias.unshift(h.day);
@@ -330,7 +331,8 @@ function vHoy(){
   const av=[];
   if(esHoy&&edad>30)av.push(`El reporte se bajó hace ${durTxt(edad)}. Baja uno nuevo para no marcarle a quien ya llegó.`);
   if(!esHoy)av.push(`Estás viendo el ${fechaTxt(h.day)}, no el día de hoy${h.day<real?' (día ya cerrado: se cuentan todas las citas sin orden abierta)':''}.`);
-  if(h.falt.length)av.push(`El reporte no trae la columna ${h.falt.join(', ')}; revisa que sea el U13 completo.`);
+  if(h.sinCampos||h.conTotales)av.push(`El reporte se bajó sin palomear ${[h.sinCampos?'"Campos completos"':'',h.conTotales?'"Suprimir totales"':''].filter(Boolean).join(' ni ')}: la lista sí sale, pero algunos datos vienen cortados (usuario, modelo). La próxima vez palomea las dos casillas en Quiter.`);
+  if(h.falt.length)av.push(`El reporte no trae la columna ${h.falt.join(', ')}; revisa que sea el reporte "Citas Call Center" completo.`);
   const sinMapa=[...new Set(r.D.filter(x=>x.ag<0).map(x=>x.tal))];if(sinMapa.length)av.push(`Taller sin agencia asignada: ${esc(sinMapa.join(', '))}.`);
   const tel=x=>{const b=x.b,t=esc(x.tel||'—');return b&&b[14]&&dig(b[14])!==dig(x.tel)?`${t}<small>base: ${esc(b[14])}</small>`:t};
   const filas=L=>L.map(x=>`<tr><td><b>${x.hc==null?'—':hm(x.hc)}</b></td><td class="${x.k==='ns'?'rt':'at'}">${x.late==null?'—':durTxt(x.late)}</td><td class="l"><b>${esc(x.cli||(x.b?x.b[13]:'')||'—')}</b><small>${esc(x.vin||'sin VIN')}</small></td><td>${tel(x)}</td><td class="l">${esc(agHoy(x))}</td><td class="l">${esc(x.mod)}</td><td class="l">${esc(x.av)}</td><td class="l">${esc(x.est.replace(/^[A-Z]{2} /,''))}</td><td class="l">${esc(usrName(x.usr))}<small>${GRP[grpU(x.usr)]}</small></td><td class="l">${esc(x.as)}</td><td class="l">${x.b?esc(T.bases[x.b[1]])+(T.ej[x.b[10]]?`<small>${esc(T.ej[x.b[10]])}</small>`:''):'<span class="mut">Fuera de la base</span>'}</td><td class="l">${x.otra?`<span class="pill a sm">${esc(x.otra)}</span>`:''}</td></tr>`).join('');
