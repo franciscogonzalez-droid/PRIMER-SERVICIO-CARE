@@ -234,7 +234,7 @@ const filaCita=c=>[c[11],cliCita(c),c[14],T.um[c[15]],c[20],agName(c[2]),c[3]?'L
 const DLC={todas:['Citas_del_mes',c=>true],ns:['No_shows_sin_reagendar',c=>c[1]===1&&c[13]===5],nsall:['No_shows_del_mes',c=>c[1]===1],venir:['Citas_por_venir_sin_confirmar',c=>c[1]===2&&c[18]!=='Confirmada'],canc:['Citas_canceladas',c=>c[1]===3]};
 function dlCitas(k){csv(DLC[k][0],CCOLS,citasSel().filter(DLC[k][1]).sort((a,b)=>a[19]<b[19]?-1:1).map(filaCita))}
 function vCitas(){const R=rows(),C=citasSel(),v=cnt(C),t=v[0]+v[1]+v[2]+v[3],p=asis(v),k=kindChart,
-   ambito=k==='ps'?'Primer Servicio':k==='rt'?'Retención':'Todo el taller',conf=C.filter(c=>c[1]===2&&c[18]==='Confirmada').length;
+   ambito=k==='ps'?'Primer Servicio':k==='rt'?'Retención':'Todo el taller',conf=C.filter(c=>c[1]===2&&c[18]==='Confirmada').length,sic=C.filter(c=>c[1]===2&&c[8]===1&&c[18]!=='Confirmada').length;
   const B=[['ps','Primer Servicio'],['rt','Retención'],['all','Todo el taller']];
   const NS=C.filter(c=>c[1]===1),d=[1,2,3,4,5].map(i=>NS.filter(c=>c[13]===i).length),SR=NS.filter(c=>c[13]===5),sit=new Map();
   SR.forEach(c=>{const s=sitNS(c);sit.set(s,(sit.get(s)||0)+1)});
@@ -242,9 +242,9 @@ function vCitas(){const R=rows(),C=citasSel(),v=cnt(C),t=v[0]+v[1]+v[2]+v[3],p=a
   const tile=(l,n,s,c)=>`<div><small>${l}</small><b${c?` class="${c}t"`:''}>${n}</b><em>${s}</em></div>`;
   const cab=`<div class="card"><div class="row"><div><h3>Citas y no shows · ${ambito} · ${MESES[T.mesNum-1]}</h3><div class="h3s">${k==='all'?'Todas las citas de Quiter (U13), estén o no en la base del call center':'Citas de Quiter (U13) de los clientes de la base del call center'} · ${esc(filtroTxt())}${detalle()?' · con filtro de modelo, tipo de cliente o unidad solo se ven citas de clientes de la base':''}</div></div>
     <div class="seg">${B.map(([x,l])=>`<button class="${k===x?'on':''}" onclick="kindChart='${x}';render()">${l}</button>`).join('')}</div></div>
-   <div class="strip6">${tile('Citas agendadas',fmt(t),'todas las del mes')}${tile('Canceladas',fmt(v[3]),pc1(v[3],t)+' de las agendadas')}${tile('Asistieron',fmt(v[0]),'al corte')}${tile('No asistieron',fmt(v[1]),'al corte')}${tile('Asistencia',p==null?'—':p.toFixed(1)+'%','objetivo 85%',semA(p))}${tile('Por venir',fmt(v[2]),fmt(conf)+' confirmadas en Quiter')}</div></div>`;
+   <div class="strip6">${tile('Citas agendadas',fmt(t),'todas las del mes')}${tile('Canceladas',fmt(v[3]),pc1(v[3],t)+' de las agendadas')}${tile('Asistieron',fmt(v[0]),'al corte')}${tile('No asistieron',fmt(v[1]),'al corte')}${tile('Asistencia',p==null?'—':p.toFixed(1)+'%','objetivo 85%',semA(p))}${tile('Por venir',fmt(v[2]),fmt(conf)+' confirmadas en Quiter'+(sic?' · '+fmt(sic)+' automáticas de SICOP sin confirmar':''))}</div></div>`;
   const quien=tablaCitas('Quién agendó','Por el usuario que registró la cita en Quiter · la marca negra es el objetivo de asistencia (85%) · sin color cuando hay menos de 10 citas ya ocurridas',C,c=>GRP[c[8]],'Origen')
-    .replace(/<\/div>$/,(v[3]&&gc[gi]/v[3]>=.4?`<div class="fx"><b>${fmt(gc[gi])} de las ${fmt(v[3])} canceladas (${pc1(gc[gi],v[3])})</b> vienen de ${esc(GRP[gi])}.</div>`:'')+'</div>');
+    .replace(/<\/div>$/,(v[3]&&gc[gi]/v[3]>=.4?`<div class="fx"><b>${fmt(gc[gi])} de las ${fmt(v[3])} canceladas (${pc1(gc[gi],v[3])})</b> vienen de ${esc(GRP[gi])}.</div>`:'')+(sic?`<div class="fx">Las <b>${fmt(sic)} citas automáticas de SICOP por venir y sin confirmar</b> no cuentan como cita en el embudo: el cliente sigue "A contactar" hasta que se confirme.</div>`:'')+'</div>');
   const desp=`<div class="card"><h3>Qué pasó después del no show</h3><div class="h3s">${fmt(NS.length)} citas a las que el cliente no llegó · se revisa si el mismo VIN tuvo otra cita después, dentro del mes</div>${NS.length?hbars(DESP.slice(1).map((l,i)=>[l,d[i]]),NS.length,'#7f9db3'):'<div class="fx">Sin no shows en esta selección.</div>'}
     ${SR.length?`<div class="gl" style="margin:14px 0 4px">De los ${fmt(SR.length)} sin reagendar, cómo están en el call center</div>${hbars([...sit].sort((a,b)=>b[1]-a[1]),SR.length,'#cfc9bf')}<div style="margin-top:12px"><button class="btn" onclick="dlCitas('ns')">⬇ Descargar los ${fmt(SR.length)} sin reagendar</button></div>`:''}</div>`;
   const ag=tablaCitas('Por agencia','Agencia del taller donde es la cita · verde 85% o más de asistencia, ámbar de 75 a 84%, rojo menos de 75%',C,c=>agName(c[2]),'Agencia');
@@ -262,7 +262,7 @@ function vCitas(){const R=rows(),C=citasSel(),v=cnt(C),t=v[0]+v[1]+v[2]+v[3],p=a
 /* ---------- no shows de hoy: el reporte del día se lee en este navegador, no se sube a ningún lado ---------- */
 let HOY=null,hoyMsg='',hoyBusy=false;
 const BROW=new Map();T.rows.forEach(r=>{if(!BROW.has(r[0]))BROW.set(r[0],r)});
-const EJK=new Set(T.ej.filter(Boolean).map(e=>{const w=fold(e).toLowerCase().split(/\s+/),a=({lupita:'martha',josaphat:'josatfat'})[w[0]]||w[0];return a.slice(0,4)+'|'+w.slice(1).join('')}));
+const EJK=new Set((T.ejCC||T.ej).filter(Boolean).map(e=>{const w=fold(e).toLowerCase().split(/\s+/),a=({lupita:'martha',josaphat:'josatfat'})[w[0]]||w[0];return a.slice(0,4)+'|'+w.slice(1).join('')}));
 const grpU=u=>{u=fold(u).toLowerCase();if(u==='userqis-sicop')return 1;if(u==='userqis-autocom')return 2;const i=u.indexOf('.');if(i<=0)return 3;const f=u.slice(0,i).slice(0,4)+'|',l=u.slice(i+1).replace(/\./g,'');return EJK.has(f+l)||(u.length>=15&&[...EJK].some(k=>k.startsWith(f+l)))?0:3};
 const p2=n=>String(n).padStart(2,'0'),hm=m=>p2(Math.floor(m/60))+':'+p2(m%60),ymd=d=>d.getFullYear()+'-'+p2(d.getMonth()+1)+'-'+p2(d.getDate());
 const fechaTxt=s=>+s.slice(8,10)+' de '+MESES[+s.slice(5,7)-1],durTxt=m=>m>=60?Math.floor(m/60)+' h '+p2(m%60)+' min':m+' min',dig=s=>String(s??'').replace(/\D/g,'').slice(-10);
@@ -368,7 +368,7 @@ function render(){
   $('nav').querySelectorAll('.tab').forEach(b=>b.onclick=()=>{tab=b.dataset.k;render()});
   $('view').innerHTML=tab==='resumen'?vResumen():tab==='embudo'?vEmbudo():tab==='citas'?vCitas():`<div class="card soon"><b>${SOON[tab][0]} · en construcción</b>${SOON[tab][1]}<br><br>Mientras tanto, esta información sigue disponible en el tablero anterior.</div>`;
   fillMenu()}
-$('sub').textContent=`${T.mes} ${T.anio} · Grupo Autocom · Corte: ${+T.corte.slice(8,10)} de ${MESES[T.mesNum-1]} · día operativo ${D_EL} de ${D_TOT}`;
+$('sub').textContent=`${T.mes} ${T.anio} · Grupo Autocom · Corte: ${+T.corte.slice(8,10)} de ${MESES[T.mesNum-1]} · día operativo ${D_EL} de ${D_TOT}`+(T.corteParcial?` · el reporte de citas se bajó el ${+T.corteParcial.dia.slice(8,10)} a las ${T.corteParcial.hora}; ese día aún no cuenta`:'');
 $('srcTxt').innerHTML=`Archivos de trabajo del call center (Nissan e Infiniti, ${esc(T.archivo)}), citas de Quiter (U13${T.u13?'':' — no llegó hoy'}) y SimAnalytics (Performance General por Dealer del ${SIMF}; grupo y región = suma de sus agencias).<br>Control de carga: ${fmt(T.qa.nissanAContactar)} VIN por contactar en Nissan y ${fmt(T.qa.infinitiAContactar)} en Infiniti.`;
 initFilters();render();
 </script></body></html>
