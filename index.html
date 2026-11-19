@@ -44,7 +44,7 @@ h3{margin:0 0 2px;font-size:13.5px;color:#0a2b61}.h3s{color:#667085;font-size:11
 details.det{min-width:0}details.det>summary{cursor:pointer;font-weight:700;color:#0a2b61;background:#fff;border:1px solid #e3e8ef;border-radius:12px;padding:11px 16px;list-style:none}details.det>summary::before{content:'▸ '}details.det[open]>summary::before{content:'▾ '}details.det[open]>summary{margin-bottom:10px}
 .card.hoy{border:1.5px solid #c9d6ea;background:#fbfcfe}.card.hoy.drag{border-color:#3276d2;background:#eef4fd}.card.hoy h3{font-size:15px}
 .hoyc{display:flex;gap:12px;align-items:flex-end;flex-wrap:wrap;margin-top:12px}.hoyc label{display:block;font-size:10px;color:#667085;text-transform:uppercase;letter-spacing:.4px;font-weight:600;margin-bottom:2px}.hoyc select,.hoyc input{border:1px solid #cfd6e0;border-radius:8px;padding:6px 8px;background:#fff;color:#1c2536;font:inherit;font-size:12.5px}.hoyx{color:#475467;font-size:12px;padding-bottom:7px}
-.strip6 div.hot{background:#fdecea;border-color:#f6c9c4}.strip6 div.hot b{color:#b42318}
+.strip6.s4{grid-template-columns:repeat(4,1fr)}@media(max-width:980px){.strip6.s4{grid-template-columns:1fr 1fr}}.strip6 div.hot{background:#fdecea;border-color:#f6c9c4}.strip6 div.hot b{color:#b42318}
 .note.warn{background:#fff4db;border-color:#f0dca8;color:#6b4d00;margin-top:10px}
 .hoyt{max-height:520px;overflow:auto;border:1px solid #e9edf3;border-radius:10px;background:#fff}.hoyt th{position:sticky;top:0;background:#f7f9fc;z-index:1}.hoyt td{white-space:normal;vertical-align:top}.hoyt td:nth-child(-n+2),.hoyt td:nth-child(4){white-space:nowrap}.hoyt small,.hoy td small{display:block;color:#667085;font-size:10.5px;font-weight:400}
 details.guia{margin-top:12px}details.guia>summary{cursor:pointer;font-weight:700;color:#0a2b61;font-size:12px;margin-bottom:8px}.g3c{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.g3c>div{background:#fff;border:1px solid #e9edf3;border-radius:10px;padding:10px 12px;font-size:11.5px;color:#475467;line-height:1.5}.g3c>div>b:first-child{display:block;color:#0a2b61;font-size:12px;margin-bottom:3px}
@@ -375,6 +375,40 @@ function vResumen(){const R=rows(),PB=porBase(R),rt=suma(PB.slice(1,5),'Retenci�
 function vEmbudo(){const PB=porBase(rows()),tot=suma(PB.slice(1),'Total combinado (Leales + Retenidos + En riesgo + Perdidos + Inactivos)');
   return `<div class="note"><b>Cómo leerlo:</b> Potencial → Contactable → Contactado → Cita → Show. Cada porcentaje se mide sobre la etapa anterior; a la derecha, contra su objetivo. Cita y Show son solo del mes en curso.</div>
   <div class="gl">Primer Servicio</div><div class="gf">${cardEmb(PB[0])}</div><div class="gl">Retención</div><div class="gf">${PB.slice(1).map(cardEmb).join('')}${cardEmb(tot)}</div>`}
+/* ---------- bases · calidad de la base (19-nov, solicitud de Marisol) ----------
+   VIN útil = VIN de la base (sin Inactivos) que el call center no marcó como VIN sin calidad.
+   % principal sobre lo ya marcado. NO cuentan como no útiles: Ya tiene cita, No aplica, Ubicación, Financiera, Flotilla, Otro taller, Arrendador. */
+const MOT_NU={'NUMERO ERRONEO':'Número erróneo','NUMERO EQUIVOCADO':'Número erróneo','ERRONEO':'Número erróneo','NPR':'NPR','NO APLICA LLAMADA':'No aplica llamada','VIN SIN INFORMACION':'VIN sin información','YA NO CUENTO CON LA UNIDAD':'Ya no cuenta con la unidad','YA NO CUENTA CON LA UNIDAD':'Ya no cuenta con la unidad','CONMUTADOR':'Conmutador','DUPLICADO':'Duplicado'};
+const motNU=r=>MOT_NU[fold(T.st[r[11]])]||'';
+function calAcc(L){const o=[0,0,0];L.forEach(r=>{o[0]++;if(T.st[r[11]])o[1]++;if(motNU(r))o[2]++});return o}
+const pU=(a,b)=>b?(a-0)/b*100:0;
+function calFila(n,v,tot){const um=v[1]?(v[1]-v[2])/v[1]*100:0,ub=v[0]?(v[0]-v[2])/v[0]*100:0,w=Math.max(0,Math.min(100,(um-80)/20*100));
+  return `<tr${tot?' class="tot"':''}><td><b>${n}</b></td><td>${fmt(v[0])}</td><td>${fmt(v[1])}</td><td>${fmt(v[2])}</td><td><div class="mb"><i style="width:${w.toFixed(0)}%;background:#3276d2"></i></div></td><td><b>${v[1]?um.toFixed(1)+'%':'—'}</b></td><td style="color:#667085">${v[0]?ub.toFixed(1)+'%':'—'}</td></tr>`}
+const CAL_H=x=>`<thead><tr><th>${x}</th><th>VIN en la base</th><th>Ya marcados</th><th>No útiles</th><th style="width:18%">% útil de lo marcado</th><th></th><th>% útil de toda la base</th></tr></thead>`;
+const umOf=v=>v[1]?(v[1]-v[2])/v[1]:1;
+function dlNoUtiles(){const L=rows().filter(r=>r[1]<5&&motNU(r));
+  csv('VIN_no_utiles',['Motivo',...COLS],L.map(r=>[motNU(r),...fila(r)]))}
+function vBases(){const A=rows(),R=A.filter(r=>r[1]<5),t=calAcc(R),I=calAcc(A.filter(r=>r[1]===5));
+  const nota=`<div class="note" style="background:#fff4db;border-color:#f0dca8;color:#6b4d00;line-height:1.6"><b>Cómo se calcula</b> · VIN útil = VIN de la base que el call center no marcó como erróneo, sin unidad, conmutador, NPR, sin información o duplicado.<br>· El % principal es sobre lo <b>ya marcado</b>; el de toda la base va como referencia.<br>· <b>No</b> cuentan como no útiles: "Ya tiene cita", "No aplica", ubicación, financiera, flotilla, otro taller y arrendador (el contacto sí sirve).</div>`;
+  if(!t[0])return nota+`<div class="card soon">Sin datos para esta selección.</div>`;
+  const tiles=`<div class="card"><h3>Calidad de la base · VIN útiles para contactar</h3><div class="h3s">Primer Servicio, Leales, Retenidos, En riesgo y Perdidos · ${esc(filtroTxt())}</div>
+   <div class="strip6 s4"><div><small>VIN en la base</small><b>${fmt(t[0])}</b><em>entregados a los ejecutivos</em></div><div><small>Ya marcados en el mes</small><b>${fmt(t[1])}</b><em>${(t[1]/t[0]*100).toFixed(0)}% de la base</em></div>
+   <div class="hot"><small>VIN no útiles</small><b>${fmt(t[2])}</b><em>${t[1]?(t[2]/t[1]*100).toFixed(1)+'% de lo marcado':'—'}</em></div><div><small>% útil de lo marcado</small><b>${t[1]?(umOf(t)*100).toFixed(1)+'%':'—'}</b><em>${((t[0]-t[2])/t[0]*100).toFixed(1)}% de toda la base</em></div></div></div>`;
+  let reg='';
+  if(F.ag===''){const RG=[...REG_SIM,'INFINITI'].filter(g=>!F.reg||g===F.reg).map(g=>[g,calAcc(R.filter(r=>T.ag[r[2]].r===g))]).filter(x=>x[1][0]);
+    const nis=RG.filter(x=>x[0]!=='INFINITI').sort((a,b)=>umOf(a[1])-umOf(b[1])),inf=RG.filter(x=>x[0]==='INFINITI');
+    const lbl=g=>g==='CDMX'?'CDMX <span style="color:#667085;font-weight:400">· Patriotismo y Revolución</span>':esc(REG_LABEL[g]||g);
+    reg=`<div class="card"><h3>Por región (CSA)</h3><div class="h3s">De menor a mayor % útil de lo marcado</div><div class="tw"><table>${CAL_H('Región')}<tbody>${nis.map(([g,v])=>calFila(lbl(g),v)).join('')}${inf.map(([g,v])=>calFila(lbl(g),v)).join('')}${RG.length>1?calFila('Grupo Autocom',t,true):''}</tbody></table></div></div>`}
+  const M={};R.forEach(r=>{const m=motNU(r);if(m)M[m]=(M[m]||0)+1});const ML=Object.entries(M).sort((a,b)=>b[1]-a[1]),mx=ML.length?ML[0][1]:1;
+  const mot=`<div class="card"><h3>Motivos de VIN no útil</h3><div class="h3s">${fmt(t[2])} VIN en el mes</div>${ML.length?ML.map(([k,v])=>`<div class="hb"><span>${esc(k)}</span><div><i style="width:${(v/mx*100).toFixed(0)}%;background:#7f9db3"></i></div><b>${fmt(v)}</b><em>${(v/t[2]*100).toFixed(0)}%</em></div>`).join(''):'<div class="soon">Sin VIN no útiles en esta selección.</div>'}</div>`;
+  const bas=`<div class="card"><h3>Por base</h3><div class="h3s">Inactivos aparte: ${fmt(I[1])} marcados, ${fmt(I[2])} no útiles</div><div class="tw"><table><thead><tr><th>Base</th><th>Ya marcados</th><th>No útiles</th><th style="width:30%">% útil de lo marcado</th><th></th></tr></thead><tbody>${
+   T.bases.slice(0,5).map((b,i)=>{const v=calAcc(R.filter(r=>r[1]===i)),um=umOf(v)*100,w=Math.max(0,Math.min(100,(um-80)/20*100));return `<tr><td><b>${esc(b)}</b></td><td>${fmt(v[1])}</td><td>${fmt(v[2])}</td><td><div class="mb"><i style="width:${w.toFixed(0)}%;background:#3276d2"></i></div></td><td><b>${v[1]?um.toFixed(1)+'%':'—'}</b></td></tr>`}).join('')}</tbody></table></div></div>`;
+  const AG={};R.forEach(r=>{(AG[r[2]]=AG[r[2]]||[]).push(r)});
+  const agL=Object.entries(AG).map(([i,L])=>[agName(+i),calAcc(L)]).sort((a,b)=>umOf(a[1])-umOf(b[1]));
+  const ag=agL.length>1?`<details class="det"><summary>Ver por agencia (${agL.length})</summary><div class="card"><div class="h3s">De menor a mayor % útil de lo marcado</div><div class="tw"><table>${CAL_H('Agencia')}<tbody>${agL.map(([n,v])=>calFila(esc(n),v)).join('')}</tbody></table></div></div></details>`:'';
+  return nota+tiles+reg+`<div class="g2">${mot}${bas}</div>`+ag+
+   `<div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:12px"><button class="btn pri" onclick="dlNoUtiles()" ${t[2]?'':'disabled'}>⬇ Descargar VIN no útiles (${fmt(t[2])})</button><span class="cs" style="align-self:center">Con motivo, agencia y ejecutivo, para corregirlos en la base · respeta los filtros</span></div>
+   <div class="foot">Próximamente en esta pestaña: avance por base, por agencia y por modelo, con el detalle de VIN.</div>`}
 const SOON={bases:['Bases','Una sola pestaña con selector de base (Primer Servicio, Leales, Retenidos, En riesgo, Perdidos, Inactivos): avance por agencia y por modelo, y el detalle de VIN plegado al final.'],equipo:['Equipo','Por ejecutivo y por día: gestiones, contactos, citas y shows, comparado contra el promedio del equipo.'],citas:['Citas y no shows','Todas las citas del taller (U13): por día, por tipo, canceladas, y qué pasó después de cada no show.'],desc:['Descartados y oportunidades','Motivos de descarte agrupados, cuáles son recuperables y cuáles tienen oferta.']};
 function navH(){document.documentElement.style.setProperty('--navh',$('nav').offsetHeight+'px')}
 addEventListener('resize',navH);
@@ -382,7 +416,7 @@ function render(){
   $('nav').innerHTML=TABS.map(([k,l])=>`<button class="tab ${k===tab?'on':''}" data-k="${k}">${l}</button>`).join('');
   $('nav').querySelectorAll('.tab').forEach(b=>b.onclick=()=>{tab=b.dataset.k;render()});
   navH();
-  $('view').innerHTML=tab==='resumen'?vResumen():tab==='embudo'?vEmbudo():tab==='citas'?vCitas():`<div class="card soon"><b>${SOON[tab][0]} · en construcción</b>${SOON[tab][1]}<br><br>Mientras tanto, esta información sigue disponible en el tablero anterior.</div>`;
+  $('view').innerHTML=tab==='resumen'?vResumen():tab==='embudo'?vEmbudo():tab==='citas'?vCitas():tab==='bases'?vBases():`<div class="card soon"><b>${SOON[tab][0]} · en construcción</b>${SOON[tab][1]}<br><br>Mientras tanto, esta información sigue disponible en el tablero anterior.</div>`;
   fillMenu()}
 $('sub').textContent=`${T.mes} ${T.anio} · Grupo Autocom · Corte: ${+T.corte.slice(8,10)} de ${MESES[T.mesNum-1]} · día operativo ${D_EL} de ${D_TOT}`+(T.corteParcial?` · el reporte de citas se bajó el ${+T.corteParcial.dia.slice(8,10)} a las ${T.corteParcial.hora}; ese día aún no cuenta`:'');
 $('srcTxt').innerHTML=`Archivos de trabajo del call center (Nissan e Infiniti, ${esc(T.archivo)}), citas de Quiter (U13${T.u13?'':' — no llegó hoy'}) y SimAnalytics (Performance General por Dealer del ${SIMF}; grupo y región = suma de sus agencias).<br>Control de carga: ${fmt(T.qa.nissanAContactar)} VIN por contactar en Nissan y ${fmt(T.qa.infinitiAContactar)} en Infiniti.`;
