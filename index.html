@@ -7,9 +7,9 @@
 h1{margin:0;font-size:19px;color:#0a2b61;letter-spacing:.2px}.top p{margin:2px 0 0;color:#667085;font-size:12px}
 details.src{font-size:11.5px;color:#667085;position:relative}details.src summary{cursor:pointer;list-style:none;border:1px solid #cfd6e0;border-radius:999px;padding:4px 11px;background:#fff}
 details.src div{position:absolute;right:0;top:30px;background:#fff;border:1px solid #e3e8ef;border-radius:10px;padding:10px 12px;width:320px;z-index:20;box-shadow:0 8px 24px rgba(16,24,40,.12);line-height:1.5}
-.nav{background:#fff;padding:10px 28px 0;display:flex;gap:6px;border-bottom:1px solid #e3e8ef;flex-wrap:wrap}
+.nav{background:#fff;padding:10px 28px 0;display:flex;gap:6px;border-bottom:1px solid #e3e8ef;flex-wrap:wrap;position:sticky;top:0;z-index:12}
 .tab{padding:9px 16px;border-radius:9px 9px 0 0;font-weight:600;color:#475467;font-size:12.5px;cursor:pointer;border:0;background:none;font-family:inherit}.tab.on{background:#0a2b61;color:#fff}
-.flt{background:#fff;border-bottom:1px solid #e3e8ef;padding:10px 28px;display:flex;gap:10px;align-items:flex-end;flex-wrap:wrap;position:sticky;top:0;z-index:10}
+.flt{background:#fff;border-bottom:1px solid #e3e8ef;padding:10px 28px;display:flex;gap:10px;align-items:flex-end;flex-wrap:wrap;position:sticky;top:var(--navh,44px);z-index:10}
 .flt label{display:block;font-size:10px;color:#667085;text-transform:uppercase;letter-spacing:.4px;font-weight:600;margin-bottom:2px}
 .flt select{border:1px solid #cfd6e0;border-radius:8px;padding:6px 8px;background:#fff;color:#1c2536;font:inherit;font-size:12px;min-width:140px;max-width:210px}
 .btn{border:1px solid #cfd6e0;border-radius:8px;padding:7px 12px;background:#fff;color:#17365d;font:inherit;font-size:12px;font-weight:600;cursor:pointer}.btn.pri{background:#0a2b61;color:#fff;border-color:#0a2b61}
@@ -38,6 +38,7 @@ h3{margin:0 0 2px;font-size:13.5px;color:#0a2b61}.h3s{color:#667085;font-size:11
 .soon{padding:40px 20px;text-align:center;color:#667085}.soon b{display:block;color:#0a2b61;font-size:15px;margin-bottom:6px}
 .strip6{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;margin-top:12px}.strip6 div{background:#f7f9fc;border:1px solid #e9edf3;border-radius:10px;padding:10px 12px}.strip6 small{color:#667085;display:block;font-size:11px}.strip6 b{font-size:22px;color:#0a2b61;display:block;line-height:1.2}.strip6 b.gt{color:#17713c}.strip6 b.at{color:#8c6400}.strip6 b.rt{color:#b42318}.strip6 em{font-style:normal;color:#667085;font-size:10.5px}
 .g2 td:first-child{white-space:normal}.g2 .mb{min-width:30px}.g2 table{font-size:11.5px}.g2 table th,.g2 table td{padding-left:4px;padding-right:4px}.g2 table th{letter-spacing:0;font-size:10px}
+.tot td{border-top:2px solid #cfd6e0;background:#f7f9fc}
 .mut{color:#98a2b3;font-size:10.5px}td.l{text-align:left;white-space:normal}
 .hb{display:grid;grid-template-columns:minmax(150px,1.3fr) 1.2fr 52px 44px;gap:10px;align-items:center;padding:6px 0;border-bottom:1px solid #f0f2f6}.hb:last-of-type{border:0}.hb span{font-weight:600}.hb small{display:block;color:#667085;font-weight:400}.hb div{height:10px;background:#edf0f5;border-radius:5px;overflow:hidden}.hb i{display:block;height:100%;border-radius:5px}.hb b{text-align:right;font-size:14px;color:#0a2b61}.hb em{font-style:normal;color:#667085;text-align:right;font-size:11.5px}
 details.det{min-width:0}details.det>summary{cursor:pointer;font-weight:700;color:#0a2b61;background:#fff;border:1px solid #e3e8ef;border-radius:12px;padding:11px 16px;list-style:none}details.det>summary::before{content:'▸ '}details.det[open]>summary::before{content:'▾ '}details.det[open]>summary{margin-bottom:10px}
@@ -48,7 +49,7 @@ details.det{min-width:0}details.det>summary{cursor:pointer;font-weight:700;color
 .hoyt{max-height:520px;overflow:auto;border:1px solid #e9edf3;border-radius:10px;background:#fff}.hoyt th{position:sticky;top:0;background:#f7f9fc;z-index:1}.hoyt td{white-space:normal;vertical-align:top}.hoyt td:nth-child(-n+2),.hoyt td:nth-child(4){white-space:nowrap}.hoyt small,.hoy td small{display:block;color:#667085;font-size:10.5px;font-weight:400}
 details.guia{margin-top:12px}details.guia>summary{cursor:pointer;font-weight:700;color:#0a2b61;font-size:12px;margin-bottom:8px}.g3c{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.g3c>div{background:#fff;border:1px solid #e9edf3;border-radius:10px;padding:10px 12px;font-size:11.5px;color:#475467;line-height:1.5}.g3c>div>b:first-child{display:block;color:#0a2b61;font-size:12px;margin-bottom:3px}
 .foot{color:#667085;font-size:11px;text-align:right}
-@media(max-width:980px){.g3c{grid-template-columns:1fr}.row{flex-wrap:wrap}.strip6{grid-template-columns:1fr 1fr 1fr}.hb{grid-template-columns:1fr 70px 44px 40px}.g2,.g3{grid-template-columns:1fr}.strip{grid-template-columns:1fr 1fr}.grid4{grid-template-columns:1fr 1fr}.wrap,.top,.nav,.flt{padding-left:16px;padding-right:16px}.dl{margin-left:0}}
+@media(max-width:980px){.flt{position:static}.g3c{grid-template-columns:1fr}.row{flex-wrap:wrap}.strip6{grid-template-columns:1fr 1fr 1fr}.hb{grid-template-columns:1fr 70px 44px 40px}.g2,.g3{grid-template-columns:1fr}.strip{grid-template-columns:1fr 1fr}.grid4{grid-template-columns:1fr 1fr}.wrap,.top,.nav,.flt{padding-left:16px;padding-right:16px}.dl{margin-left:0}}
 </style></head><body>
 <div class="top"><div><h1>MONITOREO POSTVENTA BDC</h1><p id="sub"></p></div>
 <details class="src"><summary>Fuentes</summary><div id="srcTxt"></div></details></div>
@@ -169,6 +170,18 @@ function atencion(R){
 function tablaBases(PB){
   return `<div class="card"><h3>Cómo va cada base</h3><div class="h3s">Contactables del mes y cuántos ya se contactaron · la marca negra es el objetivo de contacto (80%)</div><div class="tw"><table><thead><tr><th>Base</th><th>Potencial</th><th>Contactables</th><th>Sin contactar</th><th>Avance de contacto</th><th>Contactado</th><th>Citas del mes</th><th>Shows</th></tr></thead><tbody>${
    PB.map(b=>{const p=b.cbl?b.cdo/b.cbl*100:0,c=p>=80?'g':p>=56?'a':'r';return `<tr><td><b>${b.base}</b></td><td>${fmt(b.pot)}</td><td>${fmt(b.cbl)}</td><td>${fmt(b.cbl-b.cdo)}</td><td><div class="mb"><i class="${c}" style="width:${Math.min(p,100).toFixed(0)}%"></i><em style="left:80%"></em></div></td><td class="${c}t"><b>${p<1&&b.cdo?p.toFixed(1):p.toFixed(0)}%</b></td><td>${fmt(b.cita)}</td><td>${fmt(b.show)}</td></tr>`}).join('')}</tbody></table></div></div>`}
+const REG_SIM=['MICHOACÁN','QUERÉTARO','CDMX'];
+function filaSim(n,e,tot){const m=sim(e),[c,l]=semCdo(m.cdo);
+  return `<tr${tot?' class="tot"':''}><td><b>${esc(n)}</b></td><td>${fmt(e.num)}</td><td>${fmt(e.den)}</td><td>${m.real.toFixed(1)}%</td><td>${m.ob.toFixed(1)}%</td><td><div class="mb"><i class="${c}" style="width:${(Math.min(m.cdo,110)/110*100).toFixed(0)}%"></i><em style="left:${(100/110*100).toFixed(0)}%"></em></div></td><td class="${c}t"><b>${m.cdo.toFixed(1)}%</b></td><td>${m.falt?fmt(m.falt):'Cumplido'}</td><td>${m.falt?fDia(m.nec)+' al día':'—'}</td><td><span class="pill ${c} sm">● ${l}</span></td></tr>`}
+function tablaRegiones(){ // 19-nov (Frank): misma tabla que la de agencias, por región; región = suma de sus Cve en SimAnalytics
+  if(detalle())return '';const B=T.obj[kindAg],ps=kindAg==='ps';
+  const reg=F.ag!==''?T.ag[+F.ag].r:F.reg;
+  let L=REG_SIM.filter(r=>B.r[r]&&(!reg||r===reg)).map(r=>({r,e:B.r[r]})).sort((x,y)=>sim(x.e).cdo-sim(y.e).cdo);
+  if(!L.length)return '';
+  return `<div class="card"><div class="row"><div><h3>${ps?'Primer Servicio':'Retención'} por región</h3><div class="h3s">Números de SimAnalytics (archivo del ${SIMF}) · cada región es la suma de sus agencias · de menor a mayor cumplimiento · la marca negra es el 100% del objetivo</div></div>
+   <div class="seg"><button class="${ps?'on':''}" onclick="kindAg='ps';render()">Primer Servicio</button><button class="${ps?'':'on'}" onclick="kindAg='rt';render()">Retención</button></div></div>
+   <div class="tw"><table><thead><tr><th>Región</th><th>${ps?'Con servicio':'Con visita'}</th><th>${ps?'Unidades':'UIO'}</th><th>Real</th><th>Objetivo</th><th style="width:18%">Cumplimiento</th><th>CDO</th><th>Faltan</th><th>Ritmo necesario</th><th>Estado</th></tr></thead><tbody>${
+   L.map(({r,e})=>filaSim(REG_LABEL[r]||r,e)).join('')+filaSim('Grupo Autocom',B.g,true)}</tbody></table></div></div>`}
 function tablaAgencias(){
   if(detalle())return '';const B=T.obj[kindAg],ps=kindAg==='ps';
   let L=B.a.filter(e=>(!F.reg||e.reg===F.reg)&&(F.ag===''||e.m.some(m=>fold(m)===fold(agName(+F.ag)))));
@@ -357,15 +370,18 @@ function vHoy(){
 /* ---------- vistas ---------- */
 function vResumen(){const R=rows(),PB=porBase(R),rt=suma(PB.slice(1,5),'Retención');
   return `<div class="g2">${cardObj('Primer Servicio','Unidades con su primer servicio realizado','ps',PB[0].show,PB[0].pot,'servicios')}${cardObj('Retención','Clientes de la base que ya regresaron a servicio','rt',rt.show,rt.pot,'clientes')}</div>
-  ${chartMes(R)}${tablaAgencias()}<div class="g3">${tablaBases(PB)}${atencion(R)}</div>${equipo(R)}
+  ${chartMes(R)}${tablaRegiones()}${tablaAgencias()}<div class="g3">${tablaBases(PB)}${atencion(R)}</div>${equipo(R)}
   <div class="foot">Selección: ${esc(filtroTxt())} · Corte ${T.corte.slice(8,10)} de ${MESES[T.mesNum-1]}</div>`}
 function vEmbudo(){const PB=porBase(rows()),tot=suma(PB.slice(1),'Total combinado (Leales + Retenidos + En riesgo + Perdidos + Inactivos)');
   return `<div class="note"><b>Cómo leerlo:</b> Potencial → Contactable → Contactado → Cita → Show. Cada porcentaje se mide sobre la etapa anterior; a la derecha, contra su objetivo. Cita y Show son solo del mes en curso.</div>
   <div class="gl">Primer Servicio</div><div class="gf">${cardEmb(PB[0])}</div><div class="gl">Retención</div><div class="gf">${PB.slice(1).map(cardEmb).join('')}${cardEmb(tot)}</div>`}
 const SOON={bases:['Bases','Una sola pestaña con selector de base (Primer Servicio, Leales, Retenidos, En riesgo, Perdidos, Inactivos): avance por agencia y por modelo, y el detalle de VIN plegado al final.'],equipo:['Equipo','Por ejecutivo y por día: gestiones, contactos, citas y shows, comparado contra el promedio del equipo.'],citas:['Citas y no shows','Todas las citas del taller (U13): por día, por tipo, canceladas, y qué pasó después de cada no show.'],desc:['Descartados y oportunidades','Motivos de descarte agrupados, cuáles son recuperables y cuáles tienen oferta.']};
+function navH(){document.documentElement.style.setProperty('--navh',$('nav').offsetHeight+'px')}
+addEventListener('resize',navH);
 function render(){
   $('nav').innerHTML=TABS.map(([k,l])=>`<button class="tab ${k===tab?'on':''}" data-k="${k}">${l}</button>`).join('');
   $('nav').querySelectorAll('.tab').forEach(b=>b.onclick=()=>{tab=b.dataset.k;render()});
+  navH();
   $('view').innerHTML=tab==='resumen'?vResumen():tab==='embudo'?vEmbudo():tab==='citas'?vCitas():`<div class="card soon"><b>${SOON[tab][0]} · en construcción</b>${SOON[tab][1]}<br><br>Mientras tanto, esta información sigue disponible en el tablero anterior.</div>`;
   fillMenu()}
 $('sub').textContent=`${T.mes} ${T.anio} · Grupo Autocom · Corte: ${+T.corte.slice(8,10)} de ${MESES[T.mesNum-1]} · día operativo ${D_EL} de ${D_TOT}`+(T.corteParcial?` · el reporte de citas se bajó el ${+T.corteParcial.dia.slice(8,10)} a las ${T.corteParcial.hora}; ese día aún no cuenta`:'');
