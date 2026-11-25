@@ -117,8 +117,11 @@ function objetivo(kind){ // números de SimAnalytics (Performance General por De
   if(F.ag!==''){const n=fold(agName(+F.ag)),e=B.a.find(x=>x.m.some(m=>fold(m)===n));return e?Object.assign({lbl:e.n+(e.m.length>1?' (grupo de la agencia en SimAnalytics)':F.sub?' (incluye Los Reyes)':'')},e):null}
   if(F.reg)return B.r[F.reg]?Object.assign({lbl:REG_LABEL[F.reg]},B.r[F.reg]):null;
   return Object.assign({lbl:'Grupo Autocom · Nissan'},B.g)}
-const sim=o=>{const real=o.num/o.den*100,ob=o.ov/o.den*100,falt=Math.max(Math.round(o.ov)-Math.round(o.num),0);return {real,ob,cdo:o.num/o.ov*100,falt,nec:falt/D_REM}};
-const semCdo=c=>c>=100?['g','En objetivo']:c>=97?['a','Cerca del objetivo']:['r','Debajo del objetivo'];
+// 25-nov (Frank, opción B): igual que SimAnalytics, cuenta como cumplido desde CDO 99.95% (100.0% a un decimal; así paga los puntos de rebate).
+// "Faltan" = VIN que faltan para llegar a ese punto, para que porcentaje, color y faltan digan lo mismo.
+const CDO_OK=99.95;
+const sim=o=>{const real=o.num/o.den*100,ob=o.ov/o.den*100,falt=Math.max(Math.ceil(o.ov*CDO_OK/100-o.num-1e-9),0);return {real,ob,cdo:o.num/o.ov*100,falt,nec:falt/D_REM}};
+const semCdo=c=>c>=CDO_OK?['g','En objetivo']:c>=97?['a','Cerca del objetivo']:['r','Debajo del objetivo'];
 const fDia=n=>n<10&&n>0?n.toFixed(1):fmt(n);
 const SIMF=T.simFecha?`${+T.simFecha.slice(8,10)} de ${MESES[+T.simFecha.slice(5,7)-1]}`:'';
 /* ---------- piezas ---------- */
