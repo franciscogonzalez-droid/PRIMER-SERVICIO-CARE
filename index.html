@@ -50,6 +50,7 @@ details.det{min-width:0}details.det>summary{cursor:pointer;font-weight:700;color
 .hoyt{max-height:520px;overflow:auto;border:1px solid #e9edf3;border-radius:10px;background:#fff}.hoyt th{position:sticky;top:0;background:#f7f9fc;z-index:1}.hoyt td{white-space:normal;vertical-align:top}.hoyt td:nth-child(-n+2),.hoyt td:nth-child(4){white-space:nowrap}.hoyt small,.hoy td small{display:block;color:#667085;font-size:10.5px;font-weight:400}
 details.guia{margin-top:12px}details.guia>summary{cursor:pointer;font-weight:700;color:#0a2b61;font-size:12px;margin-bottom:8px}.g3c{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.g3c>div{background:#fff;border:1px solid #e9edf3;border-radius:10px;padding:10px 12px;font-size:11.5px;color:#475467;line-height:1.5}.g3c>div>b:first-child{display:block;color:#0a2b61;font-size:12px;margin-bottom:3px}
 .foot{color:#667085;font-size:11px;text-align:right}
+.proy{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:12px;font-size:12.5px;color:#1c2536}.proy small{color:#667085;font-size:11px}
 @media(max-width:980px){.flt{position:static}.g3c{grid-template-columns:1fr}.row{flex-wrap:wrap}.strip6{grid-template-columns:1fr 1fr 1fr}.hb{grid-template-columns:1fr 70px 44px 40px}.g2,.g3{grid-template-columns:1fr}.strip{grid-template-columns:1fr 1fr}.grid4{grid-template-columns:1fr 1fr}.wrap,.top,.nav,.flt{padding-left:16px;padding-right:16px}.dl{margin-left:0}}
 </style></head><body>
 <div class="top"><div><h1>MONITOREO POSTVENTA BDC</h1><p id="sub"></p></div>
@@ -124,6 +125,23 @@ const sim=o=>{const real=o.num/o.den*100,ob=o.ov/o.den*100,falt=Math.max(Math.ce
 const semCdo=c=>c>=CDO_OK?['g','En objetivo']:c>=97?['a','Cerca del objetivo']:['r','Debajo del objetivo'];
 const fDia=n=>n<10&&n>0?n.toFixed(1):fmt(n);
 const SIMF=T.simFecha?`${+T.simFecha.slice(8,10)} de ${MESES[+T.simFecha.slice(5,7)-1]}`:'';
+/* ---------- avance neto y proyección al cierre (26-nov, Frank) ----------
+   El avance neto sale de comparar el numerador de SimAnalytics de un día contra los anteriores (T.simHist).
+   Proyección = numerador de hoy + avance neto por día × días operativos que faltan. Es lineal: sirve de orientación, no es una probabilidad. */
+const OPD=T.dias.dias,opIdx=d=>OPD.filter(x=>x<=d).length;
+function simSerie(kind){if(detalle()||!T.simHist||!T.simHist.length)return null;const B=T.obj[kind];let cves;
+  if(F.ag!==''){const n=fold(agName(+F.ag)),e=B.a.find(x=>x.m.some(m=>fold(m)===n));if(!e)return null;cves=[e.cve]}
+  else cves=B.a.filter(a=>!F.reg||a.reg===F.reg).map(a=>a.cve);
+  if(!cves.length)return null;const i=kind==='ps'?1:2;
+  return T.simHist.map(x=>({x:opIdx(+x[0].slice(8,10)),y:cves.reduce((s,c)=>s+(x[i][c]||0),0)}))}
+function ritmoNeto(kind){const S=simSerie(kind);if(!S||S.length<3)return null;
+  const last=S[S.length-1],P=S.filter(p=>p.x>=last.x-6);if(P.length<3||P[P.length-1].x===P[0].x)return null;
+  const n=P.length,mx=P.reduce((a,p)=>a+p.x,0)/n,my=P.reduce((a,p)=>a+p.y,0)/n,sl=P.reduce((a,p)=>a+(p.x-mx)*(p.y-my),0)/P.reduce((a,p)=>a+(p.x-mx)**2,0);
+  return {pace:sl,dias:last.x-P[0].x,rem:Math.max(D_TOT-last.x,0)}}
+function proyeccion(kind,o){const r=ritmoNeto(kind);if(!r||!o)return null;
+  const cp=(o.num+r.pace*r.rem)/o.ov*100,c=cp>=CDO_OK+.5?['g','Va para cumplir']:cp>=CDO_OK-.5?['a','En la raya']:['r','Difícil con el ritmo actual'];
+  return Object.assign({cp,c},r)}
+const fNeto=n=>(n>0?'+':n<0?'−':'')+(Math.abs(n)<10?Math.abs(n).toFixed(1):fmt(Math.abs(n)));
 /* ---------- piezas ---------- */
 function cardObj(titulo,desc,kind,act2,univ2,unit){
   const o=objetivo(kind);
@@ -132,38 +150,47 @@ function cardObj(titulo,desc,kind,act2,univ2,unit){
    <div class="bar"><i style="width:${Math.min(p,100).toFixed(1)}%"></i></div>
    <div class="grid4"><div><small>Ritmo real</small><strong>${fmt(act2/D_EL)} al día</strong></div><div><small>Días operativos</small><strong>${D_EL} de ${D_TOT}</strong></div><div style="grid-column:span 2"><small>Objetivo</small><strong style="font-size:12px;font-weight:600;color:#667085">${detalle()?'El objetivo viene por agencia; con este filtro se muestra solo el avance.':'Esta selección no tiene objetivo de SimAnalytics.'}</strong></div></div></div>`}
   const m=sim(o),[c,l]=semCdo(m.cdo),sc=Math.max(m.ob,m.real)*1.2,ps=kind==='ps';
+  const pr=proyeccion(kind,o),prH=pr?`<div class="proy"><span class="pill ${pr.c[0]} sm">${pr.c[1]}</span><span>Proyección al cierre <b>${pr.cp.toFixed(1)}%</b></span><small>avance de SimAnalytics de los últimos ${pr.dias} días · faltan ${pr.rem} días operativos</small></div>`:'';
   return `<div class="card big"><div class="row"><div><div class="ct">${titulo}</div><div class="cs">${desc} · ${esc(o.lbl)} · SimAnalytics, archivo del ${SIMF}</div></div><span class="pill ${c}">● ${l}</span></div>
   <div class="row" style="align-items:flex-end;margin-top:14px"><div><span class="num">${m.real.toFixed(2)}%</span><span class="of"> objetivo ${m.ob.toFixed(2)}%</span></div><div class="pct ${c}t">${m.cdo.toFixed(1)}%<small> de cumplimiento</small></div></div>
   <div class="bar"><i style="width:${(m.real/sc*100).toFixed(1)}%"></i><b style="left:${(m.ob/sc*100).toFixed(1)}%"></b></div>
-  <div class="legend"><span><i class="k1"></i>${ps?'Con primer servicio':'Clientes con visita'}: ${fmt(o.num)} de ${fmt(o.den)}</span><span><b class="k2"></b>Objetivo: ${fmt(o.ov)} VIN</span></div>
-  <div class="grid4"><div><small>Faltan para el objetivo</small><strong class="${c}t">${m.falt?fmt(m.falt)+' VIN':'Cumplido'}</strong></div><div><small>Ritmo necesario</small><strong>${m.falt?fDia(m.nec)+' al día':'—'}</strong></div>
+  <div class="legend"><span><i class="k1"></i>${ps?'Con primer servicio':'Clientes con visita'}: ${fmt(o.num)} de ${fmt(o.den)}</span><span><b class="k2"></b>Objetivo: ${fmt(o.ov)} VIN</span></div>${prH}
+  <div class="grid4"><div><small>Faltan para el objetivo</small><strong class="${c}t">${m.falt?fmt(m.falt)+' VIN':'Cumplido'}</strong></div><div><small>${ps?'Ritmo necesario':'Avance neto necesario'}</small><strong>${m.falt?fDia(m.nec)+' al día':'—'}</strong></div>
    <div><small>${ps?'Ritmo del call center':'Shows del mes en la base'}</small><strong>${ps?fDia(act2/D_EL)+' al día':fmt(act2)}</strong></div><div><small>${ps?'Sin primer servicio':'Días operativos'}</small><strong>${ps?fmt(o.den-o.num):D_EL+' de '+D_TOT}</strong></div></div></div>`}
 function chartMes(R,noSeg){ // citas del mes por día (U13): asistieron, no asistieron y agendadas por venir; domingos a la vista
   const k=kindChart,C=T.citas.filter(mCita).filter(c=>k==='ps'?c[4]===0:k==='rt'?(c[4]>=1&&c[4]<=4):true);
-  const nd=new Date(T.anio,T.mesNum,0).getDate(),by=[];for(let d=0;d<=nd;d++)by.push([0,0,0]);
-  C.forEach(c=>{if(c[1]<3)by[c[0]][c[1]]++});
-  const tot=[0,1,2].map(i=>by.reduce((a,x)=>a+x[i],0)),canc=C.filter(c=>c[1]===3).length;
-  const o=k==='ps'?objetivo('ps'):null,line=o?sim(o).nec:0,mx=Math.max(...by.map(x=>x[0]+x[1]+x[2]),line,1)*1.18;
-  const W=1000,H=280,ml=38,mb=36,mt=20,cw=W-ml-8,ch=H-mb-mt,bw=cw/nd,y=v=>mt+ch-(v/mx)*ch,COLS=['#2f7d5a','#cfc9bf','#7f9db3'],TXT=['#fff','#3d3a34','#fff'];
+  // 26-nov: en Retención se resaltan las citas de clientes en riesgo y perdidos (las que mueven el indicador)
+  const rt=k==='rt',hot=c=>c[4]===3||c[4]===4,
+   SEG=rt?[['asistieron · en riesgo o perdidos','#1f6b4a','#fff'],['asistieron · ya retenidos','#9ccbb3','#173d2c'],['no asistieron','#cfc9bf','#3d3a34'],['por venir · en riesgo o perdidos','#3f6f8f','#fff'],['por venir · ya retenidos','#b3c6d3','#22323d']]
+        :[['asistieron','#2f7d5a','#fff'],['no asistieron','#cfc9bf','#3d3a34'],['agendadas','#7f9db3','#fff']],
+   si=c=>rt?(c[1]===0?(hot(c)?0:1):c[1]===1?2:(hot(c)?3:4)):c[1],NS=SEG.length;
+  const nd=new Date(T.anio,T.mesNum,0).getDate(),by=[];for(let d=0;d<=nd;d++)by.push(new Array(NS).fill(0));
+  const tot=[0,0,0],hotT=[0,0,0];
+  C.forEach(c=>{if(c[1]<3){by[c[0]][si(c)]++;tot[c[1]]++;if(rt&&hot(c))hotT[c[1]]++}});
+  const canc=C.filter(c=>c[1]===3).length,sumD=x=>x.reduce((a,v)=>a+v,0);
+  const o=k==='ps'?objetivo('ps'):null,line=o?sim(o).nec:0,mx=Math.max(...by.map(sumD),line,1)*1.18;
+  const W=1000,H=280,ml=38,mb=36,mt=20,cw=W-ml-8,ch=H-mb-mt,bw=cw/nd,y=v=>mt+ch-(v/mx)*ch,COLS=['#2f7d5a','#cfc9bf','#7f9db3'];
   const e=Math.pow(10,Math.floor(Math.log10(mx))),q=mx/e,step=q<2.5?e/4:q<5?e/2:e;
   let s=`<svg viewBox="0 0 ${W} ${H}" width="100%" role="img" aria-label="Citas por día">`;
   for(let g=0;g<=mx;g+=step)s+=`<line x1="${ml}" x2="${W-8}" y1="${y(g)}" y2="${y(g)}" stroke="#e8ecf2"/><text x="${ml-6}" y="${y(g)+3}" text-anchor="end" class="ax">${fmt(g)}</text>`;
   for(let d=1;d<=nd;d++)if(new Date(T.anio,T.mesNum-1,d).getDay()===0)s+=`<rect x="${ml+(d-1)*bw}" y="${mt}" width="${bw}" height="${ch}" fill="#f4f1ea"/>`;
   if(line)s+=`<line x1="${ml}" x2="${W-8}" y1="${y(line)}" y2="${y(line)}" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="5 4"/>`;
-  for(let d=1;d<=nd;d++){const x0=ml+(d-1)*bw,x=x0+bw*.14,w=bw*.72,dom=new Date(T.anio,T.mesNum-1,d).getDay()===0,t=by[d][0]+by[d][1]+by[d][2];
-    let y0=y(0);[0,1,2].forEach(i=>{const v=by[d][i];if(!v)return;const h=(v/mx)*ch;
-      s+=`<rect x="${x}" y="${y0-h}" width="${w}" height="${Math.max(h-1.5,1)}" rx="2" fill="${COLS[i]}"><title>Día ${d}: ${['asistieron','no asistieron','agendadas'][i]} ${v}</title></rect>`;
-      if(h>=14)s+=`<text x="${x+w/2}" y="${y0-h/2+3.5}" text-anchor="middle" style="font-size:10px;font-weight:700" fill="${TXT[i]}">${v}</text>`;y0-=h});
+  for(let d=1;d<=nd;d++){const x0=ml+(d-1)*bw,x=x0+bw*.14,w=bw*.72,dom=new Date(T.anio,T.mesNum-1,d).getDay()===0,t=sumD(by[d]);
+    let y0=y(0);SEG.forEach(([nm,col,tx],i)=>{const v=by[d][i];if(!v)return;const h=(v/mx)*ch;
+      s+=`<rect x="${x}" y="${y0-h}" width="${w}" height="${Math.max(h-1.5,1)}" rx="2" fill="${col}"><title>Día ${d}: ${nm} ${v}</title></rect>`;
+      if(h>=14)s+=`<text x="${x+w/2}" y="${y0-h/2+3.5}" text-anchor="middle" style="font-size:10px;font-weight:700" fill="${tx}">${v}</text>`;y0-=h});
     if(t)s+=`<text x="${x+w/2}" y="${y0-5}" text-anchor="middle" class="bl" style="paint-order:stroke;stroke:#fff;stroke-width:3.5px">${fmt(t)}</text>`;
     s+=`<text x="${x+w/2}" y="${H-20}" text-anchor="middle" class="ax">${d}</text>`+(dom?`<text x="${x+w/2}" y="${H-8}" text-anchor="middle" style="font-size:9px;font-weight:700" fill="#9a8c6c">D</text>`:'')}
   const xc=ml+CORTE_DIA*bw;s+=`<line x1="${xc}" x2="${xc}" y1="${mt-6}" y2="${mt+ch}" stroke="#7a5af8" stroke-width="1.3" stroke-dasharray="4 3"/><text x="${xc+5}" y="${mt-8}" style="font-size:10px;font-weight:600" fill="#5b3fd6">Corte: día ${CORTE_DIA}</text>`;
   if(line)s+=`<text x="${W-10}" y="${y(line)-6}" text-anchor="end" class="rl" style="paint-order:stroke;stroke:#fff;stroke-width:3px">Ritmo necesario para el objetivo: ${fDia(line)} al día</text>`;
   const sig=k==='ps'?R.filter(r=>r[1]===0&&r[7]&F_SIG).length:k==='rt'?R.filter(r=>r[1]>=1&&r[1]<=4&&r[7]&F_SIG).length:0,sm=MESES[T.mesNum%12];
   const chip=(c,l,v)=>`<span><i style="width:11px;height:11px;border-radius:3px;background:${c};display:inline-block"></i>${l} <b style="font-size:14px;color:#1c2536">${v}</b></span>`;
+  let netoH='';if(rt){const oR=objetivo('rt'),rn=ritmoNeto('rt');if(oR){const m=sim(oR);
+    netoH=`<div class="note" style="margin:0 0 8px;padding:7px 11px">${m.falt?`Avance neto necesario <b>${fDia(m.nec)} al día</b>`:'<b>Objetivo cumplido</b>'}${rn?` · real <b class="${rn.pace>=m.nec?'gt':'rt'}">${fNeto(rn.pace)} al día</b> <span class="mut">(SimAnalytics, últimos ${rn.dias} días)</span>`:''} <span class="mut">· Avance neto: clientes que entran al indicador menos los que salen.</span></div>`}}
   const B=[['ps','Primer Servicio'],['rt','Retención'],['all','Todo el taller']];
   return `<div class="card"><div class="row"><div><h3>Citas de ${k==='ps'?'Primer Servicio':k==='rt'?'Retención':'todo el taller'} por día · ${MESES[T.mesNum-1]}</h3><div class="h3s">${k==='all'?'Todas las citas de Quiter (U13), estén o no en la base del call center':'Clientes de la base del call center'} · los domingos se marcan con D y no cuentan para el ritmo</div></div>
    ${noSeg?'':`<div class="seg">${B.map(([v,l])=>`<button class="${k===v?'on':''}" onclick="kindChart='${v}';render()">${l}</button>`).join('')}</div>`}</div>
-   <div class="legend" style="margin:2px 0 6px">${chip(COLS[0],'Asistieron',fmt(tot[0]))}${chip(COLS[1],'No asistieron',fmt(tot[1]))}${chip(COLS[2],'Agendadas por venir',fmt(tot[2]))}<span>Asistencia al corte <b style="font-size:14px;color:#1c2536">${tot[0]+tot[1]?(tot[0]/(tot[0]+tot[1])*100).toFixed(1)+'%':'—'}</b></span><span>Promedio <b style="font-size:14px;color:#1c2536">${fDia(tot[0]/D_EL)} al día</b></span>${canc?`<span>Canceladas <b style="color:#1c2536">${fmt(canc)}</b></span>`:''}${sig?`<span>Agendadas para ${sm} <b style="color:#1c2536">${fmt(sig)}</b></span>`:''}</div>${s}</svg></div>`}
+   <div class="legend" style="margin:2px 0 6px">${rt?chip(SEG[1][1],'Asistieron',fmt(tot[0]))+chip(SEG[0][1],'de ellos, en riesgo o perdidos',fmt(hotT[0]))+chip(SEG[2][1],'No asistieron',fmt(tot[1]))+chip(SEG[4][1],'Por venir',fmt(tot[2]))+chip(SEG[3][1],'en riesgo o perdidos',fmt(hotT[2])):chip(COLS[0],'Asistieron',fmt(tot[0]))+chip(COLS[1],'No asistieron',fmt(tot[1]))+chip(COLS[2],'Agendadas por venir',fmt(tot[2]))}<span>Asistencia al corte <b style="font-size:14px;color:#1c2536">${tot[0]+tot[1]?(tot[0]/(tot[0]+tot[1])*100).toFixed(1)+'%':'—'}</b></span><span>Promedio <b style="font-size:14px;color:#1c2536">${fDia(tot[0]/D_EL)} al día</b></span>${canc?`<span>Canceladas <b style="color:#1c2536">${fmt(canc)}</b></span>`:''}${sig?`<span>Agendadas para ${sm} <b style="color:#1c2536">${fmt(sig)}</b></span>`:''}</div>${netoH}${s}</svg></div>`}
 function atencion(R){
   const vis=new Set(R.filter(r=>r[1]<5&&r[7]&F_VIS&&r[7]&F_CBL).map(r=>r[0])).size,
    nsAnt=T.ns.filter(mAux).filter(r=>!r[6]).length,
