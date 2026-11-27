@@ -77,7 +77,7 @@ const F_CBL=1,F_CDO=2,F_CITA=4,F_SHOW=8,F_NOSHOW=16,F_SIG=32,F_VIS=64,F_AGR=128,
 const TC=['Persona física','Empresa','Flotilla','Sin dato'],UN=['','Nuevo','Seminuevo'];
 const D_TOT=T.dias.total,D_EL=T.dias.transcurridos,D_REM=Math.max(D_TOT-D_EL,1),CORTE_DIA=+T.corte.slice(8,10);
 const REG_LABEL={'MICHOACÁN':'Michoacán','QUERÉTARO':'Querétaro','CDMX':'CDMX','INFINITI':'Infiniti'};
-const TABS=[['resumen','Resumen'],['embudo','Embudo'],['bases','Bases'],['equipo','Equipo'],['citas','Citas y no shows'],['desc','Descartados y oportunidades']];
+const TABS=[['resumen','Resumen'],['embudo','Embudo'],['bases','Bases'],['equipo','Equipo'],['citas','Citas y no shows'],['stnge','STN y garantía extendida'],['desc','Descartados y oportunidades']].filter(t=>t[0]!=='stnge'||(T.sge&&T.sge.length));
 let tab='resumen',kindChart='ps',kindAg='ps';
 const F={reg:'',ag:'',sub:false,mod:'',tc:'',un:''};
 const agName=i=>T.ag[i].n;
@@ -466,7 +466,7 @@ function vHoy(){
 /* ---------- vistas ---------- */
 function vResumen(){const R=rows(),PB=porBase(R),rt=suma(PB.slice(1,5),'Retención');
   return `<div class="g2">${cardObj('Primer Servicio','Unidades con su primer servicio realizado','ps',PB[0].show,PB[0].pot,'servicios')}${cardObj('Retención','Clientes de la base que ya regresaron a servicio','rt',rt.show,rt.pot,'clientes')}</div>
-  ${chartMes(R)}${tablaRegiones()}${tablaAgencias()}<div class="g3">${tablaBases(PB)}${atencion(R)}</div>${equipo(R)}
+  ${sgResumen()}${chartMes(R)}${tablaRegiones()}${tablaAgencias()}<div class="g3">${tablaBases(PB)}${atencion(R)}</div>${equipo(R)}
   <div class="foot">Selección: ${esc(filtroTxt())} · Corte ${T.corte.slice(8,10)} de ${MESES[T.mesNum-1]}</div>`}
 function vEmbudo(){const PB=porBase(rows()),tot=suma(PB.slice(1),'Total combinado (Leales + Retenidos + En riesgo + Perdidos + Inactivos)');
   return `<div class="note"><b>Cómo leerlo:</b> Potencial → Contactable → Contactado → Cita → Show. Cada porcentaje se mide sobre la etapa anterior; a la derecha, contra su objetivo. Cita y Show son solo del mes en curso.</div>
@@ -575,11 +575,11 @@ function vDesc(){const D=T.desc.filter(mAux),n=D.length;
   const t=[0,1,2].map(i=>D.filter(r=>r[18]===i).length),rec=descSel('rec').length,reg=D.filter(r=>r[20]).length,mes={};D.forEach(r=>mes[r[13]]=(mes[r[13]]||0)+1);
   const G=T.dg.map((g,i)=>({g,i,tp:T.dgTipo[i],n:D.filter(r=>r[17]===i).length,o:D.filter(r=>r[17]===i&&r[19]).length})).filter(x=>x.n).sort((a,b)=>a.tp-b.tp||b.n-a.n),mx=Math.max(...G.map(x=>x.n),1);
   const hb=G.map(x=>`<div class="hb hbw"><span>${esc(x.g)}<small>${DTIPO[x.tp]}</small></span><div><i style="width:${(x.n/mx*100).toFixed(0)}%;background:${DCOL[x.tp]}"></i></div><b>${fmt(x.n)}</b><em>${fmt(x.o)} con oferta</em></div>`).join('');
-  const stn=opSel('stn'),vis=opSel('vis'),val=opSel('val');
+  const vis=opSel('vis'),val=opSel('val'),sgL=(T.sge||[]).filter(mAux).filter(x=>sgGrp(x)===4);
   const ops=[[rec,'Descartados recuperables con oferta vigente','Volver a contactar con la oferta',"dlDesc('rec')"],[reg,'Descartados que ya regresaron a servicio','Sacarlos de descartados',"dlDesc('reg')"],
-    [stn.length,'Clientes con STN vigente por contactar',`${fmt(stn.filter(r=>r[6]).length)} con STN por vencer`,"dlOp('stn')"],[vis.length,'Contactables con visita a taller no registrada como servicio','Validar antes de llamar',"dlOp('vis')"],
+    ...(T.sge&&T.sge.length?[[sgL.length,'Clientes de STN y garantía extendida por llamar','Se trabajan en su pestaña',"tab='stnge';render();scrollTo(0,0)",'→']]:[]),[vis.length,'Contactables con visita a taller no registrada como servicio','Validar antes de llamar',"dlOp('vis')"],
     [val.length,'Inactivos con dato de contacto por validar','Corregir teléfono o correo',"dlOp('val')"]]
-   .map(([k,a,b,f])=>`<div class="al"><b>${fmt(k)}</b><div style="flex:1"><span>${a}</span><small>${b}</small></div>${k?`<button class="btn" style="padding:5px 9px" onclick="${f}" title="Descargar lista">⬇</button>`:''}</div>`).join('');
+   .map(([k,a,b,f,ic])=>`<div class="al"><b>${fmt(k)}</b><div style="flex:1"><span>${a}</span><small>${b}</small></div>${k?`<button class="btn" style="padding:5px 9px" onclick="${f}" title="${ic?'Ver pestaña':'Descargar lista'}">${ic||'⬇'}</button>`:''}</div>`).join('');
   const AGm=new Map();D.forEach(r=>{const a=agName(r[1]);if(!AGm.has(a))AGm.set(a,[0,0,0]);AGm.get(a)[r[18]]++});
   const tag=[...AGm].sort((a,b)=>b[1][0]-a[1][0]||b[1][1]-a[1][1]).map(([a,v])=>`<tr><td><b>${esc(a)}</b></td><td>${fmt(v[0]+v[1]+v[2])}</td><td class="gt"><b>${fmt(v[0])}</b></td><td class="at">${fmt(v[1])}</td><td>${fmt(v[2])}</td></tr>`).join('');
   const RA=descSel('recall'),prev=RA.slice().sort((a,b)=>(b[19]-a[19])||(a[13]<b[13]?1:-1)).slice(0,100);
@@ -593,6 +593,68 @@ function vDesc(){const D=T.desc.filter(mAux),n=D.length;
     prev.map(r=>`<tr><td>${esc(r[0])}</td><td class="l">${esc(r[7])}</td><td>${esc(r[8])}</td><td class="l">${esc(agName(r[1]))}</td><td class="l">${esc(T.dg[r[17]])}</td><td class="l">${r[19]?esc(r[11]):'<span class="mut">Sin oferta vigente</span>'}</td><td class="l">${esc(r[21])}</td><td class="l">${esc(r[23])}</td></tr>`).join('')}</tbody></table></div>${RA.length>prev.length?`<div class="fx">Se muestran 100; la descarga trae los ${fmt(RA.length)}.</div>`:''}</div></details>
   <div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn pri" onclick="dlDesc('rec')">⬇ Recuperables con oferta (${fmt(rec)})</button><button class="btn" onclick="dlDesc('recall')">⬇ Todos los recuperables (${fmt(RA.length)})</button><button class="btn" onclick="dlDesc('sin')">⬇ Sin motivo, para capturar (${fmt(t[1])})</button><button class="btn" onclick="dlDesc('todos')">⬇ Todos los descartados (${fmt(n)})</button></div>
   <div class="foot">Selección: ${esc(filtroTxt())} · Corte ${T.corte.slice(8,10)} de ${MESES[T.mesNum-1]}</div>`}
+/* ---------- STN y garantía extendida (V10, 27-nov, Frank) ----------
+   Lista fija de la hoja "STN Y GARANTÍA EXTENDIDA <MES>". Atendidos = vino en el mes + adelantó su servicio + según el cliente.
+   Por llamar = pendiente, sin ARCO y en etapa "A contactar". No se pueden llamar = ARCO pendiente, contacto desde agencia, perdido, excluido o agrupado.
+   Desde el arranque = cambios contra la foto del día en que se armó la lista (T.sgeBase). */
+let sgeP=-1;
+const SGC=[['Vino en el mes','#1f6b4a','#fff'],['Adelantó su servicio','#5fa883','#fff'],['Según el cliente','#a9d5bd','#173d2c'],['Con cita o en taller','#3276d2','#fff'],['Por llamar','#e0a100','#3d2c00'],['No se pueden llamar','#aab4c3','#1c2536']];
+const sgGrp=x=>x[9]<=2?x[9]:x[9]<=4?3:(x[9]===5&&!x[10]&&T.et[x[24]]==='A contactar')?4:5;
+const SGB=new Map((T.sge||[]).map((x,i)=>[x[0],T.sgeBase&&T.sgeBase.av?T.sgeBase.av[i]:-1]));
+const sgBaseDia=T.sgeBase&&T.sgeBase.corte?+T.sgeBase.corte.slice(8,10):0;
+const sgSel=()=>(T.sge||[]).filter(mAux).filter(x=>sgeP<0||x[6]===sgeP);
+function sgCnt(L){const v=[0,0,0,0,0,0];L.forEach(x=>v[sgGrp(x)]++);return v}
+const sgAt=v=>v[0]+v[1]+v[2];
+const sgDia=d=>d?`${T.anio}-${p2(T.mesNum)}-${p2(d)}`:'';
+const SGCOLS=['VIN','Cliente','Teléfono principal','Teléfono 2','Modelo','Agencia','Subagencia','Tipo de cliente','Producto','Observaciones','Motivo de la lista','Estado del contrato','Vence','Avance','Grupo en el tablero','Base del tablero','Etapa','Último servicio','Fecha de cita','ARCO','Ejecutivo','Estatus de gestión','Subestatus','Fecha de gestión','Comentario'];
+const sgFila=x=>[x[0],x[11],x[12],x[13],T.mod[x[3]],agName(x[1]),x[2]?'Los Reyes':'',TC[x[4]],T.sgeProd[x[6]],x[20],T.sgeMot[x[7]],x[19],x[25],T.sgeAv[x[9]],SGC[sgGrp(x)][0],x[23]>=0?T.bases[x[23]]:'No está en las bases del tablero',T.et[x[24]],x[21],x[22],x[10]?'Sí':'',T.eqEj[x[16]]||'',T.st[x[14]],x[15],sgDia(x[17]),x[18]];
+function dlSge(k){const L=sgSel(),f={llamar:x=>sgGrp(x)===4,at:x=>sgGrp(x)<=2,no:x=>sgGrp(x)===5,todo:x=>true}[k];
+  csv({llamar:'STN_GE_por_llamar',at:'STN_GE_atendidos',no:'STN_GE_no_se_pueden_llamar',todo:'STN_GE_lista_completa'}[k]+(sgeP<0?'':'_'+T.sgeProd[sgeP].replace(/ /g,'_')),SGCOLS,L.filter(f).map(sgFila))}
+function sgBar(lbl,v,sub){const t=v.reduce((a,b)=>a+b,0);if(!t)return '';
+  return `<div style="display:grid;grid-template-columns:minmax(120px,190px) 1fr 70px;gap:10px;align-items:center;padding:7px 0;border-bottom:1px solid #f0f2f6"><div><b>${esc(lbl)}</b><small style="display:block;color:#667085">${fmt(t)} tocaban${sub?' · '+sub:''}</small></div>
+   <div style="display:flex;height:22px;border-radius:5px;overflow:hidden;background:#edf0f5;gap:2px">${v.map((n,i)=>n?`<div title="${SGC[i][0]}: ${fmt(n)} (${(n/t*100).toFixed(1)}%)" style="flex:${n} 0 0;background:${SGC[i][1]};color:${SGC[i][2]};font-size:10.5px;font-weight:700;display:flex;align-items:center;justify-content:center;overflow:hidden;white-space:nowrap">${n/t>=.06?fmt(n):''}</div>`:'').join('')}</div>
+   <div style="text-align:right"><b style="font-size:15px;color:#0a2b61">${(sgAt(v)/t*100).toFixed(1)}%</b><small style="display:block;color:#667085;font-size:10.5px">atendidos</small></div></div>`}
+function sgTabla(titulo,sub,L,key,primera,orden){const m=new Map();L.forEach(x=>{const k=key(x);if(!m.has(k))m.set(k,[]);m.get(k).push(x)});
+  let R=[...m].map(([k,l])=>({k,v:sgCnt(l),sin:l.filter(x=>sgGrp(x)===4&&!x[14]).length}));R.sort(orden||((a,b)=>sgAt(a.v)/a.v.reduce((s,n)=>s+n,0)-sgAt(b.v)/b.v.reduce((s,n)=>s+n,0)));
+  const fila=(k,v,sin,cls)=>{const t=v.reduce((s,n)=>s+n,0),p=t?sgAt(v)/t*100:0;return `<tr${cls?` class="${cls}"`:''}><td class="l"><b>${esc(k)}</b></td><td>${fmt(t)}</td><td>${fmt(sgAt(v))}</td><td><div class="mb"><i style="width:${p.toFixed(0)}%;background:#1f6b4a"></i></div></td><td><b>${p.toFixed(1)}%</b></td><td>${fmt(v[0])}</td><td class="mut">${v[1]?fmt(v[1]):'—'}</td><td>${fmt(v[3])}</td><td class="at"><b>${fmt(v[4])}</b></td><td class="mut">${sin?fmt(sin):'—'}</td><td class="mut">${v[5]?fmt(v[5]):'—'}</td></tr>`};
+  const tv=sgCnt(L),ts=L.filter(x=>sgGrp(x)===4&&!x[14]).length;
+  return `<div class="card"><h3>${titulo}</h3><div class="h3s">${sub}</div><div class="tw"><table><thead><tr><th>${primera}</th><th>Tocaban</th><th>Atendidos</th><th style="width:12%"></th><th>% atendidos</th><th>Vino en el mes</th><th>Adelantó</th><th>Con cita o en taller</th><th>Por llamar</th><th>Sin gestión</th><th>No se pueden llamar</th></tr></thead><tbody>${R.map(r=>fila(r.k,r.v,r.sin)).join('')}${R.length>1?fila('Total',tv,ts,'tot'):''}</tbody></table></div></div>`}
+function vSge(){if(!T.sge||!T.sge.length)return `<div class="card soon"><b>STN y garantía extendida</b>El archivo de este refresco no trae la hoja de la lista.</div>`;
+  const L=sgSel(),v=sgCnt(L),n=L.length,PR=T.sgeProd.map((p,i)=>[p,i]);
+  const seg=`<div class="seg"><button class="${sgeP<0?'on':''}" onclick="sgeP=-1;render()">Todos</button>${PR.map(([p,i])=>`<button class="${sgeP===i?'on':''}" onclick="sgeP=${i};render()">${p==='STN y garantía extendida'?'Los dos':p}</button>`).join('')}</div>`;
+  if(!n)return `<div class="card"><div class="row"><div><h3>STN y garantía extendida</h3></div>${seg}</div><div class="soon">Sin clientes de la lista para esta selección.</div></div>`;
+  const pl=L.filter(x=>sgGrp(x)===4),sinG=pl.filter(x=>!x[14]).length,no=L.filter(x=>sgGrp(x)===5);
+  const noD=[['ARCO',no.filter(x=>x[10]&&x[9]===5).length],['desde agencia',no.filter(x=>x[9]===6).length],['perdidos',no.filter(x=>x[9]===7).length]];noD.push(['otros',no.length-noD.reduce((a,b)=>a+b[1],0)]);
+  const tile=(l,nn,s,c)=>`<div${c?` class="${c}"`:''}><small>${l}</small><b>${nn}</b><em>${s}</em></div>`;
+  const cab=`<div class="card"><div class="row"><div><h3>STN y garantía extendida · ${MESES[T.mesNum-1]}</h3><div class="h3s">Clientes con STN o garantía extendida a los que les tocaba servicio en el mes · lista fija del ${T.sgeBase&&T.sgeBase.corte?fechaTxt(T.sgeBase.corte):'inicio'} (hoja "${esc(T.sgeHoja)}") · ${esc(filtroTxt())}</div></div>${seg}</div>
+   <div class="strip6">${tile('Tocaban',fmt(n),'lista fija del mes')}${tile('Atendidos',`<span class="gt">${(sgAt(v)/n*100).toFixed(1)}%</span>`,`${fmt(sgAt(v))} clientes`,'')}${tile('Vinieron en el mes',fmt(v[0]),`${(v[0]/n*100).toFixed(1)}% · ${fmt(v[1])} adelantaron su servicio${v[2]?' · '+fmt(v[2])+' según el cliente':''}`)}${tile('Con cita o en taller',fmt(v[3]),'por concretar')}${tile('Por llamar',fmt(v[4]),`${fmt(sinG)} sin ninguna gestión`,'hot')}${tile('No se pueden llamar',fmt(v[5]),noD.filter(x=>x[1]).map(x=>`${x[0]} ${fmt(x[1])}`).join(' · ')||'—')}</div></div>`;
+  // desde el arranque
+  const bD=sgBaseDia,hoyIni=bD===CORTE_DIA,nuevosAt=L.filter(x=>sgGrp(x)<=2&&SGB.has(x[0])&&SGB.get(x[0])>2).length,nuevasC=L.filter(x=>sgGrp(x)===3&&SGB.get(x[0])!==3&&SGB.get(x[0])!==4).length,gDesde=pl.filter(x=>x[17]>bD).length;
+  const arr=`<div class="card"><h3>Desde que arrancó la lista</h3><div class="h3s">Lo que ha cambiado desde el ${T.sgeBase&&T.sgeBase.corte?fechaTxt(T.sgeBase.corte):'arranque'}: es lo que logra el esfuerzo extra</div>
+   ${hoyIni?`<div class="note">Hoy es el punto de partida: la lista se armó con este mismo corte. Desde el siguiente refresco aquí se ve cuántos clientes vinieron, cuántos agendaron y cuántos pendientes se gestionaron.</div>`:''}
+   <div class="strip6 s4">${tile('Atendidos desde el arranque',fmt(nuevosAt),'no habían venido al armar la lista','')}${tile('Citas nuevas',fmt(nuevasC),'con cita o en taller hoy, sin cita al arranque')}${tile('Por llamar gestionados',fmt(gDesde),`de ${fmt(pl.length)} · con gestión después del ${bD} de ${MESES[T.mesNum-1]}`)}${tile('Días operativos que faltan',fmt(Math.max(D_TOT-D_EL,0)),`del mes · ${D_EL} de ${D_TOT} transcurridos`)}</div></div>`;
+  // avance por producto
+  const prodB=(sgeP<0?PR:PR.filter(([p,i])=>i===sgeP)).map(([p,i])=>sgBar(p,sgCnt(L.filter(x=>x[6]===i)))).join('')+(sgeP<0?sgBar('Total',v):'');
+  const leg=`<div class="legend" style="margin:4px 0 6px">${SGC.map(([l,c])=>`<span><i style="width:11px;height:11px;border-radius:3px;background:${c};display:inline-block"></i>${l}</span>`).join('')}</div>`;
+  const avance=`<div class="card"><h3>Avance por producto</h3><div class="h3s">Cada barra es el 100% de los que tocaban · a la derecha, % atendidos (vino en el mes + adelantó su servicio + según el cliente)</div>${leg}${prodB}</div>`;
+  // gestión de los que faltan
+  const gs=new Map();pl.forEach(x=>{const st=T.st[x[14]],k=!st?'Sin ninguna gestión':st==='Intento de contacto'?'Intento de contacto'+(x[15]?' · '+x[15].replace(/\s*\(.*$/,''):''):st;gs.set(k,(gs.get(k)||0)+1)});
+  const gl=[...gs].sort((a,b)=>a[0]==='Sin ninguna gestión'?-1:b[0]==='Sin ninguna gestión'?1:b[1]-a[1]).slice(0,10);
+  const gest=`<div class="card"><h3>Cómo va la gestión de los que faltan</h3><div class="h3s">${fmt(pl.length)} por llamar · último estatus capturado en el archivo de trabajo · ${fmt(gDesde)} con gestión desde el arranque</div>${pl.length?hbars(gl,pl.length,'#e0a100'):'<div class="soon">No hay clientes por llamar en esta selección.</div>'}</div>`;
+  const ag=sgTabla('Por agencia','De menor a mayor % atendidos · "Sin gestión" son los por llamar que nadie ha marcado',L,x=>agName(x[1])+(x[2]?' · Los Reyes':''),'Agencia');
+  const mot=sgTabla('Por motivo de la lista','Por qué entró el cliente a la lista',L,x=>T.sgeMot[x[7]],'Motivo',(a,b)=>b.v.reduce((s,n)=>s+n,0)-a.v.reduce((s,n)=>s+n,0));
+  const est=sgTabla('Por estado del contrato','Contrato al armar la lista',L,x=>T.sgeEst[x[8]],'Estado',(a,b)=>b.v.reduce((s,n)=>s+n,0)-a.v.reduce((s,n)=>s+n,0));
+  const prev=pl.slice().sort((a,b)=>(a[14]?1:0)-(b[14]?1:0)||(a[17]-b[17])).slice(0,100);
+  const det=`<details class="det"><summary>Ver detalle · por llamar (${fmt(pl.length)})</summary><div class="card"><div class="h3s">Primero los que no tienen ninguna gestión</div><div class="tw"><table><thead><tr><th>VIN</th><th style="text-align:left">Cliente</th><th>Teléfono</th><th style="text-align:left">Agencia</th><th style="text-align:left">Producto</th><th style="text-align:left">Motivo</th><th style="text-align:left">Contrato</th><th style="text-align:left">Último estatus</th><th style="text-align:left">Ejecutivo</th><th>Fecha gestión</th></tr></thead><tbody>${
+    prev.map(x=>`<tr><td>${esc(x[0])}</td><td class="l">${esc(x[11])}</td><td>${esc(x[12])}</td><td class="l">${esc(agName(x[1]))}</td><td class="l">${esc(T.sgeProd[x[6]])}</td><td class="l">${esc(T.sgeMot[x[7]].replace(/^[^:]*:\s*/,''))}</td><td class="l">${esc(x[19])}</td><td class="l">${x[14]?esc(T.st[x[14]])+(x[15]?`<small>${esc(x[15])}</small>`:''):'<span class="mut">Sin gestión</span>'}</td><td class="l">${esc(T.eqEj[x[16]]||'')}</td><td>${x[17]?x[17]+' '+MESES[T.mesNum-1].slice(0,3):''}</td></tr>`).join('')}</tbody></table></div>${pl.length>prev.length?`<div class="fx">Se muestran 100; la descarga trae los ${fmt(pl.length)}.</div>`:''}</div></details>`;
+  const nota=`<div class="note"><b>Cómo leerlo:</b> la lista no cambia en el mes, solo el avance, así el porcentaje siempre tiene la misma base. <b>Adelantó su servicio</b> = su último servicio fue antes del mes y no tiene cita cumplida en el mes (atendido, no hay que llamarlo). <b>No se pueden llamar</b> = ARCO sin datos de contacto, contacto desde agencia, perdidos, excluidos o agrupados.</div>`;
+  return `${cab}${nota}${arr}<div class="g2">${avance}${gest}</div>${ag}${mot}${est}${det}
+   <div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn pri" onclick="dlSge('llamar')">⬇ Por llamar (${fmt(pl.length)})</button><button class="btn" onclick="dlSge('todo')">⬇ Lista completa (${fmt(n)})</button><button class="btn" onclick="dlSge('at')">⬇ Atendidos (${fmt(sgAt(v))})</button><button class="btn" onclick="dlSge('no')">⬇ No se pueden llamar (${fmt(v[5])})</button></div>
+   <div class="foot">Selección: ${esc(filtroTxt())}${sgeP<0?'':' · '+esc(T.sgeProd[sgeP])} · Corte ${T.corte.slice(8,10)} de ${MESES[T.mesNum-1]}</div>`}
+function sgResumen(){if(!T.sge||!T.sge.length)return '';const L=(T.sge||[]).filter(mAux),n=L.length;if(!n)return '';const v=sgCnt(L);
+  return `<div class="card" style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap"><div><h3>STN y garantía extendida</h3><div class="h3s" style="margin:0">Clientes a los que les tocaba servicio en el mes · lista fija</div></div>
+   <div class="legend" style="gap:18px"><span>Atendidos <b style="font-size:17px;color:#1f6b4a">${(sgAt(v)/n*100).toFixed(1)}%</b> <span class="mut">${fmt(sgAt(v))} de ${fmt(n)}</span></span><span>Con cita o en taller <b style="font-size:15px;color:#1c2536">${fmt(v[3])}</b></span><span>Por llamar <b style="font-size:15px;color:#8c6400">${fmt(v[4])}</b></span></div>
+   <button class="btn" onclick="tab='stnge';render();scrollTo(0,0)">Ver detalle →</button></div>`}
 const SOON={bases:['Bases','Una sola pestaña con selector de base (Primer Servicio, Leales, Retenidos, En riesgo, Perdidos, Inactivos): avance por agencia y por modelo, y el detalle de VIN plegado al final.'],equipo:['Equipo','Por ejecutivo y por día: gestiones, contactos, citas y shows, comparado contra el promedio del equipo.'],citas:['Citas y no shows','Todas las citas del taller (U13): por día, por tipo, canceladas, y qué pasó después de cada no show.'],desc:['Descartados y oportunidades','Motivos de descarte agrupados, cuáles son recuperables y cuáles tienen oferta.']};
 function navH(){document.documentElement.style.setProperty('--navh',$('nav').offsetHeight+'px')}
 addEventListener('resize',navH);
@@ -600,7 +662,7 @@ function render(){
   $('nav').innerHTML=TABS.map(([k,l])=>`<button class="tab ${k===tab?'on':''}" data-k="${k}">${l}</button>`).join('');
   $('nav').querySelectorAll('.tab').forEach(b=>b.onclick=()=>{tab=b.dataset.k;render()});
   navH();
-  $('view').innerHTML=tab==='resumen'?vResumen():tab==='embudo'?vEmbudo():tab==='citas'?vCitas():tab==='bases'?vBases():tab==='equipo'?vEquipo():tab==='desc'?vDesc():`<div class="card soon"><b>${SOON[tab][0]} · en construcción</b>${SOON[tab][1]}<br><br>Mientras tanto, esta información sigue disponible en el tablero anterior.</div>`;
+  $('view').innerHTML=tab==='resumen'?vResumen():tab==='embudo'?vEmbudo():tab==='citas'?vCitas():tab==='bases'?vBases():tab==='equipo'?vEquipo():tab==='desc'?vDesc():tab==='stnge'?vSge():`<div class="card soon"><b>${SOON[tab][0]} · en construcción</b>${SOON[tab][1]}<br><br>Mientras tanto, esta información sigue disponible en el tablero anterior.</div>`;
   fillMenu()}
 $('sub').textContent=`${T.mes} ${T.anio} · Grupo Autocom · Corte: ${+T.corte.slice(8,10)} de ${MESES[T.mesNum-1]} · día operativo ${D_EL} de ${D_TOT}`+(T.corteParcial?` · el reporte de citas se bajó el ${+T.corteParcial.dia.slice(8,10)} a las ${T.corteParcial.hora}; ese día aún no cuenta`:'');
 $('srcTxt').innerHTML=`Archivos de trabajo del call center (Nissan e Infiniti, ${esc(T.archivo)}), citas de Quiter (U13${T.u13?'':' — no llegó hoy'}) y SimAnalytics (Performance General por Dealer del ${SIMF}; grupo y región = suma de sus agencias).<br>Control de carga: ${fmt(T.qa.nissanAContactar)} VIN por contactar en Nissan y ${fmt(T.qa.infinitiAContactar)} en Infiniti.`;
