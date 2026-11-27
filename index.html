@@ -101,7 +101,7 @@ function initFilters(){
   opt($('fReg'),[...new Set(T.ag.map(a=>a.r))].filter(Boolean).sort().map(r=>[r,REG_LABEL[r]||r]),'Todas');fillAg();
   const cnt={};T.rows.forEach(r=>cnt[r[4]]=(cnt[r[4]]||0)+1);
   opt($('fMod'),Object.keys(cnt).filter(i=>T.mod[i]).sort((a,b)=>T.mod[a].localeCompare(T.mod[b],'es')).map(i=>[i,T.mod[i]]),'Todos');
-  opt($('fTc'),TC.map((t,i)=>[i,t]),'Todos');opt($('fUn'),[[1,'Nuevo'],[2,'Seminuevo']],'Todas');
+  opt($('fTc'),TC.map((t,i)=>[i,t]),'Todos');opt($('fUn'),[[1,'Nuevo'],[2,'Seminuevo']],'Todas');if(!T.rows.some(r=>r[6]))$('fUn').parentElement.style.display='none';
   $('fReg').onchange=e=>{F.reg=e.target.value;fillAg();render()};
   $('fAg').onchange=e=>{const v=e.target.value;F.sub=v.endsWith('|s');F.ag=v===''?'':parseInt(v);render()};
   $('fMod').onchange=e=>{F.mod=e.target.value;render()};$('fTc').onchange=e=>{F.tc=e.target.value;render()};$('fUn').onchange=e=>{F.un=e.target.value;render()};
@@ -246,7 +246,7 @@ const fila=r=>[r[0],r[13],r[14],r[15],T.mod[r[4]],r[16],agName(r[2]),r[3]?'Los R
 function descargas(){const R=rows(),uniq=L=>{const s=new Set();return L.filter(r=>!s.has(r[0])&&s.add(r[0]))},
   a=uniq(R.filter(r=>r[7]&F_PORC&&!(r[7]&F_CITA)&&!(r[7]&F_SIG))),c=uniq(R.filter(r=>(r[7]&F_CITA&&!(r[7]&F_SHOW)&&!(r[7]&F_NOSHOW))||r[7]&F_SIG)),n=T.ns.filter(mAux),d=T.desc.filter(mAux).filter(r=>r[6]);
   return [['Por contactar sin cita','Clientes contactables que aún no tienen cita',a.length,()=>csv('Por_contactar_sin_cita',COLS,a.map(fila))],
-   ['No shows por recuperar','Lista de recuperación del mes y de meses anteriores',n.length,()=>csv('No_shows',['VIN','Cliente','Teléfono principal','Teléfono 2','Modelo','Año','Agencia','Subagencia','Tipo de cliente','Oferta','Fecha del no show','Origen','Asesor que vendió (APV)','Usuario que agendó','Etapa','Estatus de gestión','Segmento'],n.map(r=>[r[0],r[7],r[8],r[9],T.mod[r[3]],r[10],agName(r[1]),r[2]?'Los Reyes':'',TC[r[4]],r[11],r[12],r[13],r[14],r[15],r[16],r[17],r[18]]))],
+   ['No shows por recuperar','Lista de recuperación del mes y de meses anteriores',n.length,()=>csv('No_shows',['VIN','Cliente','Teléfono principal','Teléfono 2','Modelo','Año','Agencia','Subagencia','Tipo de cliente','Oferta','Fecha del no show','Origen','Asesor que vendió (APV)','Usuario que agendó','Etapa','Estatus de gestión','Segmento','Llamada de mediodía (call center)'],n.map(r=>[r[0],r[7],r[8],r[9],T.mod[r[3]],r[10],agName(r[1]),r[2]?'Los Reyes':'',TC[r[4]],r[11],r[12],r[13],r[14],r[15],r[16],r[17],r[18],r[19]||'']))],
    ['Citas futuras','Citas pendientes del mes y las ya agendadas para el mes siguiente',c.length,()=>csv('Citas_futuras',COLS,c.map(fila))],
    ['Descartados con oferta','Clientes descartados que tienen una oferta comercial',d.length,()=>csv('Descartados_con_oferta',['VIN','Cliente','Teléfono principal','Teléfono 2','Modelo','Año','Agencia','Subagencia','Tipo de cliente','Oferta','Motivo de descarte','Mes de descarte','Asesor que vendió (APV)','Segmento'],d.map(r=>[r[0],r[7],r[8],r[9],T.mod[r[3]],r[10],agName(r[1]),r[2]?'Los Reyes':'',TC[r[4]],r[11],r[12],r[13],r[14],r[15]]))]]}
 function fillMenu(){const L=descargas();$('dlMenu').innerHTML=`<div style="padding:6px 10px;font-size:11px;color:#667085">Respeta los filtros: <b>${esc(filtroTxt())}</b></div>`+L.map((x,i)=>`<button data-i="${i}"><span>${x[0]}<small>${x[1]}</small></span><b>${fmt(x[2])}</b></button>`).join('');
@@ -263,7 +263,7 @@ const asis=v=>v[0]+v[1]?v[0]/(v[0]+v[1])*100:null;
 const semA=p=>p==null?'n':p>=85?'g':p>=75?'a':'r';
 const pc1=(a,b)=>b?(a/b*100).toFixed(a/b<.1&&a?1:0)+'%':'—';
 const sitNS=c=>{const n=NSV.get(c[11]);if(!n)return 'No está en la lista de recuperación';
-  return n[16]==='A contactar'?(n[17]?'En gestión del call center':'En la lista, sin gestión todavía'):(n[16]||'En la lista, sin etapa')};
+  return n[16]==='A contactar'?(n[17]?'En gestión del call center':n[19]?'Ya se le llamó a mediodía (Google Sheets)':'En la lista, sin gestión todavía'):(n[16]||'En la lista, sin etapa')};
 const baseCita=c=>c[4]>=0?T.bases[c[4]]:'Fuera de la base del call center';
 function tablaCitas(titulo,sub,C,key,primera,max){
   const m=new Map();C.forEach(c=>{const k=key(c);if(!m.has(k))m.set(k,[]);m.get(k).push(c)});
@@ -512,49 +512,49 @@ let eqSel=-1;const F_VAL=8192;
 function mEq(e){const A=T.ag[e[2]];if(F.reg&&A.r!==F.reg)return false;
   if(F.ag!==''){if(e[2]!==+F.ag)return false;if(F.sub&&!e[3])return false}
   if(detalle()){const b=BROW.get(e[7]);if(!b)return false;if(F.mod!==''&&b[4]!==+F.mod)return false;if(F.tc!==''&&b[5]!==+F.tc)return false;if(F.un!==''&&b[6]!==+F.un)return false}return true}
-function eqCalc(){const EV=(T.eq||[]).filter(mEq),N=T.eqEj,S=N.map(()=>({g:0,m:0,c:0,d:new Set(),ca:0,sh:0,q:[0,0,0,0],cp:0,cm:0,dia:{}}));
-  EV.forEach(e=>{const s=S[e[1]];if(e[4]&1)s.m++;else{s.g++;s.d.add(e[0]);s.dia[e[0]]=(s.dia[e[0]]||0)+1;if(e[4]&2)s.c++}});
+function eqCalc(){const EV=(T.eq||[]).filter(mEq),N=T.eqEj,S=N.map(()=>({g:0,m:0,m5:0,c:0,d:new Set(),ca:0,sh:0,q:[0,0,0,0],cp:0,cm:0,dia:{}}));
+  EV.forEach(e=>{const s=S[e[1]];if(e[4]&1)s.m++;else{s.g++;if(e[4]&8)s.m5++;s.d.add(e[0]);s.dia[e[0]]=(s.dia[e[0]]||0)+1;if(e[4]&2)s.c++}});
   rows().forEach(r=>{if(r[7]&F_AGEND){const s=S[T.ejCan[r[10]]||0];s.ca++;if(r[7]&F_SHOW)s.sh++}});
   T.citas.filter(mCita).forEach(c=>{if(c[8]===0&&T.usrEj[c[9]])S[T.usrEj[c[9]]].q[c[1]]++});
   if(!detalle())T.eqCamp.forEach(([e,a,m,k])=>{const A=T.ag[a];if((F.reg&&A.r!==F.reg)||(F.ag!==''&&a!==+F.ag))return;S[e][m?'cm':'cp']+=k});
   return {EV,S}}
 function dlEquipo(){const {EV}=eqCalc();
-  csv('Gestiones_del_mes',['Fecha','Ejecutivo','VIN','Cliente','Agencia','Subagencia','Base','Estatus','Subestatus','Envío masivo'],
-   EV.slice().sort((a,b)=>a[0]-b[0]).map(e=>{const b=BROW.get(e[7]);return [`${T.anio}-${p2(T.mesNum)}-${p2(e[0])}`,T.eqEj[e[1]]||'Sin nombre',e[7],b?b[13]:'',agName(e[2]),e[3]?'Los Reyes':'',b?T.bases[b[1]]:'',T.st[e[5]],T.eqSst[e[6]],e[4]&1?'Sí':'No']}))}
+  csv('Gestiones_del_mes',['Fecha','Ejecutivo','VIN','Cliente','Agencia','Subagencia','Base','Estatus','Subestatus','Envío masivo','Hoja de trabajo'],
+   EV.slice().sort((a,b)=>a[0]-b[0]).map(e=>{const b=BROW.get(e[7]);return [`${T.anio}-${p2(T.mesNum)}-${p2(e[0])}`,T.eqEj[e[1]]||'Sin nombre',e[7],b?b[13]:'',agName(e[2]),e[3]?'Los Reyes':'',b?T.bases[b[1]]:'',T.st[e[5]],T.eqSst[e[6]],e[4]&1?'Sí':'No',e[4]&8?'Mes 5 diciembre':'Noviembre']}))}
 function vEquipo(){const {EV,S}=eqCalc(),N=T.eqEj,CC=T.eqCC,inCC=new Set(CC);
   if(!T.eq)return `<div class="card soon">Esta versión de datos no trae el historial de gestiones.</div>`;
-  const sum=f=>S.reduce((a,s)=>a+f(s),0),tg=sum(s=>s.g),tm=sum(s=>s.m),tc=sum(s=>s.c),tca=sum(s=>s.ca),tsa=sum(s=>s.sh),tq=[0,1,2,3].map(i=>sum(s=>s.q[i])),tqt=tq[0]+tq[1]+tq[2]+tq[3];
+  const sum=f=>S.reduce((a,s)=>a+f(s),0),tg=sum(s=>s.g),tm=sum(s=>s.m),t5=sum(s=>s.m5),tc=sum(s=>s.c),tca=sum(s=>s.ca),tsa=sum(s=>s.sh),tq=[0,1,2,3].map(i=>sum(s=>s.q[i])),tqt=tq[0]+tq[1]+tq[2]+tq[3];
   const act=CC.filter(i=>S[i].d.size),prom=act.length?act.reduce((a,i)=>a+S[i].g/S[i].d.size,0)/act.length:0,mxd=Math.max(...act.map(i=>S[i].g/S[i].d.size),1);
-  const otros=N.map((_,i)=>i).filter(i=>i&&!inCC.has(i)&&(S[i].g||S[i].m||S[i].ca)),O={g:0,m:0,c:0,d:new Set(),ca:0,sh:0,q:[0,0,0,0],cp:0,cm:0};
-  otros.forEach(i=>{const s=S[i];O.g+=s.g;O.m+=s.m;O.c+=s.c;s.d.forEach(x=>O.d.add(x));O.ca+=s.ca;O.sh+=s.sh;O.cp+=s.cp;O.cm+=s.cm});
+  const otros=N.map((_,i)=>i).filter(i=>i&&!inCC.has(i)&&(S[i].g||S[i].m||S[i].ca)),O={g:0,m:0,m5:0,c:0,d:new Set(),ca:0,sh:0,q:[0,0,0,0],cp:0,cm:0};
+  otros.forEach(i=>{const s=S[i];O.g+=s.g;O.m+=s.m;O.m5+=s.m5;O.c+=s.c;s.d.forEach(x=>O.d.add(x));O.ca+=s.ca;O.sh+=s.sh;O.cp+=s.cp;O.cm+=s.cm});
   const dash='<span class="mut">—</span>',fila=(nm,s,cls)=>{const d=s.d.size,pd=d?s.g/d:0,qs=s.q[0]+s.q[1],qt=qs+s.q[2]+s.q[3],ms=s.m+s.cm;
-    return `<tr${cls?` class="${cls}"`:''}><td><b>${esc(nm)}</b></td><td>${d||dash}</td><td>${s.g?fmt(s.g):dash}</td><td>${d?fmt(pd):dash}</td><td>${d?`<div class="mb"><i style="width:${Math.min(pd/mxd*100,100).toFixed(0)}%;background:#3276d2"></i><em style="left:${(prom/mxd*100).toFixed(0)}%"></em></div>`:''}</td><td>${s.g?fmt(s.c):dash}</td><td>${s.g?(s.c/s.g*100).toFixed(1)+'%':dash}</td><td>${s.ca?fmt(s.ca):dash}</td><td>${s.ca?fmt(s.sh):dash}</td><td>${qt?fmt(qt):dash}</td><td>${qs?(s.q[0]/qs*100).toFixed(0)+'%':dash}</td><td class="mut">${ms?fmt(ms):'—'}</td><td class="mut">${s.cp?fmt(s.cp):'—'}</td></tr>`};
+    return `<tr${cls?` class="${cls}"`:''}><td><b>${esc(nm)}</b></td><td>${d||dash}</td><td>${s.g?fmt(s.g):dash}</td><td class="mut">${s.m5?fmt(s.m5):'—'}</td><td>${d?fmt(pd):dash}</td><td>${d?`<div class="mb"><i style="width:${Math.min(pd/mxd*100,100).toFixed(0)}%;background:#3276d2"></i><em style="left:${(prom/mxd*100).toFixed(0)}%"></em></div>`:''}</td><td>${s.g?fmt(s.c):dash}</td><td>${s.g?(s.c/s.g*100).toFixed(1)+'%':dash}</td><td>${s.ca?fmt(s.ca):dash}</td><td>${s.ca?fmt(s.sh):dash}</td><td>${qt?fmt(qt):dash}</td><td>${qs?(s.q[0]/qs*100).toFixed(0)+'%':dash}</td><td class="mut">${ms?fmt(ms):'—'}</td><td class="mut">${s.cp?fmt(s.cp):'—'}</td></tr>`};
   const orden=CC.slice().sort((a,b)=>S[b].g-S[a].g||(S[b].q[0]+S[b].q[1])-(S[a].q[0]+S[a].q[1]));
   const tabla=orden.map(i=>fila(N[i],S[i])).join('')+(otros.length?fila(`Otros nombres (${otros.length})`,O):'')+fila('Sin nombre de ejecutivo',S[0],'tot');
   // gráfica por día
-  const nd=new Date(T.anio,T.mesNum,0).getDate(),by=[];for(let d=0;d<=nd;d++)by.push([0,0]);
-  EV.forEach(e=>{if(eqSel<0||eqSel===e[1])by[e[0]][e[4]&1]++});
-  const mx=Math.max(...by.map(x=>x[0]+x[1]),1)*1.15,W=1000,H=250,ml=42,mb=32,mt=14,cw=W-ml-8,ch=H-mb-mt,bw=cw/nd,y=v=>mt+ch-(v/mx)*ch,e10=Math.pow(10,Math.floor(Math.log10(mx))),q=mx/e10,step=q<2.5?e10/4:q<5?e10/2:e10,kf=v=>v>=1000?(v/1000).toFixed(1)+'k':v;
+  const nd=new Date(T.anio,T.mesNum,0).getDate(),by=[];for(let d=0;d<=nd;d++)by.push([0,0,0]);
+  EV.forEach(e=>{if(eqSel<0||eqSel===e[1])by[e[0]][e[4]&1?1:e[4]&8?2:0]++});
+  const mx=Math.max(...by.map(x=>x[0]+x[1]+x[2]),1)*1.15,W=1000,H=250,ml=42,mb=32,mt=14,cw=W-ml-8,ch=H-mb-mt,bw=cw/nd,y=v=>mt+ch-(v/mx)*ch,e10=Math.pow(10,Math.floor(Math.log10(mx))),q=mx/e10,step=q<2.5?e10/4:q<5?e10/2:e10,kf=v=>v>=1000?(v/1000).toFixed(1)+'k':v;
   let s=`<svg viewBox="0 0 ${W} ${H}" width="100%" role="img" aria-label="Gestiones por día">`;
   for(let g=0;g<=mx;g+=step)s+=`<line x1="${ml}" x2="${W-8}" y1="${y(g)}" y2="${y(g)}" stroke="#e8ecf2"/><text x="${ml-6}" y="${y(g)+3}" text-anchor="end" class="ax">${fmt(g)}</text>`;
   for(let d=1;d<=nd;d++){const dom=new Date(T.anio,T.mesNum-1,d).getDay()===0,x=ml+(d-1)*bw+bw*.14,w=bw*.72;if(dom)s+=`<rect x="${ml+(d-1)*bw}" y="${mt}" width="${bw}" height="${ch}" fill="#f4f1ea"/>`;
-    let y0=y(0);[[by[d][0],'#3276d2','#fff','gestiones'],[by[d][1],'#c9d3df','#3d4654','envíos masivos']].forEach(([v,col,tx,nm])=>{if(!v)return;const hh=(v/mx)*ch;
+    let y0=y(0);[[by[d][0],'#3276d2','#fff','gestiones de noviembre'],[by[d][2],'#16a6a1','#fff','gestiones de Mes 5 diciembre'],[by[d][1],'#c9d3df','#3d4654','envíos masivos']].forEach(([v,col,tx,nm])=>{if(!v)return;const hh=(v/mx)*ch;
       s+=`<rect x="${x}" y="${y0-hh}" width="${w}" height="${Math.max(hh-1.5,1)}" rx="2" fill="${col}"><title>Día ${d}: ${nm} ${fmt(v)}</title></rect>`;if(hh>=14)s+=`<text x="${x+w/2}" y="${y0-hh/2+3.5}" text-anchor="middle" style="font-size:9.5px;font-weight:700" fill="${tx}">${kf(v)}</text>`;y0-=hh});
     s+=`<text x="${x+w/2}" y="${H-14}" text-anchor="middle" class="ax">${d}</text>`+(dom?`<text x="${x+w/2}" y="${H-3}" text-anchor="middle" style="font-size:9px;font-weight:700" fill="#9a8c6c">D</text>`:'')}
   s+='</svg>';
   const chip=(c,l,v)=>`<span><i style="width:11px;height:11px;border-radius:3px;background:${c};display:inline-block"></i>${l} <b style="font-size:14px;color:#1c2536">${v}</b></span>`;
-  const selG=by.reduce((a,x)=>a+x[0],0),selM=by.reduce((a,x)=>a+x[1],0),post=EV.filter(e=>e[0]>CORTE_DIA&&(eqSel<0||eqSel===e[1])).length;
+  const selG=by.reduce((a,x)=>a+x[0],0),selM=by.reduce((a,x)=>a+x[1],0),sel5=by.reduce((a,x)=>a+x[2],0),post=EV.filter(e=>e[0]>CORTE_DIA&&(eqSel<0||eqSel===e[1])).length;
   const dias=OPD.filter(d=>d<=CORTE_DIA),matriz=orden.map(i=>`<tr><td><b>${esc(N[i])}</b></td>${dias.map(d=>`<td>${S[i].dia[d]?fmt(S[i].dia[d]):'<span class="mut">·</span>'}</td>`).join('')}<td><b>${fmt(S[i].g)}</b></td></tr>`).join('');
   return `<div class="card"><h3>Equipo del call center · ${MESES[T.mesNum-1]}</h3><div class="h3s">Gestiones capturadas en el archivo de trabajo (una por cada línea del historial) y citas registradas en Quiter · ${CC.length} ejecutivos · ${esc(filtroTxt())}</div>
-   <div class="strip6 s5"><div><small>Gestiones del mes</small><b>${fmt(tg)}</b><em>sin contar envíos masivos · ${fmt(S[0].g)} sin nombre de ejecutivo</em></div><div><small>Por día operativo</small><b>${fmt(tg/D_EL)}</b><em>${D_EL} días transcurridos</em></div>
+   <div class="strip6 s5"><div><small>Gestiones del mes</small><b>${fmt(tg)}</b><em>sin contar envíos masivos${t5?` · ${fmt(t5)} son de Mes 5 diciembre`:''} · ${fmt(S[0].g)} sin nombre de ejecutivo</em></div><div><small>Por día operativo</small><b>${fmt(tg/D_EL)}</b><em>${D_EL} días transcurridos</em></div>
     <div><small>Contactos efectivos</small><b>${fmt(tc)}</b><em>${tg?(tc/tg*100).toFixed(1):0}% de las gestiones</em></div><div><small>Citas agendadas (archivo)</small><b>${fmt(tca)}</b><em>${fmt(tsa)} ya con show${tca?` (${(tsa/tca*100).toFixed(0)}%)`:''}</em></div>
     <div><small>Citas creadas en Quiter</small><b>${fmt(tqt)}</b><em>asistencia ${tq[0]+tq[1]?(tq[0]/(tq[0]+tq[1])*100).toFixed(0)+'%':'—'} · incluye clientes fuera de la base</em></div></div></div>
   <div class="card"><div class="row"><div><h3>Gestiones por día</h3><div class="h3s">${eqSel<0?'Todo el equipo':esc(N[eqSel]||'Sin nombre de ejecutivo')} · los domingos se marcan con D</div></div>
     <div><select style="border:1px solid #cfd6e0;border-radius:8px;padding:6px 8px;font:inherit;font-size:12px" onchange="eqSel=+this.value;render()"><option value="-1">Todo el equipo</option>${orden.map(i=>`<option value="${i}"${eqSel===i?' selected':''}>${esc(N[i])}</option>`).join('')}<option value="0"${eqSel===0?' selected':''}>Sin nombre de ejecutivo</option></select></div></div>
-   <div class="legend" style="margin:2px 0 6px">${chip('#3276d2','Gestiones de los ejecutivos',fmt(selG))}${chip('#c9d3df','Envíos masivos (Vambe / InConcert)',fmt(selM))}</div><div class="tw"><div style="min-width:680px">${s}</div></div>${post?`<div class="fx">${fmt(post)} gestiones traen fecha posterior al corte (error de captura de la fecha).</div>`:''}</div>
+   <div class="legend" style="margin:2px 0 6px">${chip('#3276d2','Gestiones de la base de noviembre',fmt(selG))}${sel5?chip('#16a6a1','Gestiones de Mes 5 diciembre',fmt(sel5)):''}${chip('#c9d3df','Envíos masivos (Vambe / InConcert)',fmt(selM))}</div><div class="tw"><div style="min-width:680px">${s}</div></div>${post?`<div class="fx">${post===1?'1 gestión trae':fmt(post)+' gestiones traen'} fecha posterior al corte (error de captura de la fecha).</div>`:''}</div>
   <div class="card"><h3>Por ejecutivo</h3><div class="h3s">De mayor a menor número de gestiones · la marca negra es el promedio diario del equipo (${fmt(prom)} gestiones por día con actividad) · sin meta por persona</div>
-   <div class="tw"><table style="font-size:11.5px"><thead><tr><th>Ejecutivo</th><th>Días activos</th><th>Gestiones</th><th>Por día</th><th style="width:11%">Vs. promedio</th><th>Contactos</th><th>% contacto</th><th>Citas (archivo)</th><th>Shows</th><th>Citas en Quiter</th><th>Asistencia</th><th>Masivos</th><th>Campañas</th></tr></thead><tbody>${tabla}</tbody></table></div>
-   <div class="fx"><b>Cómo leerlo:</b> Contacto = cita agendada, cliente interesado o cliente perdido. Los envíos masivos van aparte y no cuentan como gestión del ejecutivo. "Citas en Quiter" son todas las que el ejecutivo registró en el sistema; "Citas (archivo)" son las que capturó como gestión de la base. Campañas no trae fecha de gestión: se cuenta por ejecutivo, no por día${detalle()?' (no disponible con filtro de modelo, tipo de cliente o unidad; con ese filtro solo entran las gestiones de VIN que están en las bases)':''}.</div></div>
+   <div class="tw"><table style="font-size:11.5px"><thead><tr><th>Ejecutivo</th><th>Días activos</th><th>Gestiones</th><th>De Mes 5 dic.</th><th>Por día</th><th style="width:10%">Vs. promedio</th><th>Contactos</th><th>% contacto</th><th>Citas (archivo)</th><th>Shows</th><th>Citas en Quiter</th><th>Asistencia</th><th>Masivos</th><th>Campañas</th></tr></thead><tbody>${tabla}</tbody></table></div>
+   <div class="fx"><b>Cómo leerlo:</b> Contacto = cita agendada, cliente interesado o cliente perdido. Los envíos masivos van aparte y no cuentan como gestión del ejecutivo. Las gestiones de Mes 5 diciembre (se capturan en sus propias hojas) sí cuentan y se ven en su columna y en otro color. "Citas en Quiter" son todas las que el ejecutivo registró en el sistema; "Citas (archivo)" son las que capturó como gestión de la base. Campañas no trae fecha de gestión: se cuenta por ejecutivo, no por día${detalle()?' (no disponible con filtro de modelo, tipo de cliente o unidad; con ese filtro solo entran las gestiones de VIN que están en las bases)':''}.</div></div>
   <details class="det"><summary>Ver detalle · gestiones por ejecutivo y día</summary><div class="card"><div class="tw"><table style="font-size:11px"><thead><tr><th>Ejecutivo</th>${dias.map(d=>`<th>${d}</th>`).join('')}<th>Total</th></tr></thead><tbody>${matriz}</tbody></table></div></div></details>
   <div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn pri" onclick="dlEquipo()">⬇ Descargar gestiones del mes (${fmt(EV.length)})</button><span class="cs" style="align-self:center">Una fila por gestión: fecha, ejecutivo, VIN, agencia, estatus y si fue envío masivo · respeta los filtros</span></div>
   <div class="foot">Selección: ${esc(filtroTxt())} · Corte ${T.corte.slice(8,10)} de ${MESES[T.mesNum-1]}</div>`}
